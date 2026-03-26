@@ -189,10 +189,7 @@ def _browse_item(category: str, item: str) -> dict[str, Any]:
             overview["basic_keywords"] = item_doc["basic_keywords"]
         if "common_usage_patterns" in item_doc:
             overview["common_usage_patterns"] = item_doc["common_usage_patterns"]
-        overview["sub_items"] = [
-            {"name": s["name"], "description": s.get("description", "")}
-            for s in sub_items
-        ]
+        overview["sub_items"] = [{"name": s["name"], "description": s.get("description", "")} for s in sub_items]
         return build_docs_data(
             source="reference",
             action="browse",

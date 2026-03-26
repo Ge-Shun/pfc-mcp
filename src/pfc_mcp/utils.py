@@ -162,4 +162,3 @@ ConsoleTimeoutSeconds = Annotated[
     int,
     Field(default=120, ge=MIN_TIMEOUT_S, le=MAX_TIMEOUT_S, description="Console execution timeout in seconds"),
 ]
-
