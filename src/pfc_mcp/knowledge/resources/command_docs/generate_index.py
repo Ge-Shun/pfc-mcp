@@ -260,7 +260,7 @@ def _resolve_index_fields(cmd_data: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(versions, dict):
         return cmd_data
 
-    preferred_order = [DEFAULT_VERSION, *[v for v in versions.keys() if v != DEFAULT_VERSION]]
+    preferred_order = [DEFAULT_VERSION, *[v for v in versions if v != DEFAULT_VERSION]]
     for version in preferred_order:
         version_data = versions.get(version)
         if isinstance(version_data, dict) and version_data.get("available") is not False:
