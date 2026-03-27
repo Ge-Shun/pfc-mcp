@@ -1,48 +1,10 @@
 {
-  "command": "fragment compute",
   "category": "fragment",
-  "search_keywords": ["compute", "connectivity"],
-  "description": "Compute fragments based on current contact connectivity. The current cycle number and mechanical age are used to identify the record in the fragment history. Fragment IDs are assigned to bodies (balls and clumps). Bodies with fragment ID 0 are isolated (no contacts). If fragment persistence is turned off, isolated bodies are assigned unique fragment indices. The fragment register command must be given prior to issuing fragment compute.",
-
-  "syntax": "fragment compute <keyword>",
-
-  "keywords": [
-    {
-      "name": "group-slot",
-      "syntax": "group-slot <s>",
-      "description": "Assign the fragment IDs to groups in slot s for all fragments",
-      "required": false,
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string/slot",
-          "required": true,
-          "description": "Group slot name where fragment IDs will be stored"
-        }
-      ]
-    },
-    {
-      "name": "group-isolated",
-      "syntax": "group-isolated <s> slot <slot>",
-      "description": "Assign the group name s to slot 'slot' only for isolated fragments (fragment ID 0)",
-      "required": false,
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "required": true,
-          "description": "Group name to assign to isolated bodies"
-        },
-        {
-          "name": "slot",
-          "type": "string/slot",
-          "required": true,
-          "description": "Group slot where the group name will be assigned"
-        }
-      ]
-    }
+  "search_keywords": [
+    "compute",
+    "connectivity"
   ],
-
+  "description": "Compute fragments based on current contact connectivity. The current cycle number and mechanical age are used to identify the record in the fragment history. Fragment IDs are assigned to bodies (balls and clumps). Bodies with fragment ID 0 are isolated (no contacts). If fragment persistence is turned off, isolated bodies are assigned unique fragment indices. The fragment register command must be given prior to issuing fragment compute.",
   "notes": [
     "One-time computation - does NOT activate auto-computation (use fragment activate for that)",
     "Current cycle number and mechanical age are recorded in fragment history",
@@ -55,7 +17,6 @@
     "Fragment computation based on contact connectivity (connected components)",
     "More efficient than Python-based connectivity analysis"
   ],
-
   "prerequisites": {
     "description": "Requirements that must be met before fragment compute works",
     "required_setup": [
@@ -75,40 +36,6 @@
       }
     ]
   },
-
-  "examples": [
-    {
-      "command": "fragment register\nfragment compute",
-      "description": "Register fragment tracking, then compute fragments once",
-      "use_case": "Get snapshot of current fragment state"
-    },
-    {
-      "command": "fragment compute group-slot 'frag'",
-      "description": "Compute fragments and store IDs in 'frag' group slot",
-      "use_case": "Enable range-based operations on specific fragments"
-    },
-    {
-      "command": "fragment compute group-isolated 'isolated' slot 'status'",
-      "description": "Compute fragments, mark isolated bodies with group 'isolated' in slot 'status'",
-      "use_case": "Identify and track isolated particles separately"
-    },
-    {
-      "command": "fragment compute group-slot 'frag' group-isolated 'lone' slot 'isolation'",
-      "description": "Store fragment IDs in 'frag' slot and mark isolated bodies in 'isolation' slot",
-      "use_case": "Complete fragment classification with isolation tracking"
-    },
-    {
-      "command": "contact delete range model null\nfragment compute\nfragment list",
-      "description": "Delete null contacts, recompute fragments, list results",
-      "use_case": "Update fragments after manual contact modifications"
-    },
-    {
-      "command": "model solve\nfragment compute group-slot 'f'\nball property density 2500 range group-slot 'f' 1",
-      "description": "Solve to equilibrium, compute fragments, apply property to fragment 1",
-      "use_case": "Fragment-based property assignment"
-    }
-  ],
-
   "python_sdk_alternative": {
     "available": false,
     "notes": [
@@ -123,7 +50,6 @@
       "python": "itasca.command('fragment compute')\n# Then query: frag_id = ball.fragment()"
     }
   },
-
   "related_commands": [
     "fragment register",
     "fragment activate",
@@ -132,7 +58,6 @@
     "fragment deactivate",
     "contact cmat default"
   ],
-
   "common_use_cases": [
     {
       "use_case": "One-time fragment analysis at specific simulation state",
@@ -178,7 +103,6 @@
       "notes": "Manual control - compute only when you want a snapshot"
     }
   ],
-
   "typical_workflow": [
     "1. Register fragments (once): fragment register",
     "2. Run simulation to desired state: model cycle/solve",
@@ -186,7 +110,6 @@
     "4. Analyze: fragment list, or use range group-slot operations",
     "5. Repeat steps 2-4 for additional snapshots if needed"
   ],
-
   "fragment_id_meaning": {
     "description": "Understanding fragment ID values",
     "id_0": {
@@ -209,7 +132,6 @@
       "note": "Most users keep persistence ON, so isolated = 0 is the common case"
     }
   },
-
   "group_slot_usage": {
     "description": "Using group-slot for fragment-based operations",
     "benefits": [
@@ -238,7 +160,6 @@
     ],
     "recommendation": "Almost always use group-slot when computing fragments for maximum flexibility"
   },
-
   "group_isolated_usage": {
     "description": "Using group-isolated to track isolated bodies",
     "purpose": "Identify bodies with no contacts (fragment ID 0)",
@@ -268,7 +189,6 @@
       }
     ]
   },
-
   "compute_vs_activate": {
     "fragment_compute": {
       "function": "One-time fragment calculation",
@@ -299,7 +219,6 @@
       "Monitoring fragment changes during dynamic events"
     ]
   },
-
   "fragment_history": {
     "description": "Fragment compute records entry in fragment history",
     "recorded_data": [
@@ -311,7 +230,6 @@
     "access": "Fragment history can be queried or exported for analysis",
     "note": "Each fragment compute creates a new history record"
   },
-
   "performance_considerations": {
     "computation_cost": "O(n) where n = number of bodies - very efficient",
     "vs_python_analysis": "10-100x faster than Python-based connectivity analysis",
@@ -323,7 +241,6 @@
     ],
     "optimization": "Fragment compute is already highly optimized C++ code"
   },
-
   "cycle_and_age_recording": {
     "description": "Fragment compute records current cycle and mechanical age",
     "cycle_number": "Current timestep count in simulation",
@@ -332,7 +249,6 @@
     "use_case": "Can correlate fragment changes with simulation timeline",
     "example": "Cycle 5000, age 0.1s: 10 fragments; Cycle 10000, age 0.2s: 15 fragments"
   },
-
   "warnings": [
     {
       "type": "requires_register",
@@ -359,7 +275,6 @@
       "mitigation": "Use group-isolated to handle isolated bodies explicitly"
     }
   ],
-
   "troubleshooting": [
     {
       "issue": "fragment compute fails or gives error",
@@ -408,7 +323,6 @@
       ]
     }
   ],
-
   "register_requirement": {
     "description": "Why fragment register is required before fragment compute",
     "register_purpose": "Initializes fragment tracking system",
@@ -424,7 +338,6 @@
     ],
     "error_if_missing": "fragment compute may fail or produce incorrect results without prior registration"
   },
-
   "isolated_body_handling": {
     "description": "How fragment compute handles isolated bodies",
     "default_behavior": {
@@ -440,7 +353,6 @@
     "recommendation": "Keep persistence ON (default) - isolated = 0 is clearer",
     "how_to_handle": "Use group-isolated keyword to explicitly identify and process isolated bodies"
   },
-
   "when_to_use_compute": {
     "use_cases": [
       "Need fragment snapshot at specific simulation moment",
@@ -455,5 +367,175 @@
       "Want automatic updates during cycling - use fragment activate instead",
       "Need frequent updates (every few cycles) - activate is more convenient"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "fragment compute",
+      "syntax": "fragment compute [keyword]",
+      "keywords": [
+        {
+          "name": "group-isolated",
+          "syntax": "group-isolated <s>[slot <slot>]",
+          "description": "Assign the group name s to slot slot only for isolated fragments."
+        },
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Assign the fragment names to groups in slot s ."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register\nfragment compute",
+          "description": "Register fragment tracking, then compute fragments once",
+          "use_case": "Get snapshot of current fragment state"
+        },
+        {
+          "command": "fragment compute group-slot 'frag'",
+          "description": "Compute fragments and store IDs in 'frag' group slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment compute group-isolated 'isolated' slot 'status'",
+          "description": "Compute fragments, mark isolated bodies with group 'isolated' in slot 'status'",
+          "use_case": "Identify and track isolated particles separately"
+        },
+        {
+          "command": "fragment compute group-slot 'frag' group-isolated 'lone' slot 'isolation'",
+          "description": "Store fragment IDs in 'frag' slot and mark isolated bodies in 'isolation' slot",
+          "use_case": "Complete fragment classification with isolation tracking"
+        },
+        {
+          "command": "contact delete range model null\nfragment compute\nfragment list",
+          "description": "Delete null contacts, recompute fragments, list results",
+          "use_case": "Update fragments after manual contact modifications"
+        },
+        {
+          "command": "model solve\nfragment compute group-slot 'f'\nball property density 2500 range group-slot 'f' 1",
+          "description": "Solve to equilibrium, compute fragments, apply property to fragment 1",
+          "use_case": "Fragment-based property assignment"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "fragment compute",
+      "syntax": "fragment compute [group-slot <s>]",
+      "keywords": [
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Assign the fragment IDs to groups in slot s for all fragments",
+          "required": false,
+          "parameters": [
+            {
+              "name": "s",
+              "type": "string/slot",
+              "required": true,
+              "description": "Group slot name where fragment IDs will be stored"
+            }
+          ]
+        },
+        {
+          "name": "group-isolated",
+          "syntax": "group-isolated <s> slot <slot>",
+          "description": "Assign the group name s to slot 'slot' only for isolated fragments (fragment ID 0)",
+          "required": false,
+          "parameters": [
+            {
+              "name": "s",
+              "type": "string",
+              "required": true,
+              "description": "Group name to assign to isolated bodies"
+            },
+            {
+              "name": "slot",
+              "type": "string/slot",
+              "required": true,
+              "description": "Group slot where the group name will be assigned"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register\nfragment compute",
+          "description": "Register fragment tracking, then compute fragments once",
+          "use_case": "Get snapshot of current fragment state"
+        },
+        {
+          "command": "fragment compute group-slot 'frag'",
+          "description": "Compute fragments and store IDs in 'frag' group slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment compute group-isolated 'isolated' slot 'status'",
+          "description": "Compute fragments, mark isolated bodies with group 'isolated' in slot 'status'",
+          "use_case": "Identify and track isolated particles separately"
+        },
+        {
+          "command": "fragment compute group-slot 'frag' group-isolated 'lone' slot 'isolation'",
+          "description": "Store fragment IDs in 'frag' slot and mark isolated bodies in 'isolation' slot",
+          "use_case": "Complete fragment classification with isolation tracking"
+        },
+        {
+          "command": "contact delete range model null\nfragment compute\nfragment list",
+          "description": "Delete null contacts, recompute fragments, list results",
+          "use_case": "Update fragments after manual contact modifications"
+        },
+        {
+          "command": "model solve\nfragment compute group-slot 'f'\nball property density 2500 range group-slot 'f' 1",
+          "description": "Solve to equilibrium, compute fragments, apply property to fragment 1",
+          "use_case": "Fragment-based property assignment"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "fragment compute",
+      "syntax": "fragment compute [keyword]",
+      "keywords": [
+        {
+          "name": "group-isolated",
+          "syntax": "group-isolated <s>[slot <slot>]",
+          "description": "Assign the group name s to slot slot only for isolated fragments."
+        },
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Assign the fragment names to groups in slot s ."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register\nfragment compute",
+          "description": "Register fragment tracking, then compute fragments once",
+          "use_case": "Get snapshot of current fragment state"
+        },
+        {
+          "command": "fragment compute group-slot 'frag'",
+          "description": "Compute fragments and store IDs in 'frag' group slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment compute group-isolated 'isolated' slot 'status'",
+          "description": "Compute fragments, mark isolated bodies with group 'isolated' in slot 'status'",
+          "use_case": "Identify and track isolated particles separately"
+        },
+        {
+          "command": "fragment compute group-slot 'frag' group-isolated 'lone' slot 'isolation'",
+          "description": "Store fragment IDs in 'frag' slot and mark isolated bodies in 'isolation' slot",
+          "use_case": "Complete fragment classification with isolation tracking"
+        },
+        {
+          "command": "contact delete range model null\nfragment compute\nfragment list",
+          "description": "Delete null contacts, recompute fragments, list results",
+          "use_case": "Update fragments after manual contact modifications"
+        },
+        {
+          "command": "model solve\nfragment compute group-slot 'f'\nball property density 2500 range group-slot 'f' 1",
+          "description": "Solve to equilibrium, compute fragments, apply property to fragment 1",
+          "use_case": "Fragment-based property assignment"
+        }
+      ]
+    }
   }
 }

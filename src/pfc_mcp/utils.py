@@ -1,5 +1,6 @@
 """Validation models and utilities for PFC MCP tools."""
 
+from enum import Enum
 from pathlib import PurePosixPath, PureWindowsPath
 from typing import Annotated
 
@@ -26,6 +27,21 @@ MAX_WAIT_SECONDS = 3600
 
 # Description constraints
 DESCRIPTION_MAX_LENGTH = 200
+
+
+class CommandDocVersion(str, Enum):
+    """Supported PFC documentation versions for command tools."""
+
+    V6_0 = "6.0"
+    V7_0 = "7.0"
+    V9_0 = "9.0"
+
+
+def normalize_command_doc_version(value: CommandDocVersion | str) -> str:
+    """Return the plain string value for a command-doc version enum."""
+    if isinstance(value, CommandDocVersion):
+        return value.value
+    return str(value)
 
 
 def normalize_input(value: str | None, lowercase: bool = False) -> str:

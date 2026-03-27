@@ -1,168 +1,10 @@
 {
-  "command": "contact cmat modify",
   "category": "contact",
   "search_keywords": [
     "cmat",
     "modify"
   ],
   "description": "Modify an existing entry in the CMAT (Contact Model Assignment Table). Assigns the information specified by the keywords to the entry at index i of the CMAT. This command allows updating contact model, properties, methods, and other settings for an existing CMAT entry without removing and re-adding it. The range specification is optional. By default, only mechanical contacts are considered.",
-  "syntax": "contact cmat modify <i> <keyword> ... <range>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "method",
-      "syntax": "method <s> <sa> <a> ...",
-      "description": "Register contact model method s with argument names and values. Will be invoked at contact creation",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Method name (e.g., 'deformability', 'pb_deformability', 'bond')"
-        },
-        {
-          "name": "sa",
-          "type": "string",
-          "description": "Argument name"
-        },
-        {
-          "name": "a",
-          "type": "any",
-          "description": "Argument value"
-        }
-      ]
-    },
-    {
-      "name": "model",
-      "syntax": "model <model_name>",
-      "description": "Specify the contact model to assign",
-      "available_models": [
-        {
-          "name": "linear",
-          "description": "Linear Model - elastic and frictional behavior"
-        },
-        {
-          "name": "linearpbond",
-          "description": "Linear Parallel Bond Model - bonded material behavior"
-        },
-        {
-          "name": "linearcbond",
-          "description": "Linear Contact Bond Model - contact-based bonds"
-        },
-        {
-          "name": "hertz",
-          "description": "Hertz Model - non-linear elastic contact"
-        },
-        {
-          "name": "rrlinear",
-          "description": "Rolling Resistance Linear Model"
-        },
-        {
-          "name": "arrlinear",
-          "description": "Adhesive Rolling Resistance Linear Model"
-        },
-        {
-          "name": "bilinear",
-          "description": "Bilinear Contact Model"
-        },
-        {
-          "name": "burger",
-          "description": "Burger's Model - viscoelastic behavior"
-        },
-        {
-          "name": "fish",
-          "description": "FISH Model - custom user-defined model"
-        },
-        {
-          "name": "flatjoint",
-          "description": "Flat-Joint Model - smooth joint surfaces"
-        },
-        {
-          "name": "hysteretic",
-          "description": "Hysteretic Model - loading/unloading paths"
-        },
-        {
-          "name": "lineardipole",
-          "description": "Linear Dipole Model (3D ONLY)"
-        },
-        {
-          "name": "smoothjoint",
-          "description": "Smooth-Joint Model - reduced interlocking"
-        },
-        {
-          "name": "softbond",
-          "description": "Soft-Bond Model - crushable bonds"
-        },
-        {
-          "name": "null",
-          "description": "Null Model - no force transmission"
-        }
-      ]
-    },
-    {
-      "name": "property",
-      "syntax": "property <sp> <a> ...",
-      "description": "Set contact model property sp to value a. Multiple properties can be specified",
-      "parameters": [
-        {
-          "name": "sp",
-          "type": "string",
-          "description": "Property name (model-specific, e.g., 'kn', 'ks', 'fric', 'pb_kn')"
-        },
-        {
-          "name": "a",
-          "type": "any",
-          "description": "Property value"
-        }
-      ]
-    },
-    {
-      "name": "proximity",
-      "syntax": "proximity <fd>",
-      "description": "Set contact detection distance",
-      "parameters": [
-        {
-          "name": "fd",
-          "type": "float",
-          "description": "Detection distance value"
-        }
-      ]
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (instead of mechanical)"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact cmat modify 1 model linearpbond method deformability emod 1e6 kratio 0.5 method pb_deformability emod 1e6 kratio 0.5 property fric 0.25 dp_nratio 0.2 pb_ten 1e8 pb_coh 1e8 pb_fa 30.0",
-      "description": "Modify entry 1 to use linearpbond model with deformability methods and specified properties (from official example)"
-    },
-    {
-      "command": "contact cmat modify 2 model linear property kn 1e8 ks 5e7 fric 0.5",
-      "description": "Change entry 2 to use linear model with updated stiffness and friction"
-    },
-    {
-      "command": "contact cmat modify 3 property pb_ten 2e8 pb_coh 1e8",
-      "description": "Update only the strength properties of entry 3 without changing model or other properties"
-    },
-    {
-      "command": "contact cmat modify 0 model linear property kn 1e8 ks 5e7 fric 0.5",
-      "description": "Modify the default entry (index 0) to change the fallback contact model"
-    },
-    {
-      "command": "contact cmat modify 1 property fric 0.6",
-      "description": "Update only the friction coefficient for entry 1"
-    },
-    {
-      "command": "contact cmat modify 2 range group 'soil'",
-      "description": "Update the range specification for entry 2 to apply to 'soil' group"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact cmat modify ...') - Python SDK does not provide direct CMAT API, must use command interface"
@@ -278,5 +120,183 @@
       "issue": "Changed model but properties seem wrong",
       "solution": "When changing models, all model-specific properties should be re-specified as previous model's properties are lost"
     }
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "cmat modify",
+      "syntax": "contact cmat modify <i>keyword ... [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "method",
+          "syntax": "method <s>[<sa><a>] ...",
+          "description": "The contact model method s , along with its specific list of pairs of argument names and values ( sa , a ) (if applicable), is registered with this cmat entry and will be invoked at contact creation."
+        },
+        {
+          "name": "softbond",
+          "syntax": "softbond",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Bilinear Contact Model contact model. Specify the Burger’s Model contact model. Specify the FISH Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Dipole Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <sp><a>...",
+          "description": "The contact model property named sp is set to a ."
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "The detection distance is set to fd ."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat modify 1 model linearpbond method deformability emod 1e6 kratio 0.5 method pb_deformability emod 1e6 kratio 0.5 property fric 0.25 dp_nratio 0.2 pb_ten 1e8 pb_coh 1e8 pb_fa 30.0",
+          "description": "Modify entry 1 to use linearpbond model with deformability methods and specified properties (from official example)"
+        },
+        {
+          "command": "contact cmat modify 2 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Change entry 2 to use linear model with updated stiffness and friction"
+        },
+        {
+          "command": "contact cmat modify 3 property pb_ten 2e8 pb_coh 1e8",
+          "description": "Update only the strength properties of entry 3 without changing model or other properties"
+        },
+        {
+          "command": "contact cmat modify 0 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Modify the default entry (index 0) to change the fallback contact model"
+        },
+        {
+          "command": "contact cmat modify 1 property fric 0.6",
+          "description": "Update only the friction coefficient for entry 1"
+        },
+        {
+          "command": "contact cmat modify 2 range group 'soil'",
+          "description": "Update the range specification for entry 2 to apply to 'soil' group"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact cmat modify",
+      "syntax": "contact cmat [<sprocess>] modify <i>keyword",
+      "keywords": [
+        {
+          "name": "method",
+          "syntax": "method <s>[<sa>a] ...",
+          "description": "The contact model method s , along with its specific list of pairs of argument names and values ( sa , a ) (if applicable), is registered with this cmat entry and will be invoked at contact creation."
+        },
+        {
+          "name": "softbond",
+          "syntax": "softbond",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Burger’s Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <sp>a...",
+          "description": "The contact model property named sp is set to a . The list of available properties is contact model specific. Visit the documentation of the desired contact model for details."
+        },
+        {
+          "name": "range",
+          "syntax": "range",
+          "description": "Modify the range corresponding to this CMAT entry. This keyword must be followed by a valid range ."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat modify 1 model linearpbond method deformability emod 1e6 kratio 0.5 method pb_deformability emod 1e6 kratio 0.5 property fric 0.25 dp_nratio 0.2 pb_ten 1e8 pb_coh 1e8 pb_fa 30.0",
+          "description": "Modify entry 1 to use linearpbond model with deformability methods and specified properties (from official example)"
+        },
+        {
+          "command": "contact cmat modify 2 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Change entry 2 to use linear model with updated stiffness and friction"
+        },
+        {
+          "command": "contact cmat modify 3 property pb_ten 2e8 pb_coh 1e8",
+          "description": "Update only the strength properties of entry 3 without changing model or other properties"
+        },
+        {
+          "command": "contact cmat modify 0 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Modify the default entry (index 0) to change the fallback contact model"
+        },
+        {
+          "command": "contact cmat modify 1 property fric 0.6",
+          "description": "Update only the friction coefficient for entry 1"
+        },
+        {
+          "command": "contact cmat modify 2 range group 'soil'",
+          "description": "Update the range specification for entry 2 to apply to 'soil' group"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "cmat modify",
+      "syntax": "contact cmat modify <i>keyword ... [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "method",
+          "syntax": "method <s>[<sa><a>] ...",
+          "description": "The contact model method s , along with its specific list of pairs of argument names and values ( sa , a ) (if applicable), is registered with this cmat entry and will be invoked at contact creation."
+        },
+        {
+          "name": "subspringnetwork",
+          "syntax": "subspringnetwork",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Bilinear Contact Model contact model. Specify the Burger’s Model contact model. Specify the FISH Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Dipole Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model. Specify the Spring Network Model contact model. Specify the Subspring Network Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <sp><a>...",
+          "description": "The contact model property named sp is set to a ."
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "The detection distance is set to fd ."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat modify 1 model linearpbond method deformability emod 1e6 kratio 0.5 method pb_deformability emod 1e6 kratio 0.5 property fric 0.25 dp_nratio 0.2 pb_ten 1e8 pb_coh 1e8 pb_fa 30.0",
+          "description": "Modify entry 1 to use linearpbond model with deformability methods and specified properties (from official example)"
+        },
+        {
+          "command": "contact cmat modify 2 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Change entry 2 to use linear model with updated stiffness and friction"
+        },
+        {
+          "command": "contact cmat modify 3 property pb_ten 2e8 pb_coh 1e8",
+          "description": "Update only the strength properties of entry 3 without changing model or other properties"
+        },
+        {
+          "command": "contact cmat modify 0 model linear property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Modify the default entry (index 0) to change the fallback contact model"
+        },
+        {
+          "command": "contact cmat modify 1 property fric 0.6",
+          "description": "Update only the friction coefficient for entry 1"
+        },
+        {
+          "command": "contact cmat modify 2 range group 'soil'",
+          "description": "Update the range specification for entry 2 to apply to 'soil' group"
+        }
+      ]
+    }
+  }
 }

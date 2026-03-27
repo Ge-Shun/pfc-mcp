@@ -1,107 +1,10 @@
 {
-  "command": "contact apply-group",
   "category": "contact",
   "search_keywords": [
     "apply-group",
     "propagate"
   ],
   "description": "Apply contact group names to contacting pieces or bodies. This command traverses all contacts within the specified range and applies the contact group names to the pieces or bodies at the ends of each contact. By default, group names are applied to pieces (balls, clump pebbles, wall facets). Use the 'body' keyword to apply to bodies (balls, clumps, walls) instead. This is useful for propagating group assignments from contacts to the objects they connect. By default, only mechanical contacts are considered.",
-  "syntax": "contact <sprocess> apply-group <keyword> <range>",
-  "keywords": [
-    {
-      "name": "body",
-      "syntax": "body",
-      "description": "Apply contact group names to bodies (clumps, walls) instead of pieces (pebbles, facets)",
-      "default": "false (applies to pieces by default)"
-    },
-    {
-      "name": "slot",
-      "syntax": "slot <s>",
-      "description": "Apply contact group names from slot s. By default, uses contact slot 'Default'",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Source contact slot name"
-        }
-      ]
-    },
-    {
-      "name": "group",
-      "syntax": "group <s>",
-      "description": "Restrict application to only the contact group name s",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Specific group name to apply"
-        }
-      ],
-      "notes": "Without this keyword, all group names from contacts are applied"
-    },
-    {
-      "name": "piece-slot",
-      "syntax": "piece-slot <s>",
-      "description": "Apply contact group names to piece slot s. By default, uses same slot as contact slot",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Target piece slot name"
-        }
-      ]
-    },
-    {
-      "name": "body-slot",
-      "syntax": "body-slot <s>",
-      "description": "Apply contact group names to body slot s. By default, uses same slot as contact slot",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Target body slot name"
-        }
-      ],
-      "notes": "Only relevant when 'body' keyword is used"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact apply-group",
-      "description": "Apply all contact group names to pieces at contact ends using default slot",
-      "use_case": "Propagate contact groups to pieces for subsequent range selection"
-    },
-    {
-      "command": "contact apply-group body",
-      "description": "Apply contact group names to bodies instead of pieces",
-      "use_case": "When working with clumps, apply groups to clump bodies rather than individual pebbles"
-    },
-    {
-      "command": "contact apply-group range group 'boundary'",
-      "description": "Apply group names only from contacts in 'boundary' group",
-      "use_case": "Selective propagation from specific contact subset"
-    },
-    {
-      "command": "contact apply-group group 'specimen' range contact",
-      "description": "Apply only the 'specimen' group name from contacts to pieces",
-      "use_case": "Propagate specific group name while ignoring others"
-    },
-    {
-      "command": "contact apply-group slot 'interface' piece-slot 'region'",
-      "description": "Apply groups from contact slot 'interface' to piece slot 'region'",
-      "use_case": "Map contact groups to different piece slot for organization"
-    },
-    {
-      "command": "contact apply-group body body-slot 'assembly'",
-      "description": "Apply contact groups to body slot 'assembly'",
-      "use_case": "Organize bodies based on contact group assignments"
-    },
-    {
-      "command": "contact apply-group range contact type 'ball-ball'",
-      "description": "Apply group names only from ball-ball contacts",
-      "use_case": "Selective propagation based on contact type"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact apply-group ...') - Python SDK does not provide direct apply-group functionality. Manual implementation requires:\n1. Iterate through contacts\n2. Get contact group name: contact.group(slot)\n3. Get contact ends: contact.end1(), contact.end2()\n4. Apply group to pieces/bodies: piece.set_group() or body.set_group()\n\nExample:\nfor c in it.contact.list():\n    group_name = c.group('Default')\n    if group_name:\n        c.end1().set_group(group_name, 'Default')\n        c.end2().set_group(group_name, 'Default')"
@@ -435,5 +338,211 @@
       "use_case": "Propagate thermal contact groups to pieces/bodies"
     },
     "note": "Most simulations use mechanical contacts only"
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact apply-group",
+      "syntax": "contact [<sprocess>] apply-group [keyword] [range]",
+      "keywords": [
+        {
+          "name": "body",
+          "syntax": "body",
+          "description": "Specify that the contact group names are applied to bodies (i.e., clumps or walls as opposed to pebbles or wall facets)."
+        },
+        {
+          "name": "body-slot",
+          "syntax": "body-slot <s:>",
+          "description": "The contact group names are applied to the body slot s . By default the body slot is the same as the contact slot."
+        },
+        {
+          "name": "group",
+          "syntax": "group <s>",
+          "description": "Specify that only the contact group name s is to be applied to pieces or bodies."
+        },
+        {
+          "name": "piece-slot",
+          "syntax": "piece-slot <s:>",
+          "description": "The contact group names are applied to the piece slot s . By default the piece slot is the same as the contact slot."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <s>",
+          "description": "Apply the contact group names from slot s . By default, the contact slot Default is used."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact apply-group",
+          "description": "Apply all contact group names to pieces at contact ends using default slot",
+          "use_case": "Propagate contact groups to pieces for subsequent range selection"
+        },
+        {
+          "command": "contact apply-group body",
+          "description": "Apply contact group names to bodies instead of pieces",
+          "use_case": "When working with clumps, apply groups to clump bodies rather than individual pebbles"
+        },
+        {
+          "command": "contact apply-group range group 'boundary'",
+          "description": "Apply group names only from contacts in 'boundary' group",
+          "use_case": "Selective propagation from specific contact subset"
+        },
+        {
+          "command": "contact apply-group group 'specimen' range contact",
+          "description": "Apply only the 'specimen' group name from contacts to pieces",
+          "use_case": "Propagate specific group name while ignoring others"
+        },
+        {
+          "command": "contact apply-group slot 'interface' piece-slot 'region'",
+          "description": "Apply groups from contact slot 'interface' to piece slot 'region'",
+          "use_case": "Map contact groups to different piece slot for organization"
+        },
+        {
+          "command": "contact apply-group body body-slot 'assembly'",
+          "description": "Apply contact groups to body slot 'assembly'",
+          "use_case": "Organize bodies based on contact group assignments"
+        },
+        {
+          "command": "contact apply-group range contact type 'ball-ball'",
+          "description": "Apply group names only from ball-ball contacts",
+          "use_case": "Selective propagation based on contact type"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact apply-group",
+      "syntax": "contact [<sprocess>] apply-group [keyword] [range]",
+      "keywords": [
+        {
+          "name": "body",
+          "syntax": "body",
+          "description": "Specify that the contact group names are applied to bodies (i.e., clumps or walls as opposed to pebbles or wall facets)."
+        },
+        {
+          "name": "body-slot",
+          "syntax": "body-slot <s:>",
+          "description": "The contact group names are applied to the body slot s . By default the body slot is the same as the contact slot."
+        },
+        {
+          "name": "group",
+          "syntax": "group <s>",
+          "description": "Specify that only the contact group name s is to be applied to pieces or bodies."
+        },
+        {
+          "name": "piece-slot",
+          "syntax": "piece-slot <s:>",
+          "description": "The contact group names are applied to the piece slot s . By default the piece slot is the same as the contact slot."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <s>",
+          "description": "Apply the contact group names from slot s . By default, the contact slot Default is used."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact apply-group",
+          "description": "Apply all contact group names to pieces at contact ends using default slot",
+          "use_case": "Propagate contact groups to pieces for subsequent range selection"
+        },
+        {
+          "command": "contact apply-group body",
+          "description": "Apply contact group names to bodies instead of pieces",
+          "use_case": "When working with clumps, apply groups to clump bodies rather than individual pebbles"
+        },
+        {
+          "command": "contact apply-group range group 'boundary'",
+          "description": "Apply group names only from contacts in 'boundary' group",
+          "use_case": "Selective propagation from specific contact subset"
+        },
+        {
+          "command": "contact apply-group group 'specimen' range contact",
+          "description": "Apply only the 'specimen' group name from contacts to pieces",
+          "use_case": "Propagate specific group name while ignoring others"
+        },
+        {
+          "command": "contact apply-group slot 'interface' piece-slot 'region'",
+          "description": "Apply groups from contact slot 'interface' to piece slot 'region'",
+          "use_case": "Map contact groups to different piece slot for organization"
+        },
+        {
+          "command": "contact apply-group body body-slot 'assembly'",
+          "description": "Apply contact groups to body slot 'assembly'",
+          "use_case": "Organize bodies based on contact group assignments"
+        },
+        {
+          "command": "contact apply-group range contact type 'ball-ball'",
+          "description": "Apply group names only from ball-ball contacts",
+          "use_case": "Selective propagation based on contact type"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact apply-group",
+      "syntax": "contact [<sprocess>] apply-group [keyword] [range]",
+      "keywords": [
+        {
+          "name": "body",
+          "syntax": "body",
+          "description": "Specify that the contact group names are applied to bodies (i.e., clumps or walls as opposed to pebbles or wall facets)."
+        },
+        {
+          "name": "body-slot",
+          "syntax": "body-slot <s:>",
+          "description": "The contact group names are applied to the body slot s . By default the body slot is the same as the contact slot."
+        },
+        {
+          "name": "group",
+          "syntax": "group <s>",
+          "description": "Specify that only the contact group name s is to be applied to pieces or bodies."
+        },
+        {
+          "name": "piece-slot",
+          "syntax": "piece-slot <s:>",
+          "description": "The contact group names are applied to the piece slot s . By default the piece slot is the same as the contact slot."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <s>",
+          "description": "Apply the contact group names from slot s . By default, the contact slot Default is used."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact apply-group",
+          "description": "Apply all contact group names to pieces at contact ends using default slot",
+          "use_case": "Propagate contact groups to pieces for subsequent range selection"
+        },
+        {
+          "command": "contact apply-group body",
+          "description": "Apply contact group names to bodies instead of pieces",
+          "use_case": "When working with clumps, apply groups to clump bodies rather than individual pebbles"
+        },
+        {
+          "command": "contact apply-group range group 'boundary'",
+          "description": "Apply group names only from contacts in 'boundary' group",
+          "use_case": "Selective propagation from specific contact subset"
+        },
+        {
+          "command": "contact apply-group group 'specimen' range contact",
+          "description": "Apply only the 'specimen' group name from contacts to pieces",
+          "use_case": "Propagate specific group name while ignoring others"
+        },
+        {
+          "command": "contact apply-group slot 'interface' piece-slot 'region'",
+          "description": "Apply groups from contact slot 'interface' to piece slot 'region'",
+          "use_case": "Map contact groups to different piece slot for organization"
+        },
+        {
+          "command": "contact apply-group body body-slot 'assembly'",
+          "description": "Apply contact groups to body slot 'assembly'",
+          "use_case": "Organize bodies based on contact group assignments"
+        },
+        {
+          "command": "contact apply-group range contact type 'ball-ball'",
+          "description": "Apply group names only from ball-ball contacts",
+          "use_case": "Selective propagation based on contact type"
+        }
+      ]
+    }
   }
 }

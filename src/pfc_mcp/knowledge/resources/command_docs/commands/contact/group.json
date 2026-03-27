@@ -1,93 +1,10 @@
 {
-  "command": "contact group",
   "category": "contact",
   "search_keywords": [
     "group",
     "assign"
   ],
   "description": "Assign group names to contacts for organization and range-based selection. Groups are a fundamental organizational tool in PFC, allowing contacts to be categorized, selected, and manipulated based on group membership. Contacts can belong to multiple groups via different slots. By default, the group name is assigned to the 'Default' slot. Use 'slot' keyword to specify a particular slot. By default, only mechanical contacts are considered. IMPORTANT: The 'add' and 'remove' keywords apply to ALL contacts (or a previously active range), they cannot be combined with a 'range' keyword in the same command.",
-  "syntax": "contact group <s> <keyword> ... <range>",
-  "keywords": [
-    {
-      "name": "slot",
-      "syntax": "slot <slot>",
-      "description": "Specify which group slot to use for assignment. By default, uses slot 'Default'. Can be combined with range",
-      "parameters": [
-        {
-          "name": "slot",
-          "type": "string",
-          "description": "Slot name (e.g., 'Default', 'boundary', 'region', etc.)"
-        }
-      ]
-    },
-    {
-      "name": "add",
-      "syntax": "add",
-      "description": "Assign group name to the next available slot for ALL contacts (cannot be used with range in same command)"
-    },
-    {
-      "name": "remove",
-      "syntax": "remove",
-      "description": "Remove group name from all slots for ALL contacts (cannot be used with range in same command)"
-    },
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (instead of mechanical)"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact group 'Lining' range cylinder end-1 (16.0,-6.0,6.0) end-2 (16.0,6.0,6.0) radius 4.0",
-      "description": "Assign 'Lining' group to contacts within cylindrical region (from Shallow Foundation example)",
-      "use_case": "Identify lining contacts for boundary conditions"
-    },
-    {
-      "command": "contact group 'glued' range plane dip 90 dip-direction 90 origin -6.5 0.5 24.5 dist 0.01 position-z 15 100",
-      "description": "Assign 'glued' group to contacts near planar surface (from Flying Buttresses example)",
-      "use_case": "Mark contacts that should have special behavior (e.g., fixed)"
-    },
-    {
-      "command": "contact group 'boundary' range contact type 'ball-facet'",
-      "description": "Assign all ball-wall contacts to 'boundary' group",
-      "use_case": "Identify boundary contacts for analysis"
-    },
-    {
-      "command": "contact group 'specimen' range ball group 'specimen'",
-      "description": "Assign contacts involving balls in 'specimen' group to 'specimen' contact group",
-      "use_case": "Propagate piece groups to contacts"
-    },
-    {
-      "command": "contact group 'interface' slot 'region' range position-z 5.0 5.1",
-      "description": "Assign 'interface' group to 'region' slot for contacts at z=5",
-      "use_case": "Multiple classification schemes using different slots"
-    },
-    {
-      "command": "contact group 'bonded' range model linearpbond contact bonded",
-      "description": "Assign 'bonded' group to bonded contacts in default slot",
-      "use_case": "Identify bonded contacts for analysis"
-    },
-    {
-      "command": "contact group 'bonded' add",
-      "description": "Assign ALL contacts to 'bonded' group in next available slot",
-      "use_case": "Multiple group membership without overwriting existing groups"
-    },
-    {
-      "command": "contact group 'temporary' remove range contact",
-      "description": "Remove 'temporary' group from all contacts",
-      "use_case": "Clean up temporary group assignments"
-    },
-    {
-      "command": "contact group 'active' range contact active gap -0.1 0.0",
-      "description": "Assign 'active' group to contacts that are active with slight overlap",
-      "use_case": "Select contacts based on state criteria"
-    }
-  ],
   "python_sdk_alternative": {
     "available": true,
     "methods": [
@@ -477,5 +394,231 @@
       "Group propagation between entities",
       "Case-sensitive group names"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact group",
+      "syntax": "contact group <s>keyword ... [range]",
+      "keywords": [
+        {
+          "name": "add",
+          "syntax": "add",
+          "description": "Assign s to the next available slot."
+        },
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "remove",
+          "syntax": "remove",
+          "description": "Remove s from all slots."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <slot>",
+          "description": "Set group slot to slot . By default, slot Default is used."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact group 'Lining' range cylinder end-1 (16.0,-6.0,6.0) end-2 (16.0,6.0,6.0) radius 4.0",
+          "description": "Assign 'Lining' group to contacts within cylindrical region (from Shallow Foundation example)",
+          "use_case": "Identify lining contacts for boundary conditions"
+        },
+        {
+          "command": "contact group 'glued' range plane dip 90 dip-direction 90 origin -6.5 0.5 24.5 dist 0.01 position-z 15 100",
+          "description": "Assign 'glued' group to contacts near planar surface (from Flying Buttresses example)",
+          "use_case": "Mark contacts that should have special behavior (e.g., fixed)"
+        },
+        {
+          "command": "contact group 'boundary' range contact type 'ball-facet'",
+          "description": "Assign all ball-wall contacts to 'boundary' group",
+          "use_case": "Identify boundary contacts for analysis"
+        },
+        {
+          "command": "contact group 'specimen' range ball group 'specimen'",
+          "description": "Assign contacts involving balls in 'specimen' group to 'specimen' contact group",
+          "use_case": "Propagate piece groups to contacts"
+        },
+        {
+          "command": "contact group 'interface' slot 'region' range position-z 5.0 5.1",
+          "description": "Assign 'interface' group to 'region' slot for contacts at z=5",
+          "use_case": "Multiple classification schemes using different slots"
+        },
+        {
+          "command": "contact group 'bonded' range model linearpbond contact bonded",
+          "description": "Assign 'bonded' group to bonded contacts in default slot",
+          "use_case": "Identify bonded contacts for analysis"
+        },
+        {
+          "command": "contact group 'bonded' add",
+          "description": "Assign ALL contacts to 'bonded' group in next available slot",
+          "use_case": "Multiple group membership without overwriting existing groups"
+        },
+        {
+          "command": "contact group 'temporary' remove range contact",
+          "description": "Remove 'temporary' group from all contacts",
+          "use_case": "Clean up temporary group assignments"
+        },
+        {
+          "command": "contact group 'active' range contact active gap -0.1 0.0",
+          "description": "Assign 'active' group to contacts that are active with slight overlap",
+          "use_case": "Select contacts based on state criteria"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact group",
+      "syntax": "contact [<sprocess>] group <s>keyword ... [range]",
+      "keywords": [
+        {
+          "name": "add",
+          "syntax": "add",
+          "description": "Assign s to the next available slot."
+        },
+        {
+          "name": "remove",
+          "syntax": "remove",
+          "description": "Remove s from all slots."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <slot>",
+          "description": "Set group slot slot to s . By default, slot Default is used."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact group 'Lining' range cylinder end-1 (16.0,-6.0,6.0) end-2 (16.0,6.0,6.0) radius 4.0",
+          "description": "Assign 'Lining' group to contacts within cylindrical region (from Shallow Foundation example)",
+          "use_case": "Identify lining contacts for boundary conditions"
+        },
+        {
+          "command": "contact group 'glued' range plane dip 90 dip-direction 90 origin -6.5 0.5 24.5 dist 0.01 position-z 15 100",
+          "description": "Assign 'glued' group to contacts near planar surface (from Flying Buttresses example)",
+          "use_case": "Mark contacts that should have special behavior (e.g., fixed)"
+        },
+        {
+          "command": "contact group 'boundary' range contact type 'ball-facet'",
+          "description": "Assign all ball-wall contacts to 'boundary' group",
+          "use_case": "Identify boundary contacts for analysis"
+        },
+        {
+          "command": "contact group 'specimen' range ball group 'specimen'",
+          "description": "Assign contacts involving balls in 'specimen' group to 'specimen' contact group",
+          "use_case": "Propagate piece groups to contacts"
+        },
+        {
+          "command": "contact group 'interface' slot 'region' range position-z 5.0 5.1",
+          "description": "Assign 'interface' group to 'region' slot for contacts at z=5",
+          "use_case": "Multiple classification schemes using different slots"
+        },
+        {
+          "command": "contact group 'bonded' range model linearpbond contact bonded",
+          "description": "Assign 'bonded' group to bonded contacts in default slot",
+          "use_case": "Identify bonded contacts for analysis"
+        },
+        {
+          "command": "contact group 'bonded' add",
+          "description": "Assign ALL contacts to 'bonded' group in next available slot",
+          "use_case": "Multiple group membership without overwriting existing groups"
+        },
+        {
+          "command": "contact group 'temporary' remove range contact",
+          "description": "Remove 'temporary' group from all contacts",
+          "use_case": "Clean up temporary group assignments"
+        },
+        {
+          "command": "contact group 'active' range contact active gap -0.1 0.0",
+          "description": "Assign 'active' group to contacts that are active with slight overlap",
+          "use_case": "Select contacts based on state criteria"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact group",
+      "syntax": "contact group <s>keyword ... [range]",
+      "keywords": [
+        {
+          "name": "add",
+          "syntax": "add",
+          "description": "Assign s to the next available slot."
+        },
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "remove",
+          "syntax": "remove",
+          "description": "Remove s from all slots."
+        },
+        {
+          "name": "slot",
+          "syntax": "slot <slot>",
+          "description": "Set group slot to slot . By default, slot Default is used."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact group 'Lining' range cylinder end-1 (16.0,-6.0,6.0) end-2 (16.0,6.0,6.0) radius 4.0",
+          "description": "Assign 'Lining' group to contacts within cylindrical region (from Shallow Foundation example)",
+          "use_case": "Identify lining contacts for boundary conditions"
+        },
+        {
+          "command": "contact group 'glued' range plane dip 90 dip-direction 90 origin -6.5 0.5 24.5 dist 0.01 position-z 15 100",
+          "description": "Assign 'glued' group to contacts near planar surface (from Flying Buttresses example)",
+          "use_case": "Mark contacts that should have special behavior (e.g., fixed)"
+        },
+        {
+          "command": "contact group 'boundary' range contact type 'ball-facet'",
+          "description": "Assign all ball-wall contacts to 'boundary' group",
+          "use_case": "Identify boundary contacts for analysis"
+        },
+        {
+          "command": "contact group 'specimen' range ball group 'specimen'",
+          "description": "Assign contacts involving balls in 'specimen' group to 'specimen' contact group",
+          "use_case": "Propagate piece groups to contacts"
+        },
+        {
+          "command": "contact group 'interface' slot 'region' range position-z 5.0 5.1",
+          "description": "Assign 'interface' group to 'region' slot for contacts at z=5",
+          "use_case": "Multiple classification schemes using different slots"
+        },
+        {
+          "command": "contact group 'bonded' range model linearpbond contact bonded",
+          "description": "Assign 'bonded' group to bonded contacts in default slot",
+          "use_case": "Identify bonded contacts for analysis"
+        },
+        {
+          "command": "contact group 'bonded' add",
+          "description": "Assign ALL contacts to 'bonded' group in next available slot",
+          "use_case": "Multiple group membership without overwriting existing groups"
+        },
+        {
+          "command": "contact group 'temporary' remove range contact",
+          "description": "Remove 'temporary' group from all contacts",
+          "use_case": "Clean up temporary group assignments"
+        },
+        {
+          "command": "contact group 'active' range contact active gap -0.1 0.0",
+          "description": "Assign 'active' group to contacts that are active with slight overlap",
+          "use_case": "Select contacts based on state criteria"
+        }
+      ]
+    }
   }
 }

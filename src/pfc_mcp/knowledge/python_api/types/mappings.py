@@ -14,6 +14,8 @@ parent modules, used for generating official API paths.
 #   Facet -> wall module -> itasca.wall.Facet.vel()
 #   Vertex -> wall.vertex module -> itasca.wall.vertex.Vertex.pos()
 #   Pebble -> clump module -> itasca.clump.Pebble.vel()
+#   RBlock -> rblock module -> itasca.rblock.RBlock.vel()
+#   RBlockTemplate -> rblock.template module -> itasca.rblock.template.RBlockTemplate.vol()
 #
 # Note: Contact is NOT included here because it uses abstract path representation:
 # keywords.json: itasca.contact.Contact.* (abstract)
@@ -27,4 +29,6 @@ CLASS_TO_MODULE = {
     "Vertex": "wall.vertex",  # Vertex is under wall.vertex submodule
     "Pebble": "clump",  # Pebble is under clump module
     "Template": "clump.template",  # Template is under clump.template submodule
+    "RBlock": "rblock",  # RBlock is under rblock module
+    "RBlockTemplate": "rblock.template",  # RBlock template object is under rblock.template submodule
 }

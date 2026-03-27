@@ -15,6 +15,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+DEFAULT_VERSION = "7.0"
+
 # Category-level metadata (cannot be extracted from command files)
 CATEGORY_METADATA: dict[str, dict[str, Any]] = {
     "ball": {
@@ -158,6 +160,33 @@ CATEGORY_METADATA: dict[str, dict[str, Any]] = {
             "Camera view controlled via center, eye, magnification, projection keywords",
         ],
     },
+    "brick": {
+        "full_name": "Brick Commands",
+        "description": "Commands for creating, importing, assembling, and managing brick-based geometry and inlets used by rigid-body workflows.",
+        "command_prefix": "brick",
+        "python_module": None,
+        "doc_url": "https://docs.itascacg.com/pfc700/pfc/docproject/source/manual/brick/brick.html",
+        "related_categories": ["rblock", "ball", "clump", "model"],
+        "notes": [
+            "Brick commands manage reusable geometry definitions and inlets rather than simulation pieces directly",
+            "Use brick inlets to generate balls, clumps, or rblocks during cycling",
+            "Most brick operations currently rely on the command interface via itasca.command()",
+        ],
+    },
+    "rblock": {
+        "full_name": "RBlock Commands",
+        "description": "Commands for creating, configuring, and managing rigid blocks (rblocks) and their template-driven workflows.",
+        "command_prefix": "rblock",
+        "python_module": "itasca.rblock",
+        "python_object_class": "RBlock",
+        "doc_url": "https://docs.itascacg.com/pfc700/pfc/docproject/source/manual/rblock/rblock.html",
+        "related_categories": ["brick", "ball", "clump", "contact", "model"],
+        "notes": [
+            "RBlocks are rigid polyhedral bodies with dedicated creation, cutting, and surface-management commands",
+            "Template-based workflows are common for rblock generation and replication",
+            "Python SDK supports querying and manipulating existing rblocks, while many creation workflows still require commands",
+        ],
+    },
 }
 
 # Python SDK alternatives (command-level, kept in index for quick reference)
@@ -208,7 +237,7 @@ PYTHON_SDK_ALTERNATIVES: dict[str, dict[str, Any]] = {
 
 # Command patterns metadata
 COMMAND_PATTERNS: dict[str, list[str]] = {
-    "object_commands": ["ball", "wall", "clump", "measure"],
+    "object_commands": ["ball", "wall", "clump", "measure", "brick", "rblock"],
     "system_commands": ["model", "contact"],
     "analysis_commands": ["fragment", "measure"],
     "visualization_commands": ["plot"],
@@ -225,10 +254,29 @@ GLOBAL_NOTES: list[str] = [
 ]
 
 
+def _resolve_index_fields(cmd_data: dict[str, Any]) -> dict[str, Any]:
+    """Flatten versioned command docs so index metadata stays populated."""
+    versions = cmd_data.get("versions")
+    if not isinstance(versions, dict):
+        return cmd_data
+
+    preferred_order = [DEFAULT_VERSION, *[v for v in versions.keys() if v != DEFAULT_VERSION]]
+    for version in preferred_order:
+        version_data = versions.get(version)
+        if isinstance(version_data, dict) and version_data.get("available") is not False:
+            resolved = dict(cmd_data)
+            resolved.update(version_data)
+            return resolved
+
+    return dict(cmd_data)
+
+
 def extract_command_metadata(cmd_path: Path, category: str, category_dir: Path) -> dict[str, Any]:
     """Extract metadata from a command JSON file."""
     with open(cmd_path, encoding="utf-8") as f:
         cmd_data = json.load(f)
+
+    cmd_data = _resolve_index_fields(cmd_data)
 
     # Extract command name from filename (without .json)
     name = cmd_path.stem
@@ -255,7 +303,7 @@ def extract_command_metadata(cmd_path: Path, category: str, category_dir: Path) 
     python_alternative = python_alt.get("workaround", "")
 
     return {
-        "name": cmd_path.stem,  # Just the base name for display
+        "name": name,
         "file": file_path,
         "short_description": short_desc,
         "syntax": cmd_data.get("syntax", ""),

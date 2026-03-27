@@ -1,23 +1,10 @@
 {
-  "command": "contact cmat remove",
   "category": "contact",
   "search_keywords": [
     "cmat",
     "remove"
   ],
   "description": "Remove an entry from the CMAT (Contact Model Assignment Table). Deletes the CMAT entry at the specified index. When an entry is removed, subsequent entries (higher indices) are shifted down to fill the gap. This command is used to clean up or modify the CMAT by removing specific contact model assignment rules. The default entry (index 0) typically should not be removed.",
-  "syntax": "contact cmat remove <i>",
-  "keywords": [],
-  "examples": [
-    {
-      "command": "contact cmat remove 1",
-      "description": "Remove CMAT entry at index 1. Subsequent entries (2, 3, ...) shift down to indices (1, 2, ...)"
-    },
-    {
-      "command": "contact cmat remove 5",
-      "description": "Remove CMAT entry at index 5"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact cmat remove <i>') - Python SDK does not provide direct CMAT API, must use command interface"
@@ -98,5 +85,74 @@
       "issue": "Contacts still using old model after removal",
       "solution": "Removing entry only affects new contacts. Use 'contact cmat apply' to update existing contacts"
     }
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "cmat remove",
+      "syntax": "contact cmat remove [<i>or all] [keyword]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat remove 1",
+          "description": "Remove CMAT entry at index 1. Subsequent entries (2, 3, ...) shift down to indices (1, 2, ...)"
+        },
+        {
+          "command": "contact cmat remove 5",
+          "description": "Remove CMAT entry at index 5"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact cmat remove",
+      "syntax": "contact cmat [<sprocess>] remove [<i>or all]",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "contact cmat remove 1",
+          "description": "Remove CMAT entry at index 1. Subsequent entries (2, 3, ...) shift down to indices (1, 2, ...)"
+        },
+        {
+          "command": "contact cmat remove 5",
+          "description": "Remove CMAT entry at index 5"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "cmat remove",
+      "syntax": "contact cmat remove [<i>or all] [keyword]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat remove 1",
+          "description": "Remove CMAT entry at index 1. Subsequent entries (2, 3, ...) shift down to indices (1, 2, ...)"
+        },
+        {
+          "command": "contact cmat remove 5",
+          "description": "Remove CMAT entry at index 5"
+        }
+      ]
+    }
+  }
 }

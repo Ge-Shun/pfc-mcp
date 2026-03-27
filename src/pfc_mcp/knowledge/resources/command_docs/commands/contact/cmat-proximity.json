@@ -1,5 +1,4 @@
 {
-  "command": "contact cmat proximity",
   "category": "contact",
   "search_keywords": [
     "cmat",
@@ -7,58 +6,6 @@
     "gap"
   ],
   "description": "Set the contact detection distance for the CMAT (Contact Model Assignment Table). This ensures that contacts will be subsequently detected between pieces with a surface gap less than or equal to the specified value. Contacts may also be created between pieces further apart. This command does NOT automatically trigger contact detection - contacts will be detected during subsequent cycles. To force immediate contact detection, use 'model clean' command. By default, only mechanical contacts are considered.",
-  "syntax": "contact cmat <sprocess> proximity <fd>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default if no process specified)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (if thermal process is active)"
-    },
-    {
-      "name": "proximity",
-      "syntax": "proximity <fd>",
-      "description": "Set contact detection distance to fd",
-      "parameters": [
-        {
-          "name": "fd",
-          "type": "float",
-          "description": "Detection distance value (in model length units)"
-        }
-      ]
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact cmat proximity 0.0",
-      "description": "Set contact detection distance to zero - only detect contacts when pieces touch (from official example)",
-      "use_case": "Standard contact detection for rigid particles"
-    },
-    {
-      "command": "contact cmat proximity 1e-6",
-      "description": "Allow small proximity gap for contact detection",
-      "use_case": "Account for numerical precision or slight initial overlaps"
-    },
-    {
-      "command": "contact cmat proximity 0.1",
-      "description": "Detect contacts when pieces are within 0.1 length units",
-      "use_case": "Pre-detect contacts before actual contact, useful for certain models"
-    },
-    {
-      "command": "contact cmat mechanical proximity 0.0",
-      "description": "Explicitly set mechanical contact detection distance",
-      "use_case": "When working with multiple contact processes"
-    },
-    {
-      "command": "contact cmat thermal proximity 1e-5",
-      "description": "Set thermal contact detection distance (if thermal model is active)",
-      "use_case": "Heat transfer simulations with proximity-based thermal contacts"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact cmat proximity <value>') - Python SDK does not provide direct CMAT proximity API, must use command interface"
@@ -364,5 +311,172 @@
       "Avoid large proximity (>1% of particle radius) unless required by physics",
       "Monitor contact count to diagnose performance issues"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact cmat proximity",
+      "syntax": "contact cmat [<sprocess>] proximity <fd>",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts (default if no process specified)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts (if thermal process is active)"
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "Set contact detection distance to fd",
+          "parameters": [
+            {
+              "name": "fd",
+              "type": "float",
+              "description": "Detection distance value (in model length units)"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat proximity 0.0",
+          "description": "Set contact detection distance to zero - only detect contacts when pieces touch (from official example)",
+          "use_case": "Standard contact detection for rigid particles"
+        },
+        {
+          "command": "contact cmat proximity 1e-6",
+          "description": "Allow small proximity gap for contact detection",
+          "use_case": "Account for numerical precision or slight initial overlaps"
+        },
+        {
+          "command": "contact cmat proximity 0.1",
+          "description": "Detect contacts when pieces are within 0.1 length units",
+          "use_case": "Pre-detect contacts before actual contact, useful for certain models"
+        },
+        {
+          "command": "contact cmat mechanical proximity 0.0",
+          "description": "Explicitly set mechanical contact detection distance",
+          "use_case": "When working with multiple contact processes"
+        },
+        {
+          "command": "contact cmat thermal proximity 1e-5",
+          "description": "Set thermal contact detection distance (if thermal model is active)",
+          "use_case": "Heat transfer simulations with proximity-based thermal contacts"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact cmat proximity",
+      "syntax": "contact cmat [<sprocess>] proximity <fd>",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts (default if no process specified)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts (if thermal process is active)"
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "Set contact detection distance to fd",
+          "parameters": [
+            {
+              "name": "fd",
+              "type": "float",
+              "description": "Detection distance value (in model length units)"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat proximity 0.0",
+          "description": "Set contact detection distance to zero - only detect contacts when pieces touch (from official example)",
+          "use_case": "Standard contact detection for rigid particles"
+        },
+        {
+          "command": "contact cmat proximity 1e-6",
+          "description": "Allow small proximity gap for contact detection",
+          "use_case": "Account for numerical precision or slight initial overlaps"
+        },
+        {
+          "command": "contact cmat proximity 0.1",
+          "description": "Detect contacts when pieces are within 0.1 length units",
+          "use_case": "Pre-detect contacts before actual contact, useful for certain models"
+        },
+        {
+          "command": "contact cmat mechanical proximity 0.0",
+          "description": "Explicitly set mechanical contact detection distance",
+          "use_case": "When working with multiple contact processes"
+        },
+        {
+          "command": "contact cmat thermal proximity 1e-5",
+          "description": "Set thermal contact detection distance (if thermal model is active)",
+          "use_case": "Heat transfer simulations with proximity-based thermal contacts"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact cmat proximity",
+      "syntax": "contact cmat [<sprocess>] proximity <fd>",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts (default if no process specified)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts (if thermal process is active)"
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "Set contact detection distance to fd",
+          "parameters": [
+            {
+              "name": "fd",
+              "type": "float",
+              "description": "Detection distance value (in model length units)"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat proximity 0.0",
+          "description": "Set contact detection distance to zero - only detect contacts when pieces touch (from official example)",
+          "use_case": "Standard contact detection for rigid particles"
+        },
+        {
+          "command": "contact cmat proximity 1e-6",
+          "description": "Allow small proximity gap for contact detection",
+          "use_case": "Account for numerical precision or slight initial overlaps"
+        },
+        {
+          "command": "contact cmat proximity 0.1",
+          "description": "Detect contacts when pieces are within 0.1 length units",
+          "use_case": "Pre-detect contacts before actual contact, useful for certain models"
+        },
+        {
+          "command": "contact cmat mechanical proximity 0.0",
+          "description": "Explicitly set mechanical contact detection distance",
+          "use_case": "When working with multiple contact processes"
+        },
+        {
+          "command": "contact cmat thermal proximity 1e-5",
+          "description": "Set thermal contact detection distance (if thermal model is active)",
+          "use_case": "Heat transfer simulations with proximity-based thermal contacts"
+        }
+      ]
+    }
   }
 }

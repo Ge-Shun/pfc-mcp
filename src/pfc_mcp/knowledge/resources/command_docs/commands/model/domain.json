@@ -1,5 +1,4 @@
 {
-  "command": "model domain",
   "category": "model",
   "search_keywords": [
     "domain",
@@ -7,41 +6,6 @@
     "extent"
   ],
   "description": "Specify the domain boundaries and conditions. DFN fractures only exist within the domain extent. In FLAC3D, zones and structural elements are not aware of the model domain. In PFC, walls, clumps and balls must be inside of the domain and are aware of the domain boundary conditions.",
-  "syntax": "model domain <keyword>",
-  "keywords": [
-    {
-      "name": "condition",
-      "syntax": "condition <keyword> <keyword> <keyword>",
-      "description": "Set the domain boundary conditions. Each domain condition applies to the two box sides that are perpendicular to the direction. The first keyword specifies the condition for the x direction, the second for the y, and the third for the z. If only one keyword is specified, then y and z are set to the same condition as x. The default condition is 'stop'",
-      "sub_keywords": [
-        {
-          "name": "stop",
-          "syntax": "stop",
-          "description": "If the body centroid falls outside the model domain, the velocity and spin of the body are nulled. For PFC walls, once a facet centroid falls outside the model domain, the velocity and spin are nulled, including any vertex velocities. (Default condition)"
-        },
-        {
-          "name": "reflect",
-          "syntax": "reflect",
-          "description": "Imparts the opposite sign of the velocity, and the spin is unchanged if the body centroid falls outside the model domain. NOT RECOMMENDED as contact rule since it may induce instabilities. Not compatible with walls intersecting the domain"
-        },
-        {
-          "name": "destroy",
-          "syntax": "destroy",
-          "description": "Deletes balls, clumps, and wall facets whose individual extents (i.e., an axis-aligned bounding box that tightly encompasses the object) fall outside the model domain"
-        },
-        {
-          "name": "periodic",
-          "syntax": "periodic",
-          "description": "Applies periodic boundary conditions. When ball or clump centroid falls outside the model domain, they are translated back to the opposite side. 'Ghost' balls and clumps are introduced to ensure contacts are created as if the model was continuous. Not compatible with walls intersecting the domain"
-        }
-      ]
-    },
-    {
-      "name": "extent",
-      "syntax": "extent <fxl> <fxu> <fyl> <fyu> <fzl> <fzu>",
-      "description": "Specify the locations of the sides of the domain. Each set of values applies to the lower and upper bound of that dimension of the domain. If fxl and fxu are specified alone, then the domain is a cube"
-    }
-  ],
   "notes": [
     "DFN fractures only exist within the domain extent",
     "FLAC3D: zones and structural elements are NOT aware of model domain",
@@ -56,47 +20,228 @@
     "extent: if only fxl and fxu specified, creates cubic domain",
     "Domain must be set before creating PFC objects"
   ],
-  "examples": [
-    {
-      "command": "model domain extent -10 10",
-      "description": "Create cubic domain from -10 to 10 in all directions"
-    },
-    {
-      "command": "model domain extent -5 5 -10 10 -2 2",
-      "description": "Create rectangular domain with different extents in each direction"
-    },
-    {
-      "command": "model domain condition stop",
-      "description": "Set stop condition in all directions (default)"
-    },
-    {
-      "command": "model domain condition periodic",
-      "description": "Set periodic boundary conditions in all directions"
-    },
-    {
-      "command": "model domain condition periodic stop stop",
-      "description": "Periodic in x, stop in y and z directions"
-    },
-    {
-      "command": "model domain condition destroy",
-      "description": "Delete objects that exit domain in all directions"
-    },
-    {
-      "command": "model domain extent -20 20\nmodel domain condition periodic\nball generate number 1000 radius 0.5",
-      "description": "Setup domain with periodic boundaries before generating balls"
-    },
-    {
-      "command": "model domain extent 0 100 0 100 0 50\nmodel domain condition stop stop destroy",
-      "description": "Stop in x and y, destroy in z direction (e.g., particles falling out bottom)"
-    },
-    {
-      "command": "model domain extent -10 10\nmodel domain condition reflect",
-      "description": "Reflect condition (not recommended - may cause instabilities)"
-    }
-  ],
   "python_sdk_alternative": {
     "available": true,
     "python_code": "# Set domain extent\nitasca.set_domain_min(-10, -10, -10)\nitasca.set_domain_max(10, 10, 10)\n\n# Set domain conditions\nitasca.set_domain_condition('x', 'periodic')\nitasca.set_domain_condition('y', 'stop')\nitasca.set_domain_condition('z', 'stop')",
     "notes": "Python SDK provides itasca.set_domain_min(), itasca.set_domain_max(), and itasca.set_domain_condition() functions"
+  },
+  "versions": {
+    "7.0": {
+      "command": "model domain",
+      "syntax": "model domain keyword",
+      "keywords": [
+        {
+          "name": "periodic",
+          "syntax": "periodic",
+          "description": "Set the domain boundary conditions. Each domain condition applies to the two box sides that are perpendicular to the direction. The first keyword specifies the condition for the x direction. The second for the y , and the third for the z . If only one keyword is specified, then y and z are set to the same condition as x . The default condition is the stop condition. The following keywords can be used to specify domain conditions. The stop condition imposes the constraint that if the body centroid falls outside the model domain, the velocity and spin of the body are nulled. For PFC walls, once a facet centroid falls outside the model domain, the velocity and spin are nulled, including any vertex velocities. The reflect condition imparts the opposite sign of the velocity, and the spin is unchanged if the body centroid falls outside the model domain. The use of this condition as a contact rule is not recommended since it may induce instabilities. The reflect condition is not compatible with walls intersecting the domain. The destroy condition deletes balls, clumps, and wall facets whose individual extents (i.e., an axis-aligned bounding box that tightly encompasses the object) fall outside the model domain. The periodic condition applies periodic boundary conditions. When the ball or clump centroid falls outside of the model domain, they are translated back to the opposite side of the model. To ensure that contacts are created as if the model was continuous, “ghost” balls and clumps are introduced. The periodic condition is not compatible with walls intersecting the domain."
+        },
+        {
+          "name": "extent",
+          "syntax": "extent <fxl><fxu>[<fyl><fyu><fzl><fzu>]",
+          "description": "Specify the locations of the sides of the domain. Each set of values applies to the lower and upper bound of that dimension of the domain. If fxl and fxu are specified alone, then the domain is a cube."
+        }
+      ],
+      "examples": [
+        {
+          "command": "model domain extent -10 10",
+          "description": "Create cubic domain from -10 to 10 in all directions"
+        },
+        {
+          "command": "model domain extent -5 5 -10 10 -2 2",
+          "description": "Create rectangular domain with different extents in each direction"
+        },
+        {
+          "command": "model domain condition stop",
+          "description": "Set stop condition in all directions (default)"
+        },
+        {
+          "command": "model domain condition periodic",
+          "description": "Set periodic boundary conditions in all directions"
+        },
+        {
+          "command": "model domain condition periodic stop stop",
+          "description": "Periodic in x, stop in y and z directions"
+        },
+        {
+          "command": "model domain condition destroy",
+          "description": "Delete objects that exit domain in all directions"
+        },
+        {
+          "command": "model domain extent -20 20\nmodel domain condition periodic\nball generate number 1000 radius 0.5",
+          "description": "Setup domain with periodic boundaries before generating balls"
+        },
+        {
+          "command": "model domain extent 0 100 0 100 0 50\nmodel domain condition stop stop destroy",
+          "description": "Stop in x and y, destroy in z direction (e.g., particles falling out bottom)"
+        },
+        {
+          "command": "model domain extent -10 10\nmodel domain condition reflect",
+          "description": "Reflect condition (not recommended - may cause instabilities)"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "model domain",
+      "syntax": "model domain keyword",
+      "keywords": [
+        {
+          "name": "periodic",
+          "syntax": "periodic",
+          "description": "Set the domain boundary conditions. Each domain condition applies to the two box sides that are perpendicular to the direction. The first keyword specifies the condition for the x direction. The second for the y , and the third for the z . If only one keyword is specified, then y and z are set to the same condition as x . The default condition is the stop condition. The following keywords can be used to specify domain conditions. The stop condition imposes the constraint that if the body centroid falls outside the model domain, the velocity and spin of the body are nulled. For PFC walls, once a facet centroid falls outside the model domain, the velocity and spin are nulled, including any vertex velocities. The reflect condition imparts the opposite sign of the velocity, and the spin is unchanged if the body centroid falls outside the model domain. The use of this condition as a contact rule is not recommended since it may induce instabilities. The reflect condition is not compatible with walls intersecting the domain. The destroy condition deletes balls, clumps, and wall facets whose individual extents (i.e., an axis-aligned bounding box that tightly encompasses the object) fall outside the model domain. The periodic condition applies periodic boundary conditions. When the ball or clump centroid falls outside of the model domain, they are translated back to the opposite side of the model. To ensure that contacts are created as if the model was continuous, “ghost” balls and clumps are introduced. The periodic condition is not compatible with walls intersecting the domain."
+        },
+        {
+          "name": "extent",
+          "syntax": "extent <fxl><fxu>[<fyl><fyu><fzl><fzu>]",
+          "description": "Specify the locations of the sides of the domain. Each set of values applies to the lower and upper bound of that dimension of the domain. If fxl and fxu are specified alone, then the domain is a cube."
+        },
+        {
+          "name": "strain-rate",
+          "syntax": "strain-rate <fxx><fyy><fzz><fxy><fxz><fyz><fyx><fzx><fyx>",
+          "description": "Specify the full strain rate tensor. All components must be specified in order, otherwise subsequent components after the last specified component are zeroed."
+        },
+        {
+          "name": "strain-rate-xx",
+          "syntax": "strain-rate-xx <f>",
+          "description": "Specify the xx-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-xy",
+          "syntax": "strain-rate-xy <f>",
+          "description": "Specify the xy-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-xz",
+          "syntax": "strain-rate-xz <f>",
+          "description": "Specify the xz-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-yx",
+          "syntax": "strain-rate-yx <f>",
+          "description": "Specify the yx-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-yy",
+          "syntax": "strain-rate-yy <f>",
+          "description": "Specify the yy-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-yz",
+          "syntax": "strain-rate-yz <f>",
+          "description": "Specify the yz-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-zx",
+          "syntax": "strain-rate-zx <f>",
+          "description": "Specify the zx-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-zy",
+          "syntax": "strain-rate-zy <f>",
+          "description": "Specify the zy-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "strain-rate-zz",
+          "syntax": "strain-rate-zz <f>",
+          "description": "Specify the zz-component of the strain rate tensor. Other components are not modified."
+        },
+        {
+          "name": "tolerance",
+          "syntax": "tolerance <f>",
+          "description": "Specify the domain remapping tolerance. By default, this value is set to zero and all pieces are remapped when the domain extent is modified. When a non-zero domain strain-rate is used, it is recommended to use a non-zero remapping tolerance to avoid this and achieve better runtimes."
+        }
+      ],
+      "examples": [
+        {
+          "command": "model domain extent -10 10",
+          "description": "Create cubic domain from -10 to 10 in all directions"
+        },
+        {
+          "command": "model domain extent -5 5 -10 10 -2 2",
+          "description": "Create rectangular domain with different extents in each direction"
+        },
+        {
+          "command": "model domain condition stop",
+          "description": "Set stop condition in all directions (default)"
+        },
+        {
+          "command": "model domain condition periodic",
+          "description": "Set periodic boundary conditions in all directions"
+        },
+        {
+          "command": "model domain condition periodic stop stop",
+          "description": "Periodic in x, stop in y and z directions"
+        },
+        {
+          "command": "model domain condition destroy",
+          "description": "Delete objects that exit domain in all directions"
+        },
+        {
+          "command": "model domain extent -20 20\nmodel domain condition periodic\nball generate number 1000 radius 0.5",
+          "description": "Setup domain with periodic boundaries before generating balls"
+        },
+        {
+          "command": "model domain extent 0 100 0 100 0 50\nmodel domain condition stop stop destroy",
+          "description": "Stop in x and y, destroy in z direction (e.g., particles falling out bottom)"
+        },
+        {
+          "command": "model domain extent -10 10\nmodel domain condition reflect",
+          "description": "Reflect condition (not recommended - may cause instabilities)"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "model domain",
+      "syntax": "model domain keyword",
+      "keywords": [
+        {
+          "name": "periodic",
+          "syntax": "periodic",
+          "description": "Set the domain boundary conditions. Each domain condition applies to the two box sides that are perpendicular to the direction. The first keyword specifies the condition for the x direction. The second for the y , and the third for the z . If only one keyword is specified, then y and z are set to the same condition as x . The default condition is the stop condition. The following keywords can be used to specify domain conditions. The stop condition imposes the constraint that if the body centroid falls outside the model domain, the velocity and spin of the body are nulled. For PFC walls, once a facet centroid falls outside the model domain, the velocity and spin are nulled, including any vertex velocities. The reflect condition imparts the opposite sign of the velocity, and the spin is unchanged if the body centroid falls outside the model domain. The use of this condition as a contact rule is not recommended since it may induce instabilities. The reflect condition is not compatible with walls intersecting the domain. The destroy condition deletes balls, clumps, and wall facets whose individual extents (i.e., an axis-aligned bounding box that tightly encompasses the object) fall outside the model domain. The periodic condition applies periodic boundary conditions. When the ball or clump centroid falls outside of the model domain, they are translated back to the opposite side of the model. To ensure that contacts are created as if the model was continuous, “ghost” balls and clumps are introduced. The periodic condition is not compatible with walls intersecting the domain."
+        },
+        {
+          "name": "extent",
+          "syntax": "extent <fxl><fxu>[<fyl><fyu><fzl><fzu>]",
+          "description": "Specify the locations of the sides of the domain. Each set of values applies to the lower and upper bound of that dimension of the domain. If fxl and fxu are specified alone, then the domain is a cube."
+        }
+      ],
+      "examples": [
+        {
+          "command": "model domain extent -10 10",
+          "description": "Create cubic domain from -10 to 10 in all directions"
+        },
+        {
+          "command": "model domain extent -5 5 -10 10 -2 2",
+          "description": "Create rectangular domain with different extents in each direction"
+        },
+        {
+          "command": "model domain condition stop",
+          "description": "Set stop condition in all directions (default)"
+        },
+        {
+          "command": "model domain condition periodic",
+          "description": "Set periodic boundary conditions in all directions"
+        },
+        {
+          "command": "model domain condition periodic stop stop",
+          "description": "Periodic in x, stop in y and z directions"
+        },
+        {
+          "command": "model domain condition destroy",
+          "description": "Delete objects that exit domain in all directions"
+        },
+        {
+          "command": "model domain extent -20 20\nmodel domain condition periodic\nball generate number 1000 radius 0.5",
+          "description": "Setup domain with periodic boundaries before generating balls"
+        },
+        {
+          "command": "model domain extent 0 100 0 100 0 50\nmodel domain condition stop stop destroy",
+          "description": "Stop in x and y, destroy in z direction (e.g., particles falling out bottom)"
+        },
+        {
+          "command": "model domain extent -10 10\nmodel domain condition reflect",
+          "description": "Reflect condition (not recommended - may cause instabilities)"
+        }
+      ]
+    }
   }
 }

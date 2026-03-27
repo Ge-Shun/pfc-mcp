@@ -1,13 +1,10 @@
 {
-  "command": "fragment deactivate",
   "category": "fragment",
   "search_keywords": [
     "deactivate",
     "stop"
   ],
   "description": "Deactivate fragment auto-computation. The previously calculated fragments are not removed - fragment IDs remain assigned to bodies, allowing one to use fragment activate to reactivate automatic fragment calculation later. This only stops the automatic periodic updates; existing fragment data is preserved.",
-  "syntax": "fragment deactivate",
-  "keywords": [],
   "notes": [
     "Stops automatic fragment computation (if it was active)",
     "Fragment IDs remain assigned to bodies - data is preserved",
@@ -17,33 +14,6 @@
     "Does NOT clear fragment data - use fragment clear for that",
     "Reduces computational overhead when fragment tracking is not needed",
     "If fragments were never activated, this command has no effect"
-  ],
-  "examples": [
-    {
-      "command": "fragment deactivate",
-      "description": "Stop automatic fragment computation, preserve existing fragment IDs",
-      "use_case": "Finished fragment tracking phase, want to reduce overhead"
-    },
-    {
-      "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment deactivate\nmodel cycle 5000",
-      "description": "Track fragments for first 5000 cycles, then stop tracking for next 5000",
-      "use_case": "Fragment tracking only needed during specific simulation phase"
-    },
-    {
-      "command": "fragment deactivate\nfragment list",
-      "description": "Stop auto-computation, then examine current fragment state",
-      "use_case": "Freeze fragment state for analysis"
-    },
-    {
-      "command": "fragment activate cycles 50\nmodel cycle 10000\nfragment deactivate\ncontact delete range model null\nfragment compute\nfragment activate cycles 50",
-      "description": "Stop, make manual changes, recompute, restart auto-computation",
-      "use_case": "Modify contacts mid-simulation with controlled fragment updates"
-    },
-    {
-      "command": "fragment deactivate\nfragment clear",
-      "description": "Stop auto-computation, then clear all fragment data",
-      "use_case": "Complete cleanup of fragment tracking system"
-    }
   ],
   "python_sdk_alternative": {
     "available": false,
@@ -454,5 +424,103 @@
       "Trying to prevent fragment updates (but forgot to call deactivate)",
       "Confusion about what deactivate does"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "fragment deactivate",
+      "syntax": "fragment deactivate",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment deactivate",
+          "description": "Stop automatic fragment computation, preserve existing fragment IDs",
+          "use_case": "Finished fragment tracking phase, want to reduce overhead"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment deactivate\nmodel cycle 5000",
+          "description": "Track fragments for first 5000 cycles, then stop tracking for next 5000",
+          "use_case": "Fragment tracking only needed during specific simulation phase"
+        },
+        {
+          "command": "fragment deactivate\nfragment list",
+          "description": "Stop auto-computation, then examine current fragment state",
+          "use_case": "Freeze fragment state for analysis"
+        },
+        {
+          "command": "fragment activate cycles 50\nmodel cycle 10000\nfragment deactivate\ncontact delete range model null\nfragment compute\nfragment activate cycles 50",
+          "description": "Stop, make manual changes, recompute, restart auto-computation",
+          "use_case": "Modify contacts mid-simulation with controlled fragment updates"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "fragment deactivate",
+      "syntax": "fragment deactivate",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment deactivate",
+          "description": "Stop automatic fragment computation, preserve existing fragment IDs",
+          "use_case": "Finished fragment tracking phase, want to reduce overhead"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment deactivate\nmodel cycle 5000",
+          "description": "Track fragments for first 5000 cycles, then stop tracking for next 5000",
+          "use_case": "Fragment tracking only needed during specific simulation phase"
+        },
+        {
+          "command": "fragment deactivate\nfragment list",
+          "description": "Stop auto-computation, then examine current fragment state",
+          "use_case": "Freeze fragment state for analysis"
+        },
+        {
+          "command": "fragment activate cycles 50\nmodel cycle 10000\nfragment deactivate\ncontact delete range model null\nfragment compute\nfragment activate cycles 50",
+          "description": "Stop, make manual changes, recompute, restart auto-computation",
+          "use_case": "Modify contacts mid-simulation with controlled fragment updates"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "fragment deactivate",
+      "syntax": "fragment deactivate",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment deactivate",
+          "description": "Stop automatic fragment computation, preserve existing fragment IDs",
+          "use_case": "Finished fragment tracking phase, want to reduce overhead"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment deactivate\nmodel cycle 5000",
+          "description": "Track fragments for first 5000 cycles, then stop tracking for next 5000",
+          "use_case": "Fragment tracking only needed during specific simulation phase"
+        },
+        {
+          "command": "fragment deactivate\nfragment list",
+          "description": "Stop auto-computation, then examine current fragment state",
+          "use_case": "Freeze fragment state for analysis"
+        },
+        {
+          "command": "fragment activate cycles 50\nmodel cycle 10000\nfragment deactivate\ncontact delete range model null\nfragment compute\nfragment activate cycles 50",
+          "description": "Stop, make manual changes, recompute, restart auto-computation",
+          "use_case": "Modify contacts mid-simulation with controlled fragment updates"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        }
+      ]
+    }
   }
 }

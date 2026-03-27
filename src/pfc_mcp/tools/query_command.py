@@ -3,11 +3,12 @@
 from typing import Any
 
 from fastmcp import FastMCP
+from pydantic import Field
 
 from pfc_mcp.contracts import build_docs_data, build_ok
 from pfc_mcp.knowledge.commands import CommandLoader
 from pfc_mcp.knowledge.query import CommandSearch
-from pfc_mcp.utils import SearchLimit, SearchQuery
+from pfc_mcp.utils import CommandDocVersion, SearchLimit, SearchQuery, normalize_command_doc_version
 
 
 def register(mcp: FastMCP) -> None:
@@ -17,6 +18,10 @@ def register(mcp: FastMCP) -> None:
     def pfc_query_command(
         query: SearchQuery,
         limit: SearchLimit = 10,
+        version: CommandDocVersion = Field(
+            CommandDocVersion.V7_0,
+            description="PFC documentation version to search. Defaults to 7.0.",
+        ),
     ) -> dict[str, Any]:
         """Search PFC command documentation by keywords (like grep).
 
@@ -31,7 +36,8 @@ def register(mcp: FastMCP) -> None:
         - pfc_browse_reference: Browse reference docs (e.g., "contact-models linear")
         - pfc_query_python_api: Search Python SDK by keywords
         """
-        results = CommandSearch.search_commands_only(query, top_k=limit)
+        version_value = normalize_command_doc_version(version)
+        results = CommandSearch.search_commands_only(query, top_k=limit, version=version_value)
         matches: list[dict[str, Any]] = []
         for result in results:
             metadata = result.document.metadata or {}
@@ -44,6 +50,7 @@ def register(mcp: FastMCP) -> None:
                     "short_description": metadata.get("short_description"),
                     "score": result.score,
                     "rank": result.rank,
+                    "version": metadata.get("version", version_value),
                 }
             )
 
@@ -53,6 +60,7 @@ def register(mcp: FastMCP) -> None:
             entries=matches,
             summary={
                 "count": len(matches),
+                "version": version_value,
             },
         )
 

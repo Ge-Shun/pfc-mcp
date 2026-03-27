@@ -1,13 +1,10 @@
 {
-  "command": "fragment clear",
   "category": "fragment",
   "search_keywords": [
     "clear",
     "reset"
   ],
   "description": "Clear all fragment information. All fragment data is destroyed, event tracking is stopped, and the fragment IDs held in all bodies (balls and clumps) are reset to 0. This is a complete reset of the fragment tracking system.",
-  "syntax": "fragment clear",
-  "keywords": [],
   "notes": [
     "Destructive operation - all fragment information is permanently lost",
     "All fragment IDs in balls and clumps are reset to 0",
@@ -17,33 +14,6 @@
     "After clearing, can recompute fragments with fragment compute or fragment activate",
     "Useful for resetting fragment analysis between simulation phases",
     "No parameters required - clears all fragments globally"
-  ],
-  "examples": [
-    {
-      "command": "fragment clear",
-      "description": "Clear all fragment information and reset all fragment IDs to 0",
-      "use_case": "Reset fragment tracking between simulation phases"
-    },
-    {
-      "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment clear\nfragment activate cycles 100",
-      "description": "Track fragments, clear data, restart tracking fresh",
-      "use_case": "Analyze fragments in different simulation phases independently"
-    },
-    {
-      "command": "fragment clear\nfragment compute",
-      "description": "Clear old fragment data, then compute fresh fragment IDs",
-      "use_case": "Get clean snapshot of current fragment state"
-    },
-    {
-      "command": "fragment deactivate\nfragment clear",
-      "description": "Stop auto-computation, then clear all fragment data",
-      "use_case": "Complete cleanup of fragment tracking system"
-    },
-    {
-      "command": "model solve\nfragment compute\nball list range group-slot 'frag' 1\nfragment clear\nmodel cycle 1000\nfragment compute",
-      "description": "Analyze fragments at equilibrium, clear, run more cycles, recompute",
-      "use_case": "Compare fragment states at different simulation stages"
-    }
   ],
   "python_sdk_alternative": {
     "available": false,
@@ -340,5 +310,103 @@
       "Easier to compare fragment evolution within each phase",
       "Clear separation of analysis for different loading conditions"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "fragment clear",
+      "syntax": "fragment clear",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment clear",
+          "description": "Clear all fragment information and reset all fragment IDs to 0",
+          "use_case": "Reset fragment tracking between simulation phases"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment clear\nfragment activate cycles 100",
+          "description": "Track fragments, clear data, restart tracking fresh",
+          "use_case": "Analyze fragments in different simulation phases independently"
+        },
+        {
+          "command": "fragment clear\nfragment compute",
+          "description": "Clear old fragment data, then compute fresh fragment IDs",
+          "use_case": "Get clean snapshot of current fragment state"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        },
+        {
+          "command": "model solve\nfragment compute\nball list range group-slot 'frag' 1\nfragment clear\nmodel cycle 1000\nfragment compute",
+          "description": "Analyze fragments at equilibrium, clear, run more cycles, recompute",
+          "use_case": "Compare fragment states at different simulation stages"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "fragment clear",
+      "syntax": "fragment clear",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment clear",
+          "description": "Clear all fragment information and reset all fragment IDs to 0",
+          "use_case": "Reset fragment tracking between simulation phases"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment clear\nfragment activate cycles 100",
+          "description": "Track fragments, clear data, restart tracking fresh",
+          "use_case": "Analyze fragments in different simulation phases independently"
+        },
+        {
+          "command": "fragment clear\nfragment compute",
+          "description": "Clear old fragment data, then compute fresh fragment IDs",
+          "use_case": "Get clean snapshot of current fragment state"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        },
+        {
+          "command": "model solve\nfragment compute\nball list range group-slot 'frag' 1\nfragment clear\nmodel cycle 1000\nfragment compute",
+          "description": "Analyze fragments at equilibrium, clear, run more cycles, recompute",
+          "use_case": "Compare fragment states at different simulation stages"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "fragment clear",
+      "syntax": "fragment clear",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "fragment clear",
+          "description": "Clear all fragment information and reset all fragment IDs to 0",
+          "use_case": "Reset fragment tracking between simulation phases"
+        },
+        {
+          "command": "fragment activate cycles 100\nmodel cycle 5000\nfragment clear\nfragment activate cycles 100",
+          "description": "Track fragments, clear data, restart tracking fresh",
+          "use_case": "Analyze fragments in different simulation phases independently"
+        },
+        {
+          "command": "fragment clear\nfragment compute",
+          "description": "Clear old fragment data, then compute fresh fragment IDs",
+          "use_case": "Get clean snapshot of current fragment state"
+        },
+        {
+          "command": "fragment deactivate\nfragment clear",
+          "description": "Stop auto-computation, then clear all fragment data",
+          "use_case": "Complete cleanup of fragment tracking system"
+        },
+        {
+          "command": "model solve\nfragment compute\nball list range group-slot 'frag' 1\nfragment clear\nmodel cycle 1000\nfragment compute",
+          "description": "Analyze fragments at equilibrium, clear, run more cycles, recompute",
+          "use_case": "Compare fragment states at different simulation stages"
+        }
+      ]
+    }
   }
 }

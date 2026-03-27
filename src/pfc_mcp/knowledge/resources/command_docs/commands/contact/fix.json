@@ -1,5 +1,4 @@
 {
-  "command": "contact fix",
   "category": "contact",
   "search_keywords": [
     "fix",
@@ -7,56 +6,6 @@
     "constant"
   ],
   "description": "Fix contacts in the specified range. When a contact is fixed, its contact forces remain unchanged (frozen at current values) regardless of piece movements or contact state changes. This is useful for applying constant contact forces or boundary conditions, or for temporarily freezing contact forces during specific simulation phases. By default, only mechanical contacts are considered.",
-  "syntax": "contact fix <bval> <keyword> <range>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (instead of mechanical)"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact fix on range position-x 1.1 1.9",
-      "description": "Fix contacts in x-position range 1.1 to 1.9 (from official example)",
-      "use_case": "Apply constant forces from boundary contacts"
-    },
-    {
-      "command": "contact fix range contact gap 0 100",
-      "description": "Fix contacts with gap between 0 and 100 (from official example)",
-      "use_case": "Freeze forces for contacts in specific gap range"
-    },
-    {
-      "command": "contact fix true range group 'boundary'",
-      "description": "Fix all contacts in 'boundary' group",
-      "use_case": "Apply constant boundary forces"
-    },
-    {
-      "command": "contact fix false range contact",
-      "description": "Unfix all contacts, restore normal force calculation",
-      "use_case": "Return to dynamic force calculation after fixed phase"
-    },
-    {
-      "command": "contact fix on range contact type 'ball-facet'",
-      "description": "Fix all ball-facet (ball-wall) contacts",
-      "use_case": "Apply constant wall forces"
-    },
-    {
-      "command": "contact fix true mechanical range contact active",
-      "description": "Fix all active mechanical contacts",
-      "use_case": "Freeze current force state"
-    },
-    {
-      "command": "contact fix off range model linearpbond",
-      "description": "Unfix linearpbond contacts, restore dynamic bonding forces",
-      "use_case": "Re-enable force calculation for bond contacts"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact fix <bval> range ...') - Python SDK does not provide direct contact fix functionality. No contact.fix() method exists in the SDK.",
@@ -447,6 +396,117 @@
       "what_controlled": "Both forces and motion constrained",
       "use_case": "Fully prescribed boundary (rare)",
       "warning": "May be over-constrained depending on configuration"
+    }
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact fix",
+      "syntax": "contact fix <bval>[keyword] [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact fix on range position-x 1.1 1.9",
+          "description": "Fix contacts in x-position range 1.1 to 1.9 (from official example)",
+          "use_case": "Apply constant forces from boundary contacts"
+        },
+        {
+          "command": "contact fix range contact gap 0 100",
+          "description": "Fix contacts with gap between 0 and 100 (from official example)",
+          "use_case": "Freeze forces for contacts in specific gap range"
+        },
+        {
+          "command": "contact fix true range group 'boundary'",
+          "description": "Fix all contacts in 'boundary' group",
+          "use_case": "Apply constant boundary forces"
+        },
+        {
+          "command": "contact fix false range contact",
+          "description": "Unfix all contacts, restore normal force calculation",
+          "use_case": "Return to dynamic force calculation after fixed phase"
+        },
+        {
+          "command": "contact fix on range contact type 'ball-facet'",
+          "description": "Fix all ball-facet (ball-wall) contacts",
+          "use_case": "Apply constant wall forces"
+        },
+        {
+          "command": "contact fix true mechanical range contact active",
+          "description": "Fix all active mechanical contacts",
+          "use_case": "Freeze current force state"
+        },
+        {
+          "command": "contact fix off range model linearpbond",
+          "description": "Unfix linearpbond contacts, restore dynamic bonding forces",
+          "use_case": "Re-enable force calculation for bond contacts"
+        }
+      ]
+    },
+    "6.0": {
+      "available": false
+    },
+    "9.0": {
+      "command": "contact fix",
+      "syntax": "contact fix <bval>[keyword] [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact fix on range position-x 1.1 1.9",
+          "description": "Fix contacts in x-position range 1.1 to 1.9 (from official example)",
+          "use_case": "Apply constant forces from boundary contacts"
+        },
+        {
+          "command": "contact fix range contact gap 0 100",
+          "description": "Fix contacts with gap between 0 and 100 (from official example)",
+          "use_case": "Freeze forces for contacts in specific gap range"
+        },
+        {
+          "command": "contact fix true range group 'boundary'",
+          "description": "Fix all contacts in 'boundary' group",
+          "use_case": "Apply constant boundary forces"
+        },
+        {
+          "command": "contact fix false range contact",
+          "description": "Unfix all contacts, restore normal force calculation",
+          "use_case": "Return to dynamic force calculation after fixed phase"
+        },
+        {
+          "command": "contact fix on range contact type 'ball-facet'",
+          "description": "Fix all ball-facet (ball-wall) contacts",
+          "use_case": "Apply constant wall forces"
+        },
+        {
+          "command": "contact fix true mechanical range contact active",
+          "description": "Fix all active mechanical contacts",
+          "use_case": "Freeze current force state"
+        },
+        {
+          "command": "contact fix off range model linearpbond",
+          "description": "Unfix linearpbond contacts, restore dynamic bonding forces",
+          "use_case": "Re-enable force calculation for bond contacts"
+        }
+      ]
     }
   }
 }

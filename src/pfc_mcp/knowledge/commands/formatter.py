@@ -292,5 +292,5 @@ class CommandFormatter:
 
 Suggestions:
 - Try simpler keywords (e.g., "ball create" instead of "how to create a ball")
-- Command categories: ball, wall, clump, contact, model, fragment, measure
+- Command categories: ball, wall, clump, contact, model, fragment, measure, plot, brick, rblock
 """

@@ -61,6 +61,16 @@
       "file": "modules/clump/template/module.json",
       "functions": ["count", "find", "findpebble", "list", "make", "maxid"]
     },
+    "rblock": {
+      "description": "Rigid block (RBlock) object management",
+      "file": "modules/rblock/module.json",
+      "functions": ["containing", "count", "energies", "energy", "find", "inbox", "list", "maxid", "near"]
+    },
+    "rblock.template": {
+      "description": "RBlock template management - reusable rigid block templates",
+      "file": "modules/rblock/template/module.json",
+      "functions": ["count", "find", "findpebble", "list", "maxid"]
+    },
     "measure": {
       "description": "Measurement sphere management for monitoring local physical quantities",
       "file": "modules/measure/module.json",
@@ -139,6 +149,14 @@
         "inertia": "moi, moi_prin, moi_prin_x/y/z, set_moi, set_moi_prin, set_moi_prin_x/y/z",
         "volume": "vol, set_vol"
       }
+    },
+    "RBlock": {
+      "description": "RBlock object instance - polyhedral rigid block in PFC",
+      "file": "modules/rblock/RBlock.json"
+    },
+    "RBlockTemplate": {
+      "description": "RBlock template object instance - reusable rigid block geometry definition",
+      "file": "modules/rblock/template/Template.json"
     },
     "Contact": {
       "description": "Contact object instance (all contact types share this interface)",

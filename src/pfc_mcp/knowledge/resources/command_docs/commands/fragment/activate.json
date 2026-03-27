@@ -1,56 +1,11 @@
 {
-  "command": "fragment activate",
   "category": "fragment",
-  "search_keywords": ["activate", "auto", "computation"],
-  "description": "Activate fragment auto-computation. Either the number of cycles or the time between fragment computations must be specified. Optionally, the fragment ID can be placed in a specified group slot for use with the range logic. Note that if contacts are manually removed or unbounded by the user, calling the fragment compute command is required so that the fragment auto-computation logic detects these changes. If fragment persistence is set to false when registering contact types, fragment auto-computation cannot be activated.",
-
-  "syntax": "fragment activate <keyword>",
-
-  "keywords": [
-    {
-      "name": "cycles",
-      "syntax": "cycles <i>",
-      "description": "Specify i cycles between fragment computations",
-      "required": "one_of",
-      "parameters": [
-        {
-          "name": "i",
-          "type": "integer",
-          "required": true,
-          "description": "Number of cycles between each fragment computation update"
-        }
-      ]
-    },
-    {
-      "name": "time",
-      "syntax": "time <f>",
-      "description": "Specify f units of time between fragment computations",
-      "required": "one_of",
-      "parameters": [
-        {
-          "name": "f",
-          "type": "float",
-          "required": true,
-          "description": "Time interval between each fragment computation update"
-        }
-      ]
-    },
-    {
-      "name": "group-slot",
-      "syntax": "group-slot <s>",
-      "description": "Optionally specify that the fragment index is placed in group slot s as the fragments are updated",
-      "required": false,
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string/slot",
-          "required": true,
-          "description": "Group slot name where fragment ID will be stored for use with range logic"
-        }
-      ]
-    }
+  "search_keywords": [
+    "activate",
+    "auto",
+    "computation"
   ],
-
+  "description": "Activate fragment auto-computation. Either the number of cycles or the time between fragment computations must be specified. Optionally, the fragment ID can be placed in a specified group slot for use with the range logic. Note that if contacts are manually removed or unbounded by the user, calling the fragment compute command is required so that the fragment auto-computation logic detects these changes. If fragment persistence is set to false when registering contact types, fragment auto-computation cannot be activated.",
   "notes": [
     "REQUIRED: Must specify either 'cycles' or 'time' keyword (mutually exclusive)",
     "Fragment auto-computation updates fragment IDs at specified intervals",
@@ -62,35 +17,6 @@
     "Frequent updates (small cycles/time): accurate but slower",
     "Infrequent updates (large cycles/time): faster but may miss transient fragments"
   ],
-
-  "examples": [
-    {
-      "command": "fragment activate cycles 100",
-      "description": "Update fragment IDs every 100 cycles",
-      "use_case": "Standard fragment tracking during dynamic simulation"
-    },
-    {
-      "command": "fragment activate time 0.01",
-      "description": "Update fragment IDs every 0.01 time units",
-      "use_case": "Time-based fragment tracking (useful when timestep varies)"
-    },
-    {
-      "command": "fragment activate cycles 50 group-slot 'fragment_id'",
-      "description": "Update fragments every 50 cycles and store fragment ID in 'fragment_id' slot",
-      "use_case": "Enable range-based operations on specific fragments"
-    },
-    {
-      "command": "fragment activate cycles 1000 group-slot 'frag'\nball property density 2000 range group-slot 'frag' 1",
-      "description": "Activate fragment tracking, then apply property to fragment #1",
-      "use_case": "Fragment-based property assignment using range logic"
-    },
-    {
-      "command": "contact cmat default type ball-ball property pb_persist true\nfragment activate cycles 100",
-      "description": "Enable fragment persistence on contacts, then activate auto-computation",
-      "use_case": "Proper sequence for fragment tracking setup"
-    }
-  ],
-
   "python_sdk_alternative": {
     "available": false,
     "notes": [
@@ -104,7 +30,6 @@
       "python": "itasca.command('fragment activate cycles 100')"
     }
   },
-
   "related_commands": [
     "fragment compute",
     "fragment deactivate",
@@ -114,7 +39,6 @@
     "contact cmat default",
     "contact property"
   ],
-
   "prerequisites": {
     "description": "Requirements that must be met before fragment activate can work",
     "required_setup": [
@@ -138,7 +62,6 @@
       }
     ]
   },
-
   "common_use_cases": [
     {
       "use_case": "Track fragment formation during dynamic loading",
@@ -170,7 +93,6 @@
       "notes": "Common in particle segregation and clustering studies"
     }
   ],
-
   "typical_workflow": [
     "1. Enable fragment persistence: contact cmat default type ball-ball property pb_persist true",
     "2. Activate auto-computation: fragment activate cycles <interval>",
@@ -179,7 +101,6 @@
     "5. Optionally use group-slot for range-based operations",
     "6. Deactivate when done: fragment deactivate"
   ],
-
   "cycles_vs_time": {
     "cycles": {
       "description": "Update fragments every N cycles (timesteps)",
@@ -211,7 +132,6 @@
     },
     "recommendation": "Use 'cycles' for most cases; use 'time' when physical time consistency is critical"
   },
-
   "performance_considerations": {
     "computation_cost": "Fragment computation can be expensive for large models",
     "interval_selection": {
@@ -234,7 +154,6 @@
       "For dynamic fracture: smaller intervals needed"
     ]
   },
-
   "group_slot_usage": {
     "description": "Using group-slot enables range-based operations on fragments",
     "benefits": [
@@ -261,7 +180,6 @@
       }
     ]
   },
-
   "fragment_persistence_requirement": {
     "description": "Fragment tracking requires contact persistence to be enabled",
     "what_is_persistence": "Contacts store fragment information (pb_persist property)",
@@ -275,7 +193,6 @@
     ],
     "failure_if_disabled": "If pb_persist is false, fragment activate will fail or not work properly"
   },
-
   "manual_contact_changes": {
     "issue": "If contacts are manually removed or unbounded, auto-computation may not detect changes",
     "solution": "Call 'fragment compute' manually after manual contact modifications",
@@ -290,7 +207,6 @@
       "3. Auto-computation will continue at next scheduled interval"
     ]
   },
-
   "warnings": [
     {
       "type": "persistence_required",
@@ -317,7 +233,6 @@
       "mitigation": "Use either 'cycles <i>' OR 'time <f>', not both"
     }
   ],
-
   "troubleshooting": [
     {
       "issue": "Fragment activate command fails",
@@ -356,7 +271,6 @@
       ]
     }
   ],
-
   "activate_vs_compute": {
     "fragment_activate": {
       "function": "Enable automatic periodic fragment computation",
@@ -377,5 +291,151 @@
       "4. Update immediately: fragment compute",
       "5. Auto-computation continues at next scheduled interval"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "fragment activate",
+      "syntax": "fragment activate keyword",
+      "keywords": [
+        {
+          "name": "cycles",
+          "syntax": "cycles <i>",
+          "description": "Specify i cycles between fragment computations."
+        },
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Optionally, specify that the fragment index is placed in group slot s as the fragments are updated."
+        },
+        {
+          "name": "time",
+          "syntax": "time <f>",
+          "description": "Specify f units of time between fragment computations."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment activate cycles 100",
+          "description": "Update fragment IDs every 100 cycles",
+          "use_case": "Standard fragment tracking during dynamic simulation"
+        },
+        {
+          "command": "fragment activate time 0.01",
+          "description": "Update fragment IDs every 0.01 time units",
+          "use_case": "Time-based fragment tracking (useful when timestep varies)"
+        },
+        {
+          "command": "fragment activate cycles 50 group-slot 'fragment_id'",
+          "description": "Update fragments every 50 cycles and store fragment ID in 'fragment_id' slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment activate cycles 1000 group-slot 'frag'\nball property density 2000 range group-slot 'frag' 1",
+          "description": "Activate fragment tracking, then apply property to fragment #1",
+          "use_case": "Fragment-based property assignment using range logic"
+        },
+        {
+          "command": "contact cmat default type ball-ball property pb_persist true\nfragment activate cycles 100",
+          "description": "Enable fragment persistence on contacts, then activate auto-computation",
+          "use_case": "Proper sequence for fragment tracking setup"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "fragment activate",
+      "syntax": "fragment activate keyword",
+      "keywords": [
+        {
+          "name": "cycles",
+          "syntax": "cycles <i>",
+          "description": "Specify i cycles between fragment computations."
+        },
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Optionally, specify that the fragment index is placed in group slot s as the fragments are updated."
+        },
+        {
+          "name": "time",
+          "syntax": "time <f>",
+          "description": "Specify f units of time between fragment computations."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment activate cycles 100",
+          "description": "Update fragment IDs every 100 cycles",
+          "use_case": "Standard fragment tracking during dynamic simulation"
+        },
+        {
+          "command": "fragment activate time 0.01",
+          "description": "Update fragment IDs every 0.01 time units",
+          "use_case": "Time-based fragment tracking (useful when timestep varies)"
+        },
+        {
+          "command": "fragment activate cycles 50 group-slot 'fragment_id'",
+          "description": "Update fragments every 50 cycles and store fragment ID in 'fragment_id' slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment activate cycles 1000 group-slot 'frag'\nball property density 2000 range group-slot 'frag' 1",
+          "description": "Activate fragment tracking, then apply property to fragment #1",
+          "use_case": "Fragment-based property assignment using range logic"
+        },
+        {
+          "command": "contact cmat default type ball-ball property pb_persist true\nfragment activate cycles 100",
+          "description": "Enable fragment persistence on contacts, then activate auto-computation",
+          "use_case": "Proper sequence for fragment tracking setup"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "fragment activate",
+      "syntax": "fragment activate keyword",
+      "keywords": [
+        {
+          "name": "cycles",
+          "syntax": "cycles <i>",
+          "description": "Specify i cycles between fragment computations."
+        },
+        {
+          "name": "group-slot",
+          "syntax": "group-slot <s>",
+          "description": "Optionally, specify that the fragment index is placed in group slot s as the fragments are updated."
+        },
+        {
+          "name": "time",
+          "syntax": "time <f>",
+          "description": "Specify f units of time between fragment computations."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment activate cycles 100",
+          "description": "Update fragment IDs every 100 cycles",
+          "use_case": "Standard fragment tracking during dynamic simulation"
+        },
+        {
+          "command": "fragment activate time 0.01",
+          "description": "Update fragment IDs every 0.01 time units",
+          "use_case": "Time-based fragment tracking (useful when timestep varies)"
+        },
+        {
+          "command": "fragment activate cycles 50 group-slot 'fragment_id'",
+          "description": "Update fragments every 50 cycles and store fragment ID in 'fragment_id' slot",
+          "use_case": "Enable range-based operations on specific fragments"
+        },
+        {
+          "command": "fragment activate cycles 1000 group-slot 'frag'\nball property density 2000 range group-slot 'frag' 1",
+          "description": "Activate fragment tracking, then apply property to fragment #1",
+          "use_case": "Fragment-based property assignment using range logic"
+        },
+        {
+          "command": "contact cmat default type ball-ball property pb_persist true\nfragment activate cycles 100",
+          "description": "Enable fragment persistence on contacts, then activate auto-computation",
+          "use_case": "Proper sequence for fragment tracking setup"
+        }
+      ]
+    }
   }
 }

@@ -1,5 +1,4 @@
 {
-  "command": "fragment register",
   "category": "fragment",
   "search_keywords": [
     "register",
@@ -7,35 +6,6 @@
     "type"
   ],
   "description": "Register contact types for fragment analysis. This is the required initialization step before using any other fragment commands. By default, only bonded mechanical contacts are considered as criteria for inclusion in a fragment. If no contact types are specified, all available contact types are registered. At least one active contact of each contact type of interest must exist in the model when this command is given.",
-  "syntax": "fragment register <s ...> <keyword> <range>",
-  "keywords": [
-    {
-      "name": "ignorebond",
-      "syntax": "ignorebond",
-      "description": "Consider all contacts regardless of bonding state when computing fragments. By default, only bonded contacts are considered.",
-      "required": false
-    },
-    {
-      "name": "persist",
-      "syntax": "persist <b>",
-      "description": "Set the fragment persistence state (default true). If persistence is turned off, fragment registration and computations are much faster but no previous fragment states are retained.",
-      "required": false,
-      "parameters": [
-        {
-          "name": "b",
-          "type": "boolean",
-          "required": true,
-          "description": "True (default) to enable persistence, false for faster computation without history",
-          "valid_values": [
-            "true",
-            "false",
-            "on",
-            "off"
-          ]
-        }
-      ]
-    }
-  ],
   "notes": [
     "REQUIRED: Must be called before any fragment compute or fragment activate commands",
     "At least one active contact of each specified contact type must exist when calling this command",
@@ -47,48 +17,6 @@
     "Range applies to contacts until fragment clear is issued",
     "Only needs to be called once per fragment tracking session",
     "After fragment clear, may need to call register again"
-  ],
-  "examples": [
-    {
-      "command": "fragment register",
-      "description": "Register all available contact types with default settings (bonded only, persist on)",
-      "use_case": "Standard fragment tracking initialization"
-    },
-    {
-      "command": "fragment register ball-ball",
-      "description": "Register only ball-ball contacts for fragment analysis",
-      "use_case": "When only interested in ball-ball connectivity"
-    },
-    {
-      "command": "fragment register ignorebond",
-      "description": "Register all contact types, consider all contacts regardless of bonding",
-      "use_case": "Fragment analysis based on any contact, not just bonds"
-    },
-    {
-      "command": "fragment register persist false",
-      "description": "Register with persistence off for faster computation without history",
-      "use_case": "Large models where performance is critical and history not needed"
-    },
-    {
-      "command": "fragment register ball-ball ball-facet ignorebond",
-      "description": "Register ball-ball and ball-facet, consider all contacts",
-      "use_case": "Multi-type fragment analysis without bond requirement"
-    },
-    {
-      "command": "contact cmat default type ball-ball model linearpbond ...\nball generate ...\nmodel clean\nfragment register ball-ball",
-      "description": "Create bonded contacts, then register for fragment tracking",
-      "use_case": "Typical setup sequence for bonded fragment analysis"
-    },
-    {
-      "command": "fragment register ball-ball persist false ignorebond\nfragment compute",
-      "description": "Fast registration and computation without persistence",
-      "use_case": "Performance-critical single snapshot"
-    },
-    {
-      "command": "fragment register range group 'specimen'",
-      "description": "Register contacts, but only consider those in 'specimen' group",
-      "use_case": "Fragment analysis limited to specific model region"
-    }
   ],
   "python_sdk_alternative": {
     "available": false,
@@ -523,5 +451,197 @@
       "Multiple times unnecessarily (unless changing settings)",
       "After already computing fragments (re-registration may invalidate data)"
     ]
+  },
+  "versions": {
+    "7.0": {
+      "command": "fragment register",
+      "syntax": "fragment register [<s>...] [keyword] [range]",
+      "keywords": [
+        {
+          "name": "ignorebond",
+          "syntax": "ignorebond",
+          "description": "Consider all contacts regardless for bonding state when computing fragments."
+        },
+        {
+          "name": "persist",
+          "syntax": "persist <b>",
+          "description": "Set the fragment persistence state (deafult true ). If the persistence is turned off, fragment registration and computations are much faster but no previous fragment states are retained."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register",
+          "description": "Register all available contact types with default settings (bonded only, persist on)",
+          "use_case": "Standard fragment tracking initialization"
+        },
+        {
+          "command": "fragment register ball-ball",
+          "description": "Register only ball-ball contacts for fragment analysis",
+          "use_case": "When only interested in ball-ball connectivity"
+        },
+        {
+          "command": "fragment register ignorebond",
+          "description": "Register all contact types, consider all contacts regardless of bonding",
+          "use_case": "Fragment analysis based on any contact, not just bonds"
+        },
+        {
+          "command": "fragment register persist false",
+          "description": "Register with persistence off for faster computation without history",
+          "use_case": "Large models where performance is critical and history not needed"
+        },
+        {
+          "command": "fragment register ball-ball ball-facet ignorebond",
+          "description": "Register ball-ball and ball-facet, consider all contacts",
+          "use_case": "Multi-type fragment analysis without bond requirement"
+        },
+        {
+          "command": "contact cmat default type ball-ball model linearpbond ...\nball generate ...\nmodel clean\nfragment register ball-ball",
+          "description": "Create bonded contacts, then register for fragment tracking",
+          "use_case": "Typical setup sequence for bonded fragment analysis"
+        },
+        {
+          "command": "fragment register ball-ball persist false ignorebond\nfragment compute",
+          "description": "Fast registration and computation without persistence",
+          "use_case": "Performance-critical single snapshot"
+        },
+        {
+          "command": "fragment register range group 'specimen'",
+          "description": "Register contacts, but only consider those in 'specimen' group",
+          "use_case": "Fragment analysis limited to specific model region"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "fragment register",
+      "syntax": "fragment register [<s>...] [ignore-bond] [range]",
+      "keywords": [
+        {
+          "name": "ignorebond",
+          "syntax": "ignorebond",
+          "description": "Consider all contacts regardless of bonding state when computing fragments. By default, only bonded contacts are considered.",
+          "required": false
+        },
+        {
+          "name": "persist",
+          "syntax": "persist <b>",
+          "description": "Set the fragment persistence state (default true). If persistence is turned off, fragment registration and computations are much faster but no previous fragment states are retained.",
+          "required": false,
+          "parameters": [
+            {
+              "name": "b",
+              "type": "boolean",
+              "required": true,
+              "description": "True (default) to enable persistence, false for faster computation without history",
+              "valid_values": [
+                "true",
+                "false",
+                "on",
+                "off"
+              ]
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register",
+          "description": "Register all available contact types with default settings (bonded only, persist on)",
+          "use_case": "Standard fragment tracking initialization"
+        },
+        {
+          "command": "fragment register ball-ball",
+          "description": "Register only ball-ball contacts for fragment analysis",
+          "use_case": "When only interested in ball-ball connectivity"
+        },
+        {
+          "command": "fragment register ignorebond",
+          "description": "Register all contact types, consider all contacts regardless of bonding",
+          "use_case": "Fragment analysis based on any contact, not just bonds"
+        },
+        {
+          "command": "fragment register persist false",
+          "description": "Register with persistence off for faster computation without history",
+          "use_case": "Large models where performance is critical and history not needed"
+        },
+        {
+          "command": "fragment register ball-ball ball-facet ignorebond",
+          "description": "Register ball-ball and ball-facet, consider all contacts",
+          "use_case": "Multi-type fragment analysis without bond requirement"
+        },
+        {
+          "command": "contact cmat default type ball-ball model linearpbond ...\nball generate ...\nmodel clean\nfragment register ball-ball",
+          "description": "Create bonded contacts, then register for fragment tracking",
+          "use_case": "Typical setup sequence for bonded fragment analysis"
+        },
+        {
+          "command": "fragment register ball-ball persist false ignorebond\nfragment compute",
+          "description": "Fast registration and computation without persistence",
+          "use_case": "Performance-critical single snapshot"
+        },
+        {
+          "command": "fragment register range group 'specimen'",
+          "description": "Register contacts, but only consider those in 'specimen' group",
+          "use_case": "Fragment analysis limited to specific model region"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "fragment register",
+      "syntax": "fragment register [<s>...] [keyword] [range]",
+      "keywords": [
+        {
+          "name": "ignorebond",
+          "syntax": "ignorebond",
+          "description": "Consider all contacts regardless for bonding state when computing fragments."
+        },
+        {
+          "name": "persist",
+          "syntax": "persist <b>",
+          "description": "Set the fragment persistence state (deafult true ). If the persistence is turned off, fragment registration and computations are much faster but no previous fragment states are retained."
+        }
+      ],
+      "examples": [
+        {
+          "command": "fragment register",
+          "description": "Register all available contact types with default settings (bonded only, persist on)",
+          "use_case": "Standard fragment tracking initialization"
+        },
+        {
+          "command": "fragment register ball-ball",
+          "description": "Register only ball-ball contacts for fragment analysis",
+          "use_case": "When only interested in ball-ball connectivity"
+        },
+        {
+          "command": "fragment register ignorebond",
+          "description": "Register all contact types, consider all contacts regardless of bonding",
+          "use_case": "Fragment analysis based on any contact, not just bonds"
+        },
+        {
+          "command": "fragment register persist false",
+          "description": "Register with persistence off for faster computation without history",
+          "use_case": "Large models where performance is critical and history not needed"
+        },
+        {
+          "command": "fragment register ball-ball ball-facet ignorebond",
+          "description": "Register ball-ball and ball-facet, consider all contacts",
+          "use_case": "Multi-type fragment analysis without bond requirement"
+        },
+        {
+          "command": "contact cmat default type ball-ball model linearpbond ...\nball generate ...\nmodel clean\nfragment register ball-ball",
+          "description": "Create bonded contacts, then register for fragment tracking",
+          "use_case": "Typical setup sequence for bonded fragment analysis"
+        },
+        {
+          "command": "fragment register ball-ball persist false ignorebond\nfragment compute",
+          "description": "Fast registration and computation without persistence",
+          "use_case": "Performance-critical single snapshot"
+        },
+        {
+          "command": "fragment register range group 'specimen'",
+          "description": "Register contacts, but only consider those in 'specimen' group",
+          "use_case": "Fragment analysis limited to specific model region"
+        }
+      ]
+    }
   }
 }

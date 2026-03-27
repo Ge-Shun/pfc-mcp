@@ -1,5 +1,4 @@
 {
-  "command": "plot item",
   "category": "plot",
   "search_keywords": [
     "item",
@@ -19,30 +18,6 @@
     "zone"
   ],
   "description": "Create, destroy, or modify plot items associated with a plot. If no plot name is specified, the current view is assumed. Plot items control what is visualized in the plot. Note: Plot item configuration keywords are extensive and not fully documented; use 'plot export datafile' to inspect syntax.",
-  "syntax": "plot <s> item <keyword>",
-  "keywords": [
-    {
-      "name": "s",
-      "syntax": "<s>",
-      "description": "Plot name. If not specified, the current view is assumed.",
-      "optional": true
-    },
-    {
-      "name": "create",
-      "syntax": "create <keyword ...>",
-      "description": "Add a new plot item to the plot. See plot_items table for available item types."
-    },
-    {
-      "name": "delete",
-      "syntax": "delete <i>",
-      "description": "Destroy the ith plot item in the list. Note: this renumbers following items."
-    },
-    {
-      "name": "modify",
-      "syntax": "modify <i> <keyword ...>",
-      "description": "Modify the existing plot item at the ith position in the list."
-    }
-  ],
   "plot_items": [
     {
       "keyword": "axes",
@@ -220,28 +195,6 @@
       "description": "Water table used for pore pressures"
     }
   ],
-  "examples": [
-    {
-      "command": "plot item create axes",
-      "description": "Add axes to the current plot"
-    },
-    {
-      "command": "plot item create geometry",
-      "description": "Add geometry visualization to the plot"
-    },
-    {
-      "command": "plot item delete 1",
-      "description": "Delete the first plot item"
-    },
-    {
-      "command": "plot 'myplot' item create chart-history",
-      "description": "Add history chart to plot 'myplot'"
-    },
-    {
-      "command": "plot item modify 2 color red",
-      "description": "Modify the second plot item's color"
-    }
-  ],
   "notes": [
     "Plot item configuration keywords (color-by, cut, transparency, legend) are documented in references: use pfc_browse_reference('plot-items') to list available item types, then pfc_browse_reference('plot-items ball') for full keyword documentation",
     "Additional plot items can be added by plug-ins"
@@ -249,5 +202,136 @@
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('plot item create <type>') - no direct Python SDK method"
+  },
+  "versions": {
+    "7.0": {
+      "command": "plot item",
+      "syntax": "plot [<s>] item keyword",
+      "keywords": [
+        {
+          "name": "create",
+          "syntax": "create keyword ...",
+          "description": "adds a new plot item to the list associated with the plot. An alphabetical list of keywords, matched to the items available from the Build Plot dialog , is shown below. Note that additional plot items can be added by plug-ins to the system at any time."
+        },
+        {
+          "name": "delete",
+          "syntax": "delete <i>",
+          "description": "destroys the i th plot item in the list associated with the current plot. Note that this will renumber the plots following that in the list."
+        },
+        {
+          "name": "modify",
+          "syntax": "modify <i>keyword ...",
+          "description": "allows modification of the existing plot item at the i th position in the list associated with the current plot."
+        }
+      ],
+      "examples": [
+        {
+          "command": "plot item create axes",
+          "description": "Add axes to the current plot"
+        },
+        {
+          "command": "plot item create geometry",
+          "description": "Add geometry visualization to the plot"
+        },
+        {
+          "command": "plot item delete 1",
+          "description": "Delete the first plot item"
+        },
+        {
+          "command": "plot 'myplot' item create chart-history",
+          "description": "Add history chart to plot 'myplot'"
+        },
+        {
+          "command": "plot item modify 2 color red",
+          "description": "Modify the second plot item's color"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "plot item",
+      "syntax": "plot [<s>] item keyword",
+      "keywords": [
+        {
+          "name": "create",
+          "syntax": "create keyword ...",
+          "description": "adds a new plot item to the list associated with the plot. An alphabetical list of keywords, matched to the items available from the Build Plot dialog , is shown below. Note that additional plot items can be added by plug-ins to the system at any time."
+        },
+        {
+          "name": "delete",
+          "syntax": "delete <i>",
+          "description": "destroys the i th plot item in the list associated with the current plot. Note that this will renumber the plots following that in the list."
+        },
+        {
+          "name": "modify",
+          "syntax": "modify <i>keyword ...",
+          "description": "allows modification of the existing plot item at the i th position in the list associated with the current plot."
+        }
+      ],
+      "examples": [
+        {
+          "command": "plot item create axes",
+          "description": "Add axes to the current plot"
+        },
+        {
+          "command": "plot item create geometry",
+          "description": "Add geometry visualization to the plot"
+        },
+        {
+          "command": "plot item delete 1",
+          "description": "Delete the first plot item"
+        },
+        {
+          "command": "plot 'myplot' item create chart-history",
+          "description": "Add history chart to plot 'myplot'"
+        },
+        {
+          "command": "plot item modify 2 color red",
+          "description": "Modify the second plot item's color"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "plot item",
+      "syntax": "plot [<s>] item keyword",
+      "keywords": [
+        {
+          "name": "create",
+          "syntax": "create keyword ...",
+          "description": "adds a new plot item to the list associated with the plot. An alphabetical list of keywords, matched to the items available from the Build Plot dialog , is shown below. Note that additional plot items can be added by plug-ins to the system at any time."
+        },
+        {
+          "name": "delete",
+          "syntax": "delete <i>",
+          "description": "destroys the i th plot item in the list associated with the current plot. Note that this will renumber the plots following that in the list."
+        },
+        {
+          "name": "modify",
+          "syntax": "modify <i>keyword ...",
+          "description": "allows modification of the existing plot item at the i th position in the list associated with the current plot."
+        }
+      ],
+      "examples": [
+        {
+          "command": "plot item create axes",
+          "description": "Add axes to the current plot"
+        },
+        {
+          "command": "plot item create geometry",
+          "description": "Add geometry visualization to the plot"
+        },
+        {
+          "command": "plot item delete 1",
+          "description": "Delete the first plot item"
+        },
+        {
+          "command": "plot 'myplot' item create chart-history",
+          "description": "Add history chart to plot 'myplot'"
+        },
+        {
+          "command": "plot item modify 2 color red",
+          "description": "Modify the second plot item's color"
+        }
+      ]
+    }
   }
 }

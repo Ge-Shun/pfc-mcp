@@ -4,8 +4,9 @@ This module loads command documentation from JSON files with caching
 for performance.
 
 Responsibilities:
-- Load index.json (command catalog with 115 commands across 7 categories)
+- Load index.json (command catalog metadata)
 - Load individual command documentation files
+- Resolve versioned command schemas into a stable runtime shape
 - Cache loaded data to avoid repeated I/O
 """
 
@@ -23,14 +24,16 @@ class CommandLoader:
     All methods use caching to avoid repeated file I/O.
     """
 
+    DEFAULT_VERSION = "7.0"
+
     @staticmethod
     @lru_cache(maxsize=1)
     def load_index() -> dict[str, Any]:
         """Load the main command index file with caching.
 
         The index file contains:
-        - categories: 7 categories (ball, wall, clump, contact, model, fragment, measure)
-        - commands: 115 commands total with metadata
+        - categories: command categories with metadata
+        - commands: command catalog entries with summary metadata
         - python_sdk_alternatives: Command to Python SDK mappings
         - command_patterns: Common command patterns
 
@@ -56,12 +59,54 @@ class CommandLoader:
             return cast(dict[str, Any], json.load(f))
 
     @staticmethod
-    def load_command_doc(category: str, command_name: str) -> dict[str, Any] | None:
+    @lru_cache(maxsize=256)
+    def _load_doc_file(command_file: str) -> dict[str, Any] | None:
+        """Load a raw command documentation file by relative path."""
+        doc_path = PFC_COMMAND_DOCS_ROOT / command_file
+        if not doc_path.exists():
+            return None
+
+        with open(doc_path, encoding="utf-8") as f:
+            return cast(dict[str, Any], json.load(f))
+
+    @staticmethod
+    def _resolve_versioned_doc(doc: dict[str, Any], version: str) -> dict[str, Any]:
+        """Resolve a possibly-versioned command doc to a stable runtime shape."""
+        versions = doc.get("versions")
+        if not isinstance(versions, dict):
+            if version != CommandLoader.DEFAULT_VERSION:
+                raise KeyError(version)
+
+            resolved = dict(doc)
+            resolved["versions"] = [CommandLoader.DEFAULT_VERSION]
+            return resolved
+
+        if version not in versions:
+            raise KeyError(version)
+
+        resolved = {k: v for k, v in doc.items() if k != "versions"}
+        resolved["versions"] = list(versions.keys())
+
+        version_doc = versions[version]
+        if version_doc.get("available") is False:
+            resolved["available"] = False
+            return resolved
+
+        resolved.update(version_doc)
+        return resolved
+
+    @staticmethod
+    def load_command_doc(
+        category: str,
+        command_name: str,
+        version: str = DEFAULT_VERSION,
+    ) -> dict[str, Any] | None:
         """Load documentation for a specific command.
 
         Args:
             category: Command category (e.g., "ball", "contact", "model")
             command_name: Command name (e.g., "create", "property", "cycle")
+            version: PFC version string to resolve (defaults to 7.0)
 
         Returns:
             Command documentation dict with fields:
@@ -74,7 +119,12 @@ class CommandLoader:
                 - related_commands: Related commands
                 - python_alternative: Python SDK alternative (if available)
 
-            Returns None if command not found.
+                - versions: Available version strings
+
+            Returns None if command/category not found.
+
+        Raises:
+            KeyError: If the requested version is not present in the command doc
 
         Example:
             >>> doc = CommandLoader.load_command_doc("ball", "create")
@@ -103,13 +153,12 @@ class CommandLoader:
         if not command_file:
             return None
 
-        # Load command documentation
-        doc_path = PFC_COMMAND_DOCS_ROOT / command_file
-        if not doc_path.exists():
+        # Load and resolve command documentation
+        raw_doc = CommandLoader._load_doc_file(command_file)
+        if raw_doc is None:
             return None
 
-        with open(doc_path, encoding="utf-8") as f:
-            return cast(dict[str, Any], json.load(f))
+        return CommandLoader._resolve_versioned_doc(raw_doc, version)
 
     @staticmethod
     def get_all_commands() -> list[dict[str, Any]]:
@@ -127,7 +176,7 @@ class CommandLoader:
         Example:
             >>> commands = CommandLoader.get_all_commands()
             >>> len(commands)
-            115  # Total across all 7 categories
+            115
             >>> commands[0]["category"] in ["ball", "wall", "clump", ...]
             True
         """
@@ -148,3 +197,4 @@ class CommandLoader:
         Useful for testing or when documentation files are updated.
         """
         CommandLoader.load_index.cache_clear()
+        CommandLoader._load_doc_file.cache_clear()

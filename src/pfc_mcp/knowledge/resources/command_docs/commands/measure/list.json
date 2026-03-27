@@ -1,13 +1,10 @@
 {
-  "command": "measure list",
   "category": "measure",
   "search_keywords": [
     "list",
     "query"
   ],
   "description": "List information related to measurement regions. Displays details about all measurement objects including ID, position, radius, and calculated quantities such as porosity, coordination number, stress, and strain. This is the primary command for viewing measurement results.",
-  "syntax": "measure list",
-  "keywords": [],
   "notes": [
     "Lists all measurement objects in the model",
     "Shows measurement ID, position, radius",
@@ -18,33 +15,6 @@
     "Output format is tabular for easy reading",
     "Use after measure create to verify measurement setup",
     "Use after model clean to see measurement results"
-  ],
-  "examples": [
-    {
-      "command": "measure list",
-      "description": "List all measurement regions and their properties",
-      "use_case": "View all measurement configurations and results"
-    },
-    {
-      "command": "measure create radius 4.0\nmodel clean\nmeasure list",
-      "description": "Create measurement, calculate results, then list",
-      "use_case": "Complete measurement workflow with result viewing"
-    },
-    {
-      "command": "measure create id 1 radius 3.0\nmeasure create id 2 position (10,0,0) radius 3.0\nmodel clean\nmeasure list",
-      "description": "Create multiple measurements, calculate, list all",
-      "use_case": "Compare measurements at different locations"
-    },
-    {
-      "command": "measure list\nmeasure modify id 1 radius 5.0\nmodel clean\nmeasure list",
-      "description": "List before modification, modify, recalculate, list after",
-      "use_case": "Before/after comparison when adjusting measurements"
-    },
-    {
-      "command": "measure create radius 5.0 tolerance 0.001\nmodel cycle 1000\nmodel clean\nmeasure list",
-      "description": "Setup measurement, run simulation, calculate, view results",
-      "use_case": "Typical measurement workflow during simulation"
-    }
   ],
   "python_sdk_alternative": {
     "available": true,
@@ -337,6 +307,104 @@
       "state": "Geometry changed since last calculation",
       "list_shows": "Old calculated values (may be incorrect)",
       "next_step": "Call model clean to recalculate"
+    }
+  },
+  "versions": {
+    "7.0": {
+      "command": "measure list",
+      "syntax": "measure list",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "measure list",
+          "description": "List all measurement regions and their properties",
+          "use_case": "View all measurement configurations and results"
+        },
+        {
+          "command": "measure create radius 4.0\nmodel clean\nmeasure list",
+          "description": "Create measurement, calculate results, then list",
+          "use_case": "Complete measurement workflow with result viewing"
+        },
+        {
+          "command": "measure create id 1 radius 3.0\nmeasure create id 2 position (10,0,0) radius 3.0\nmodel clean\nmeasure list",
+          "description": "Create multiple measurements, calculate, list all",
+          "use_case": "Compare measurements at different locations"
+        },
+        {
+          "command": "measure list\nmeasure modify id 1 radius 5.0\nmodel clean\nmeasure list",
+          "description": "List before modification, modify, recalculate, list after",
+          "use_case": "Before/after comparison when adjusting measurements"
+        },
+        {
+          "command": "measure create radius 5.0 tolerance 0.001\nmodel cycle 1000\nmodel clean\nmeasure list",
+          "description": "Setup measurement, run simulation, calculate, view results",
+          "use_case": "Typical measurement workflow during simulation"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "measure list",
+      "syntax": "measure list",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "measure list",
+          "description": "List all measurement regions and their properties",
+          "use_case": "View all measurement configurations and results"
+        },
+        {
+          "command": "measure create radius 4.0\nmodel clean\nmeasure list",
+          "description": "Create measurement, calculate results, then list",
+          "use_case": "Complete measurement workflow with result viewing"
+        },
+        {
+          "command": "measure create id 1 radius 3.0\nmeasure create id 2 position (10,0,0) radius 3.0\nmodel clean\nmeasure list",
+          "description": "Create multiple measurements, calculate, list all",
+          "use_case": "Compare measurements at different locations"
+        },
+        {
+          "command": "measure list\nmeasure modify id 1 radius 5.0\nmodel clean\nmeasure list",
+          "description": "List before modification, modify, recalculate, list after",
+          "use_case": "Before/after comparison when adjusting measurements"
+        },
+        {
+          "command": "measure create radius 5.0 tolerance 0.001\nmodel cycle 1000\nmodel clean\nmeasure list",
+          "description": "Setup measurement, run simulation, calculate, view results",
+          "use_case": "Typical measurement workflow during simulation"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "measure list",
+      "syntax": "measure list",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "measure list",
+          "description": "List all measurement regions and their properties",
+          "use_case": "View all measurement configurations and results"
+        },
+        {
+          "command": "measure create radius 4.0\nmodel clean\nmeasure list",
+          "description": "Create measurement, calculate results, then list",
+          "use_case": "Complete measurement workflow with result viewing"
+        },
+        {
+          "command": "measure create id 1 radius 3.0\nmeasure create id 2 position (10,0,0) radius 3.0\nmodel clean\nmeasure list",
+          "description": "Create multiple measurements, calculate, list all",
+          "use_case": "Compare measurements at different locations"
+        },
+        {
+          "command": "measure list\nmeasure modify id 1 radius 5.0\nmodel clean\nmeasure list",
+          "description": "List before modification, modify, recalculate, list after",
+          "use_case": "Before/after comparison when adjusting measurements"
+        },
+        {
+          "command": "measure create radius 5.0 tolerance 0.001\nmodel cycle 1000\nmodel clean\nmeasure list",
+          "description": "Setup measurement, run simulation, calculate, view results",
+          "use_case": "Typical measurement workflow during simulation"
+        }
+      ]
     }
   }
 }

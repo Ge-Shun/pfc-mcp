@@ -14,7 +14,7 @@ _RESOURCES_DIR = Path(__file__).parent / "resources"
 PFC_DOCS_SOURCE = _RESOURCES_DIR / "python_sdk_docs"
 
 # Command documentation root (version-controlled, JSON format)
-# Contains PFC command documentation with 115 commands across 7 categories
+# Contains versioned PFC command documentation and command index metadata
 PFC_COMMAND_DOCS_ROOT = _RESOURCES_DIR / "command_docs"
 
 # Reference documentation (version-controlled, JSON format)

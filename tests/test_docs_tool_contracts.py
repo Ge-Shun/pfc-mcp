@@ -28,6 +28,7 @@ async def test_browse_commands_root_contract() -> None:
     assert isinstance(data["entries"], list)
     assert data["summary"]["count"] >= 1
     assert data["summary"]["total_commands"] >= 1
+    assert data["summary"]["version"] == "7.0"
 
 
 @pytest.mark.asyncio
@@ -60,8 +61,54 @@ async def test_query_command_contract() -> None:
     assert data["source"] == "commands"
     assert data["action"] == "query"
     assert data["summary"]["count"] >= 1
+    assert data["summary"]["version"] == "7.0"
     assert isinstance(data["entries"], list)
     assert len(data["entries"]) >= 1
+
+
+@pytest.mark.asyncio
+async def test_browse_commands_versioned_contract() -> None:
+    result = await mcp._tool_manager.call_tool(
+        "pfc_browse_commands",
+        {"command": "brick assemble", "version": "6.0"},
+    )
+    payload = _parse_tool_payload(result)
+    data = payload["data"]
+
+    assert payload["ok"] is True
+    assert data["summary"]["version"] == "6.0"
+    doc = data["entries"][0]["doc"]
+    assert doc["syntax"] == "brick assemble keyword [range]"
+
+
+@pytest.mark.asyncio
+async def test_browse_category_filters_unavailable_commands_by_version() -> None:
+    result = await mcp._tool_manager.call_tool(
+        "pfc_browse_commands",
+        {"command": "ball", "version": "6.0"},
+    )
+    payload = _parse_tool_payload(result)
+    data = payload["data"]
+    names = {entry["name"] for entry in data["entries"]}
+
+    assert payload["ok"] is True
+    assert data["summary"]["version"] == "6.0"
+    assert "accumulate-stress" not in names
+
+
+@pytest.mark.asyncio
+async def test_query_command_versioned_contract() -> None:
+    result = await mcp._tool_manager.call_tool(
+        "pfc_query_command",
+        {"query": "brick assemble", "limit": 5, "version": "6.0"},
+    )
+    payload = _parse_tool_payload(result)
+    data = payload["data"]
+
+    assert payload["ok"] is True
+    assert data["summary"]["version"] == "6.0"
+    assert len(data["entries"]) >= 1
+    assert data["entries"][0]["syntax"] == "brick assemble keyword [range]"
 
 
 @pytest.mark.asyncio

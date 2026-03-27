@@ -1,5 +1,4 @@
 {
-  "command": "contact property",
   "category": "contact",
   "search_keywords": [
     "property",
@@ -8,32 +7,6 @@
     "damping"
   ],
   "description": "Assign contact properties to existing contacts. All contacts with a contact model that recognizes the specified property are affected. This command modifies properties of existing contacts directly, unlike CMAT commands which define rules for future contact creation. Property inheritance may also be modified with the optional 'inheritance' keyword. By default, only mechanical contacts are considered.",
-  "syntax": "contact property <keyword> ... <inheritance b> ... <range>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (instead of mechanical)"
-    },
-    {
-      "name": "inheritance",
-      "syntax": "inheritance <b>",
-      "description": "Set property inheritance flag",
-      "parameters": [
-        {
-          "name": "b",
-          "type": "boolean",
-          "description": "true to enable inheritance, false to disable"
-        }
-      ],
-      "notes": "Only applicable to inheritable properties. Not all properties support inheritance."
-    }
-  ],
   "applicable_contact_models": [
     "linear",
     "linearpbond",
@@ -52,53 +25,6 @@
     "fish",
     "bilinear",
     "softbond"
-  ],
-  "examples": [
-    {
-      "command": "contact property pb_kn 1e7 pb_ks 1e7 pb_ten 4e5 pb_coh 4e5 pb_fa 20.0",
-      "description": "Set parallel bond properties for all contacts with linearpbond model (from fragmentation analysis example)",
-      "model": "linearpbond"
-    },
-    {
-      "command": "contact property lin_mode 1 lin_force 0 0 0 pb_ten 2e5 pb_coh 2e6",
-      "description": "Set linear mode, reset force, and update bond strengths (from sleeved triaxial test)",
-      "model": "linearpbond"
-    },
-    {
-      "command": "contact property pb_ten 1e5 pb_coh 1e5 pb_kn 500 pb_ks 188 pb_rmul 0.8",
-      "description": "Set bond properties including radius multiplier (from cantilever beam example)",
-      "model": "linearpbond"
-    },
-    {
-      "command": "contact property kn 1e8 ks 5e7 fric 0.5",
-      "description": "Update stiffnesses and friction for all contacts with linear model",
-      "model": "linear"
-    },
-    {
-      "command": "contact property fric 0.6 range group 'soil'",
-      "description": "Change friction coefficient only for contacts in 'soil' group",
-      "model": "any"
-    },
-    {
-      "command": "contact property dp_nratio 0.7 dp_sratio 0.5",
-      "description": "Add/update damping ratios for contacts with dashpot properties",
-      "model": "linear, linearpbond, linearcbond, etc."
-    },
-    {
-      "command": "contact property hz_shear 2e9 hz_poiss 0.25 range contact type 'ball-ball'",
-      "description": "Update Hertz model material properties for ball-ball contacts",
-      "model": "hertz"
-    },
-    {
-      "command": "contact property rr_fric 0.3 range contact",
-      "description": "Set rolling friction coefficient for all contacts with rrlinear model",
-      "model": "rrlinear"
-    },
-    {
-      "command": "contact property kn 1e8 inheritance true",
-      "description": "Set normal stiffness and enable inheritance from contacting pieces",
-      "model": "linear, linearpbond, linearcbond"
-    }
   ],
   "python_sdk_alternative": {
     "available": true,
@@ -325,5 +251,209 @@
         "hz_slip (slip state)"
       ]
     }
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "contact property",
+      "syntax": "contact property keyword ... [inheritance <b>] ...",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact property pb_kn 1e7 pb_ks 1e7 pb_ten 4e5 pb_coh 4e5 pb_fa 20.0",
+          "description": "Set parallel bond properties for all contacts with linearpbond model (from fragmentation analysis example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property lin_mode 1 lin_force 0 0 0 pb_ten 2e5 pb_coh 2e6",
+          "description": "Set linear mode, reset force, and update bond strengths (from sleeved triaxial test)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property pb_ten 1e5 pb_coh 1e5 pb_kn 500 pb_ks 188 pb_rmul 0.8",
+          "description": "Set bond properties including radius multiplier (from cantilever beam example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Update stiffnesses and friction for all contacts with linear model",
+          "model": "linear"
+        },
+        {
+          "command": "contact property fric 0.6 range group 'soil'",
+          "description": "Change friction coefficient only for contacts in 'soil' group",
+          "model": "any"
+        },
+        {
+          "command": "contact property dp_nratio 0.7 dp_sratio 0.5",
+          "description": "Add/update damping ratios for contacts with dashpot properties",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact property hz_shear 2e9 hz_poiss 0.25 range contact type 'ball-ball'",
+          "description": "Update Hertz model material properties for ball-ball contacts",
+          "model": "hertz"
+        },
+        {
+          "command": "contact property rr_fric 0.3 range contact",
+          "description": "Set rolling friction coefficient for all contacts with rrlinear model",
+          "model": "rrlinear"
+        },
+        {
+          "command": "contact property kn 1e8 inheritance true",
+          "description": "Set normal stiffness and enable inheritance from contacting pieces",
+          "model": "linear, linearpbond, linearcbond"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact property",
+      "syntax": "contact [<sprocess>] property <s>a[inheritance <b>] ...",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts (default behavior)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts (instead of mechanical)"
+        },
+        {
+          "name": "inheritance",
+          "syntax": "inheritance <b>",
+          "description": "Set property inheritance flag",
+          "parameters": [
+            {
+              "name": "b",
+              "type": "boolean",
+              "description": "true to enable inheritance, false to disable"
+            }
+          ],
+          "notes": "Only applicable to inheritable properties. Not all properties support inheritance."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact property pb_kn 1e7 pb_ks 1e7 pb_ten 4e5 pb_coh 4e5 pb_fa 20.0",
+          "description": "Set parallel bond properties for all contacts with linearpbond model (from fragmentation analysis example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property lin_mode 1 lin_force 0 0 0 pb_ten 2e5 pb_coh 2e6",
+          "description": "Set linear mode, reset force, and update bond strengths (from sleeved triaxial test)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property pb_ten 1e5 pb_coh 1e5 pb_kn 500 pb_ks 188 pb_rmul 0.8",
+          "description": "Set bond properties including radius multiplier (from cantilever beam example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Update stiffnesses and friction for all contacts with linear model",
+          "model": "linear"
+        },
+        {
+          "command": "contact property fric 0.6 range group 'soil'",
+          "description": "Change friction coefficient only for contacts in 'soil' group",
+          "model": "any"
+        },
+        {
+          "command": "contact property dp_nratio 0.7 dp_sratio 0.5",
+          "description": "Add/update damping ratios for contacts with dashpot properties",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact property hz_shear 2e9 hz_poiss 0.25 range contact type 'ball-ball'",
+          "description": "Update Hertz model material properties for ball-ball contacts",
+          "model": "hertz"
+        },
+        {
+          "command": "contact property rr_fric 0.3 range contact",
+          "description": "Set rolling friction coefficient for all contacts with rrlinear model",
+          "model": "rrlinear"
+        },
+        {
+          "command": "contact property kn 1e8 inheritance true",
+          "description": "Set normal stiffness and enable inheritance from contacting pieces",
+          "model": "linear, linearpbond, linearcbond"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact property",
+      "syntax": "contact property keyword ... [inheritance <b>] [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact property pb_kn 1e7 pb_ks 1e7 pb_ten 4e5 pb_coh 4e5 pb_fa 20.0",
+          "description": "Set parallel bond properties for all contacts with linearpbond model (from fragmentation analysis example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property lin_mode 1 lin_force 0 0 0 pb_ten 2e5 pb_coh 2e6",
+          "description": "Set linear mode, reset force, and update bond strengths (from sleeved triaxial test)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property pb_ten 1e5 pb_coh 1e5 pb_kn 500 pb_ks 188 pb_rmul 0.8",
+          "description": "Set bond properties including radius multiplier (from cantilever beam example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact property kn 1e8 ks 5e7 fric 0.5",
+          "description": "Update stiffnesses and friction for all contacts with linear model",
+          "model": "linear"
+        },
+        {
+          "command": "contact property fric 0.6 range group 'soil'",
+          "description": "Change friction coefficient only for contacts in 'soil' group",
+          "model": "any"
+        },
+        {
+          "command": "contact property dp_nratio 0.7 dp_sratio 0.5",
+          "description": "Add/update damping ratios for contacts with dashpot properties",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact property hz_shear 2e9 hz_poiss 0.25 range contact type 'ball-ball'",
+          "description": "Update Hertz model material properties for ball-ball contacts",
+          "model": "hertz"
+        },
+        {
+          "command": "contact property rr_fric 0.3 range contact",
+          "description": "Set rolling friction coefficient for all contacts with rrlinear model",
+          "model": "rrlinear"
+        },
+        {
+          "command": "contact property kn 1e8 inheritance true",
+          "description": "Set normal stiffness and enable inheritance from contacting pieces",
+          "model": "linear, linearpbond, linearcbond"
+        }
+      ]
+    }
+  }
 }

@@ -1,38 +1,10 @@
 {
-  "command": "contact cmat list",
   "category": "contact",
   "search_keywords": [
     "cmat",
     "list"
   ],
   "description": "Lists the CMAT (Contact Model Assignment Table). Displays all current entries in the CMAT including their indices, models, properties, and range specifications. This is useful for reviewing the current contact model assignment rules and debugging CMAT configuration. By default, only mechanical contacts are considered.",
-  "syntax": "contact cmat list <keyword>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "List mechanical CMAT entries (default behavior)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "List thermal CMAT entries (instead of mechanical)"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact cmat list",
-      "description": "List all mechanical CMAT entries with their indices, models, and properties"
-    },
-    {
-      "command": "contact cmat list mechanical",
-      "description": "Explicitly list mechanical CMAT entries (same as default)"
-    },
-    {
-      "command": "contact cmat list thermal",
-      "description": "List thermal CMAT entries"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact cmat list') - Python SDK does not provide direct CMAT API, must use command interface. Output goes to console, cannot be captured directly in Python."
@@ -118,5 +90,97 @@
       "issue": "Default entry not correct",
       "solution": "Use 'contact cmat list' to check entry 0. Use 'contact cmat default' to modify it."
     }
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "cmat list",
+      "syntax": "contact cmat list [keyword]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat list",
+          "description": "List all mechanical CMAT entries with their indices, models, and properties"
+        },
+        {
+          "command": "contact cmat list mechanical",
+          "description": "Explicitly list mechanical CMAT entries (same as default)"
+        },
+        {
+          "command": "contact cmat list thermal",
+          "description": "List thermal CMAT entries"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact cmat list",
+      "syntax": "contact cmat [<sprocess>] list",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "List mechanical CMAT entries (default behavior)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "List thermal CMAT entries (instead of mechanical)"
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat list",
+          "description": "List all mechanical CMAT entries with their indices, models, and properties"
+        },
+        {
+          "command": "contact cmat list mechanical",
+          "description": "Explicitly list mechanical CMAT entries (same as default)"
+        },
+        {
+          "command": "contact cmat list thermal",
+          "description": "List thermal CMAT entries"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "cmat list",
+      "syntax": "contact cmat list [keyword]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat list",
+          "description": "List all mechanical CMAT entries with their indices, models, and properties"
+        },
+        {
+          "command": "contact cmat list mechanical",
+          "description": "Explicitly list mechanical CMAT entries (same as default)"
+        },
+        {
+          "command": "contact cmat list thermal",
+          "description": "List thermal CMAT entries"
+        }
+      ]
+    }
+  }
 }

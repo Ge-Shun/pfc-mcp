@@ -90,6 +90,10 @@ class APIDocFormatter:
                 obj_path = f"itasca.clump.template.{name}"
             elif "clump" in file_path:
                 obj_path = f"itasca.clump.{name}"
+            elif "rblock/template" in file_path:
+                obj_path = f"itasca.rblock.template.{name}"
+            elif "rblock" in file_path:
+                obj_path = f"itasca.rblock.{name}"
             elif "wall/facet" in file_path:
                 obj_path = f"itasca.wall.facet.{name}"
             elif "wall/vertex" in file_path:

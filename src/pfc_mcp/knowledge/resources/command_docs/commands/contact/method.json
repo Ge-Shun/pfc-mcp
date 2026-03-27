@@ -1,5 +1,4 @@
 {
-  "command": "contact method",
   "category": "contact",
   "search_keywords": [
     "method",
@@ -8,19 +7,6 @@
     "modulus"
   ],
   "description": "Execute contact model methods on existing contacts. The specified method, along with its arguments, is invoked for all contacts in the range that have a contact model supporting that method. Methods are model-specific functions that perform specialized operations like activating bonds, setting deformability parameters, or other model-specific behaviors. By default, only mechanical contacts are considered.",
-  "syntax": "contact method <method_name> <arg_name> <arg_value> ... <range>",
-  "keywords": [
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply method to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply method to thermal contacts (instead of mechanical)"
-    }
-  ],
   "available_methods_by_model": {
     "linear": [
       {
@@ -136,38 +122,6 @@
       }
     ]
   },
-  "examples": [
-    {
-      "command": "contact method bond gap 0.0 pb_deformability emod 60e9 kratio 2.5",
-      "description": "Bond contacts with parallel bond model and set parallel bond stiffnesses from material properties (from SRM specimen example)",
-      "model": "linearpbond"
-    },
-    {
-      "command": "contact method bond range contact active",
-      "description": "Activate bonds on all active contacts (from rigid block tunnel excavation)",
-      "model": "linearpbond or linearcbond"
-    },
-    {
-      "command": "contact method pb_deformability emod 60e10 kratio 1.0",
-      "description": "Set parallel bond stiffnesses based on elastic modulus and stiffness ratio",
-      "model": "linearpbond"
-    },
-    {
-      "command": "contact method deformability emod 60e9 kratio 2.5",
-      "description": "Set linear component stiffnesses from material properties for all contacts",
-      "model": "linear, linearpbond, linearcbond, etc."
-    },
-    {
-      "command": "contact method bond gap 1e-6 range group 'specimen'",
-      "description": "Bond contacts in 'specimen' group allowing small initial gap",
-      "model": "linearpbond or linearcbond"
-    },
-    {
-      "command": "contact method deformability emod 50e9 kratio 1.5 range contact type 'ball-ball'",
-      "description": "Set stiffnesses for ball-ball contacts only",
-      "model": "any model with deformability method"
-    }
-  ],
   "python_sdk_alternative": {
     "available": true,
     "methods": [
@@ -464,6 +418,152 @@
         "for c in it.contact.list():",
         "    if c.gap() < 1e-6:",
         "        c.method('bond', {'gap': 0.0})"
+      ]
+    }
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact method",
+      "syntax": "contact method keyword ... [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply the method to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply the method to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact method bond gap 0.0 pb_deformability emod 60e9 kratio 2.5",
+          "description": "Bond contacts with parallel bond model and set parallel bond stiffnesses from material properties (from SRM specimen example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method bond range contact active",
+          "description": "Activate bonds on all active contacts (from rigid block tunnel excavation)",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method pb_deformability emod 60e10 kratio 1.0",
+          "description": "Set parallel bond stiffnesses based on elastic modulus and stiffness ratio",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method deformability emod 60e9 kratio 2.5",
+          "description": "Set linear component stiffnesses from material properties for all contacts",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact method bond gap 1e-6 range group 'specimen'",
+          "description": "Bond contacts in 'specimen' group allowing small initial gap",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method deformability emod 50e9 kratio 1.5 range contact type 'ball-ball'",
+          "description": "Set stiffnesses for ball-ball contacts only",
+          "model": "any model with deformability method"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact method",
+      "syntax": "contact [<sprocess>] method <sm>[<sa>a] ... [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply method to mechanical contacts (default behavior)"
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply method to thermal contacts (instead of mechanical)"
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact method bond gap 0.0 pb_deformability emod 60e9 kratio 2.5",
+          "description": "Bond contacts with parallel bond model and set parallel bond stiffnesses from material properties (from SRM specimen example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method bond range contact active",
+          "description": "Activate bonds on all active contacts (from rigid block tunnel excavation)",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method pb_deformability emod 60e10 kratio 1.0",
+          "description": "Set parallel bond stiffnesses based on elastic modulus and stiffness ratio",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method deformability emod 60e9 kratio 2.5",
+          "description": "Set linear component stiffnesses from material properties for all contacts",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact method bond gap 1e-6 range group 'specimen'",
+          "description": "Bond contacts in 'specimen' group allowing small initial gap",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method deformability emod 50e9 kratio 1.5 range contact type 'ball-ball'",
+          "description": "Set stiffnesses for ball-ball contacts only",
+          "model": "any model with deformability method"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact method",
+      "syntax": "contact method keyword ... [range]",
+      "keywords": [
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply the method to mechanical contacts."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply the method to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact method bond gap 0.0 pb_deformability emod 60e9 kratio 2.5",
+          "description": "Bond contacts with parallel bond model and set parallel bond stiffnesses from material properties (from SRM specimen example)",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method bond range contact active",
+          "description": "Activate bonds on all active contacts (from rigid block tunnel excavation)",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method pb_deformability emod 60e10 kratio 1.0",
+          "description": "Set parallel bond stiffnesses based on elastic modulus and stiffness ratio",
+          "model": "linearpbond"
+        },
+        {
+          "command": "contact method deformability emod 60e9 kratio 2.5",
+          "description": "Set linear component stiffnesses from material properties for all contacts",
+          "model": "linear, linearpbond, linearcbond, etc."
+        },
+        {
+          "command": "contact method bond gap 1e-6 range group 'specimen'",
+          "description": "Bond contacts in 'specimen' group allowing small initial gap",
+          "model": "linearpbond or linearcbond"
+        },
+        {
+          "command": "contact method deformability emod 50e9 kratio 1.5 range contact type 'ball-ball'",
+          "description": "Set stiffnesses for ball-ball contacts only",
+          "model": "any model with deformability method"
+        }
       ]
     }
   }

@@ -7,6 +7,7 @@ Model properties are handled separately via pfc_browse_reference tool.
 from typing import Any
 
 from pfc_mcp.knowledge.adapters.command_adapter import CommandDocumentAdapter
+from pfc_mcp.knowledge.commands.loader import CommandLoader
 from pfc_mcp.knowledge.models.search_result import SearchResult
 from pfc_mcp.knowledge.search.engines.bm25_engine import BM25SearchEngine
 
@@ -38,24 +39,31 @@ class CommandSearch:
     """
 
     # Singleton instance
-    _engine: BM25SearchEngine | None = None
+    _engines: dict[str, BM25SearchEngine] = {}
 
     @classmethod
-    def _get_engine(cls) -> BM25SearchEngine:
-        """Get or create BM25 search engine (singleton pattern).
+    def _get_engine(cls, version: str = CommandLoader.DEFAULT_VERSION) -> BM25SearchEngine:
+        """Get or create a version-specific BM25 search engine.
 
         Returns:
             BM25SearchEngine instance (shared across all calls)
         """
-        if cls._engine is None:
-            cls._engine = BM25SearchEngine(document_loader=CommandDocumentAdapter.load_commands)
-            cls._engine.build()
+        if version not in cls._engines:
+            cls._engines[version] = BM25SearchEngine(
+                document_loader=lambda: CommandDocumentAdapter.load_commands(version=version)
+            )
+            cls._engines[version].build()
 
-        return cls._engine
+        return cls._engines[version]
 
     @classmethod
     def search(
-        cls, query: str, top_k: int = 10, category: str | None = None, min_score: float | None = None
+        cls,
+        query: str,
+        top_k: int = 10,
+        category: str | None = None,
+        min_score: float | None = None,
+        version: str = CommandLoader.DEFAULT_VERSION,
     ) -> list[SearchResult]:
         """Search for PFC commands.
 
@@ -80,7 +88,7 @@ class CommandSearch:
             >>> results[0].document.category
             "ball"
         """
-        engine = cls._get_engine()
+        engine = cls._get_engine(version)
 
         # Build filter dictionary
         filters: dict[str, Any] = {}
@@ -97,7 +105,13 @@ class CommandSearch:
         return results
 
     @classmethod
-    def search_commands_only(cls, query: str, top_k: int = 10, category: str | None = None) -> list[SearchResult]:
+    def search_commands_only(
+        cls,
+        query: str,
+        top_k: int = 10,
+        category: str | None = None,
+        version: str = CommandLoader.DEFAULT_VERSION,
+    ) -> list[SearchResult]:
         """Search for commands (alias for search method).
 
         Kept for backward compatibility.
@@ -110,10 +124,15 @@ class CommandSearch:
         Returns:
             List of SearchResult objects
         """
-        return cls.search(query=query, top_k=top_k, category=category)
+        return cls.search(query=query, top_k=top_k, category=category, version=version)
 
     @classmethod
-    def get_by_category(cls, category: str, top_k: int = 20) -> list[SearchResult]:
+    def get_by_category(
+        cls,
+        category: str,
+        top_k: int = 20,
+        version: str = CommandLoader.DEFAULT_VERSION,
+    ) -> list[SearchResult]:
         """Get all commands in a specific category.
 
         Args:
@@ -128,10 +147,10 @@ class CommandSearch:
             >>> all(r.document.category == "ball" for r in results)
             True
         """
-        return cls.search(query=category, top_k=top_k, category=category)
+        return cls.search(query=category, top_k=top_k, category=category, version=version)
 
     @classmethod
-    def rebuild_index(cls) -> None:
+    def rebuild_index(cls, version: str | None = None) -> None:
         """Rebuild search index from scratch.
 
         Use this when:
@@ -139,11 +158,16 @@ class CommandSearch:
         - Index parameters need to be changed
         - Troubleshooting index issues
         """
-        if cls._engine is not None:
-            cls._engine.rebuild()
+        if version is not None:
+            if version in cls._engines:
+                cls._engines[version].rebuild()
+            return
+
+        for engine in cls._engines.values():
+            engine.rebuild()
 
     @classmethod
-    def get_index_stats(cls) -> dict[str, Any]:
+    def get_index_stats(cls, version: str = CommandLoader.DEFAULT_VERSION) -> dict[str, Any]:
         """Get search index statistics.
 
         Returns:
@@ -153,5 +177,5 @@ class CommandSearch:
             - description_field: Description field statistics
             - keywords_field: Keywords field statistics
         """
-        engine = cls._get_engine()
+        engine = cls._get_engine(version)
         return engine.get_index_stats()

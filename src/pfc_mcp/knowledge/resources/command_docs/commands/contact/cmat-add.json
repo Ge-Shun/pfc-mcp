@@ -1,5 +1,4 @@
 {
-  "command": "contact cmat add",
   "category": "contact",
   "search_keywords": [
     "cmat",
@@ -7,198 +6,6 @@
     "rule"
   ],
   "description": "Adds a new entry to the CMAT (Contact Model Assignment Table). If i is not specified or if i is greater than the total number of entries minus one, then the new entry is added to the end of the CMAT; otherwise, the new entry is inserted at slot i (i>0) while incrementing subsequent entry indices as necessary. The range token is mandatory and must be specified last. By default, only mechanical contacts are considered.",
-  "syntax": "contact cmat add <i> <keyword> ... range",
-  "keywords": [
-    {
-      "name": "inheritance",
-      "syntax": "inheritance <s> <b> ...",
-      "description": "Set inheritance for contact model property s to boolean b (true/false)",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Property name"
-        },
-        {
-          "name": "b",
-          "type": "boolean",
-          "description": "Inheritance setting (true/false)"
-        }
-      ]
-    },
-    {
-      "name": "mechanical",
-      "syntax": "mechanical",
-      "description": "Apply to mechanical contacts (default behavior)"
-    },
-    {
-      "name": "method",
-      "syntax": "method <sm> <sa> <a> ...",
-      "description": "Register contact model method sm with argument names and values. Will be invoked at contact creation",
-      "parameters": [
-        {
-          "name": "sm",
-          "type": "string",
-          "description": "Method name"
-        },
-        {
-          "name": "sa",
-          "type": "string",
-          "description": "Argument name"
-        },
-        {
-          "name": "a",
-          "type": "any",
-          "description": "Argument value"
-        }
-      ]
-    },
-    {
-      "name": "model",
-      "syntax": "model <model_name>",
-      "description": "Specify the contact model to assign",
-      "available_models": [
-        {
-          "name": "linear",
-          "description": "Linear Model - elastic and frictional behavior"
-        },
-        {
-          "name": "linearpbond",
-          "description": "Linear Parallel Bond Model - bonded material behavior"
-        },
-        {
-          "name": "linearcbond",
-          "description": "Linear Contact Bond Model - contact-based bonds"
-        },
-        {
-          "name": "hertz",
-          "description": "Hertz Model - non-linear elastic contact"
-        },
-        {
-          "name": "rrlinear",
-          "description": "Rolling Resistance Linear Model"
-        },
-        {
-          "name": "arrlinear",
-          "description": "Adhesive Rolling Resistance Linear Model"
-        },
-        {
-          "name": "bilinear",
-          "description": "Bilinear Contact Model"
-        },
-        {
-          "name": "burger",
-          "description": "Burger's Model - viscoelastic behavior"
-        },
-        {
-          "name": "fish",
-          "description": "FISH Model - custom user-defined model"
-        },
-        {
-          "name": "flatjoint",
-          "description": "Flat-Joint Model - smooth joint surfaces"
-        },
-        {
-          "name": "hysteretic",
-          "description": "Hysteretic Model - loading/unloading paths"
-        },
-        {
-          "name": "lineardipole",
-          "description": "Linear Dipole Model (3D ONLY)"
-        },
-        {
-          "name": "smoothjoint",
-          "description": "Smooth-Joint Model - reduced interlocking"
-        },
-        {
-          "name": "softbond",
-          "description": "Soft-Bond Model - crushable bonds"
-        },
-        {
-          "name": "null",
-          "description": "Null Model - no force transmission"
-        }
-      ]
-    },
-    {
-      "name": "property",
-      "syntax": "property <s> <a> <inheritance b> ...",
-      "description": "Set contact model property s to value a. Optionally set inheritance to b",
-      "parameters": [
-        {
-          "name": "s",
-          "type": "string",
-          "description": "Property name (model-specific, e.g., 'kn', 'ks', 'fric')"
-        },
-        {
-          "name": "a",
-          "type": "any",
-          "description": "Property value"
-        },
-        {
-          "name": "b",
-          "type": "boolean",
-          "required": false,
-          "description": "Inheritance setting (if inheritance keyword specified)"
-        }
-      ]
-    },
-    {
-      "name": "proximity",
-      "syntax": "proximity <fd>",
-      "description": "Set contact detection distance",
-      "parameters": [
-        {
-          "name": "fd",
-          "type": "float",
-          "description": "Detection distance value"
-        }
-      ]
-    },
-    {
-      "name": "thermal",
-      "syntax": "thermal",
-      "description": "Apply to thermal contacts (instead of mechanical)"
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact cmat add model linear property kn 1e8 ks 5e7 fric 0.5 range group 'soil'",
-      "description": "Add CMAT entry for 'soil' group with linear model and specified properties"
-    },
-    {
-      "command": "contact cmat add 1 model linearpbond property pb_kn 1e9 pb_ks 5e8 pb_ten 1e6 pb_coh 5e5 range contact type 'ball-ball'",
-      "description": "Insert CMAT entry at position 1 for ball-ball contacts with parallel bonds"
-    },
-    {
-      "command": "contact cmat add model hertz property hz_shear 2e9 hz_poiss 0.25 fric 0.3 range contact",
-      "description": "Add Hertz model to end of CMAT for all contacts"
-    },
-    {
-      "command": "contact cmat add model linear property kn 1e8 inheritance false property ks 5e7 inheritance true range group 'wall_contacts'",
-      "description": "Add entry with mixed property inheritance settings"
-    },
-    {
-      "command": "contact cmat add model linear method bond gap 0.0 range group 'bonded'",
-      "description": "Add entry that invokes 'bond' method with gap=0.0 at contact creation"
-    },
-    {
-      "command": "contact cmat add mechanical model linear property kn 1e8 proximity 0.1 range contact type 'ball-facet'",
-      "description": "Add mechanical contact entry with proximity detection for ball-facet contacts"
-    },
-    {
-      "command": "contact cmat add thermal property th_kn 100 range group 'heated'",
-      "description": "Add thermal contact entry for 'heated' group"
-    },
-    {
-      "command": "contact cmat add 1 model hertz property hz_shear 1e9 hz_poiss 0.3 fric 0.3 range group 'glass' matches 2",
-      "description": "Slot 1: glass-glass contacts (both pieces must be glass)"
-    },
-    {
-      "command": "contact cmat add 2 model hertz property hz_shear 2e9 hz_poiss 0.3 fric 0.1 range group 'steel' matches 2",
-      "description": "Slot 2: steel-steel contacts (both pieces must be steel)"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact cmat add ...') - Python SDK does not provide direct CMAT API, must use command interface"
@@ -244,5 +51,229 @@
       "command": "contact cmat add 1 model hertz property hz_shear 1e9 range group 'glass' matches 2\ncontact cmat add 2 model hertz property hz_shear 2e9 range group 'steel' matches 2\ncontact cmat default type ball-ball model hertz property hz_shear 1.5e9",
       "description": "Slot 1: glass-glass, Slot 2: steel-steel, Default: glass-steel (mixed)"
     }
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "cmat add",
+      "syntax": "contact cmat add [<i>] keyword ... range",
+      "keywords": [
+        {
+          "name": "inheritance",
+          "syntax": "inheritance <s><b>...",
+          "description": "The inheritance for the contact model property s is set to b ."
+        },
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "method",
+          "syntax": "method <sm>[<sa><a>] ...",
+          "description": "The contact model method sm , along with its specific list of argument names and values, is registered with this CMAT entry and will be invoked at contact creation."
+        },
+        {
+          "name": "softbond",
+          "syntax": "softbond",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Bilinear Contact Model contact model. Specify the Burger’s Model contact model. Specify the FISH Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Dipole Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <s><a>[inheritance <b>] ...",
+          "description": "The contact model property named s is set to a . If the inheritance keyword is specified, the inheritance for this property is set to b ."
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "The detection distance is set to fd ."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat add model linear property kn 1e8 ks 5e7 fric 0.5 range group 'soil'",
+          "description": "Add CMAT entry for 'soil' group with linear model and specified properties"
+        },
+        {
+          "command": "contact cmat add 1 model linearpbond property pb_kn 1e9 pb_ks 5e8 pb_ten 1e6 pb_coh 5e5 range contact type 'ball-ball'",
+          "description": "Insert CMAT entry at position 1 for ball-ball contacts with parallel bonds"
+        },
+        {
+          "command": "contact cmat add model hertz property hz_shear 2e9 hz_poiss 0.25 fric 0.3 range contact",
+          "description": "Add Hertz model to end of CMAT for all contacts"
+        },
+        {
+          "command": "contact cmat add model linear property kn 1e8 inheritance false property ks 5e7 inheritance true range group 'wall_contacts'",
+          "description": "Add entry with mixed property inheritance settings"
+        },
+        {
+          "command": "contact cmat add model linear method bond gap 0.0 range group 'bonded'",
+          "description": "Add entry that invokes 'bond' method with gap=0.0 at contact creation"
+        },
+        {
+          "command": "contact cmat add mechanical model linear property kn 1e8 proximity 0.1 range contact type 'ball-facet'",
+          "description": "Add mechanical contact entry with proximity detection for ball-facet contacts"
+        },
+        {
+          "command": "contact cmat add thermal property th_kn 100 range group 'heated'",
+          "description": "Add thermal contact entry for 'heated' group"
+        },
+        {
+          "command": "contact cmat add 1 model hertz property hz_shear 1e9 hz_poiss 0.3 fric 0.3 range group 'glass' matches 2",
+          "description": "Slot 1: glass-glass contacts (both pieces must be glass)"
+        },
+        {
+          "command": "contact cmat add 2 model hertz property hz_shear 2e9 hz_poiss 0.3 fric 0.1 range group 'steel' matches 2",
+          "description": "Slot 2: steel-steel contacts (both pieces must be steel)"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact cmat add",
+      "syntax": "contact cmat [<sprocess>] add [<i>] keyword ... range",
+      "keywords": [
+        {
+          "name": "inheritance",
+          "syntax": "inheritance <s><b>...",
+          "description": "The inheritance for the contact model property s is set to b ."
+        },
+        {
+          "name": "method",
+          "syntax": "method <sm>[<sa>a] ...",
+          "description": "The contact model method sm , along with its specific list of argument names and values, is registered with this CMAT entry and will be invoked at contact creation. The list of available methods is contact model specific. Visit the documentation of the desired contact model for details."
+        },
+        {
+          "name": "softbond",
+          "syntax": "softbond",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Burger’s Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <s>a[inheritance <b>] ...",
+          "description": "The contact model property named s is set to a . The list of available properties is contact model specific. Visit the documentation of the desired contact model for details. If the inheritance keyword is specified, the inheritance for this property is set to b ."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat add model linear property kn 1e8 ks 5e7 fric 0.5 range group 'soil'",
+          "description": "Add CMAT entry for 'soil' group with linear model and specified properties"
+        },
+        {
+          "command": "contact cmat add 1 model linearpbond property pb_kn 1e9 pb_ks 5e8 pb_ten 1e6 pb_coh 5e5 range contact type 'ball-ball'",
+          "description": "Insert CMAT entry at position 1 for ball-ball contacts with parallel bonds"
+        },
+        {
+          "command": "contact cmat add model hertz property hz_shear 2e9 hz_poiss 0.25 fric 0.3 range contact",
+          "description": "Add Hertz model to end of CMAT for all contacts"
+        },
+        {
+          "command": "contact cmat add model linear property kn 1e8 inheritance false property ks 5e7 inheritance true range group 'wall_contacts'",
+          "description": "Add entry with mixed property inheritance settings"
+        },
+        {
+          "command": "contact cmat add model linear method bond gap 0.0 range group 'bonded'",
+          "description": "Add entry that invokes 'bond' method with gap=0.0 at contact creation"
+        },
+        {
+          "command": "contact cmat add mechanical model linear property kn 1e8 proximity 0.1 range contact type 'ball-facet'",
+          "description": "Add mechanical contact entry with proximity detection for ball-facet contacts"
+        },
+        {
+          "command": "contact cmat add thermal property th_kn 100 range group 'heated'",
+          "description": "Add thermal contact entry for 'heated' group"
+        },
+        {
+          "command": "contact cmat add 1 model hertz property hz_shear 1e9 hz_poiss 0.3 fric 0.3 range group 'glass' matches 2",
+          "description": "Slot 1: glass-glass contacts (both pieces must be glass)"
+        },
+        {
+          "command": "contact cmat add 2 model hertz property hz_shear 2e9 hz_poiss 0.3 fric 0.1 range group 'steel' matches 2",
+          "description": "Slot 2: steel-steel contacts (both pieces must be steel)"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "cmat add",
+      "syntax": "contact cmat add [<i>] keyword ... range",
+      "keywords": [
+        {
+          "name": "inheritance",
+          "syntax": "inheritance <s><b>...",
+          "description": "The inheritance for the contact model property s is set to b ."
+        },
+        {
+          "name": "mechanical",
+          "syntax": "mechanical",
+          "description": "Apply to mechanical contacts."
+        },
+        {
+          "name": "method",
+          "syntax": "method <sm>[<sa><a>] ...",
+          "description": "The contact model method sm , along with its specific list of argument names and values, is registered with this CMAT entry and will be invoked at contact creation."
+        },
+        {
+          "name": "subspringnetwork",
+          "syntax": "subspringnetwork",
+          "description": "Specify the contact model. The list of built-in mechanical contact models is given in the “ Built-in Contact Models ” section. Users may also implement custom contact models (see “ User-Defined Contact Models ” for further information) and register them in the CMAT. Specify the Adhesive Rolling Resistance Linear Model contact model. Specify the Bilinear Contact Model contact model. Specify the Burger’s Model contact model. Specify the FISH Model contact model. Specify the Flat-Joint Model contact model. Specify the Hertz Model contact model. Specify the Hysteretic Model contact model. Specify the Linear Model contact model. Specify the Linear Contact Bond Model contact model. Specify the Linear Dipole Model contact model. Specify the Linear Parallel Bond Model contact model. Specify the Null Model contact model. Specify the Rolling Resistance Linear Model contact model. Specify the Smooth-Joint Model contact model. Specify the Soft-Bond Model contact model. Specify the Spring Network Model contact model. Specify the Subspring Network Model contact model."
+        },
+        {
+          "name": "property",
+          "syntax": "property <s><a>[inheritance <b>] ...",
+          "description": "The contact model property named s is set to a . If the inheritance keyword is specified, the inheritance for this property is set to b ."
+        },
+        {
+          "name": "proximity",
+          "syntax": "proximity <fd>",
+          "description": "The detection distance is set to fd ."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "Apply to thermal contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact cmat add model linear property kn 1e8 ks 5e7 fric 0.5 range group 'soil'",
+          "description": "Add CMAT entry for 'soil' group with linear model and specified properties"
+        },
+        {
+          "command": "contact cmat add 1 model linearpbond property pb_kn 1e9 pb_ks 5e8 pb_ten 1e6 pb_coh 5e5 range contact type 'ball-ball'",
+          "description": "Insert CMAT entry at position 1 for ball-ball contacts with parallel bonds"
+        },
+        {
+          "command": "contact cmat add model hertz property hz_shear 2e9 hz_poiss 0.25 fric 0.3 range contact",
+          "description": "Add Hertz model to end of CMAT for all contacts"
+        },
+        {
+          "command": "contact cmat add model linear property kn 1e8 inheritance false property ks 5e7 inheritance true range group 'wall_contacts'",
+          "description": "Add entry with mixed property inheritance settings"
+        },
+        {
+          "command": "contact cmat add model linear method bond gap 0.0 range group 'bonded'",
+          "description": "Add entry that invokes 'bond' method with gap=0.0 at contact creation"
+        },
+        {
+          "command": "contact cmat add mechanical model linear property kn 1e8 proximity 0.1 range contact type 'ball-facet'",
+          "description": "Add mechanical contact entry with proximity detection for ball-facet contacts"
+        },
+        {
+          "command": "contact cmat add thermal property th_kn 100 range group 'heated'",
+          "description": "Add thermal contact entry for 'heated' group"
+        },
+        {
+          "command": "contact cmat add 1 model hertz property hz_shear 1e9 hz_poiss 0.3 fric 0.3 range group 'glass' matches 2",
+          "description": "Slot 1: glass-glass contacts (both pieces must be glass)"
+        },
+        {
+          "command": "contact cmat add 2 model hertz property hz_shear 2e9 hz_poiss 0.3 fric 0.1 range group 'steel' matches 2",
+          "description": "Slot 2: steel-steel contacts (both pieces must be steel)"
+        }
+      ]
+    }
+  }
 }

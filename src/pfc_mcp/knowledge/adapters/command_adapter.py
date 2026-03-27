@@ -27,7 +27,7 @@ class CommandDocumentAdapter:
     """
 
     @staticmethod
-    def load_commands() -> list[SearchDocument]:
+    def load_commands(version: str = CommandLoader.DEFAULT_VERSION) -> list[SearchDocument]:
         """Load all PFC command documents.
 
         Returns:
@@ -49,8 +49,8 @@ class CommandDocumentAdapter:
             cmd_name = cmd_meta["name"]
 
             # Load full command documentation
-            cmd_doc = CommandLoader.load_command_doc(category, cmd_name)
-            if not cmd_doc:
+            cmd_doc = CommandLoader.load_command_doc(category, cmd_name, version)
+            if not cmd_doc or cmd_doc.get("available") is False:
                 continue
 
             # Convert to SearchDocument
@@ -67,6 +67,7 @@ class CommandDocumentAdapter:
                     "python_available": cmd_doc.get("python_sdk_alternative", {}).get("available", False),
                     "file": cmd_meta.get("file"),
                     "short_description": cmd_meta.get("short_description", ""),
+                    "version": version,
                 },
             )
             documents.append(doc)
@@ -77,7 +78,7 @@ class CommandDocumentAdapter:
     load_all = load_commands
 
     @staticmethod
-    def load_by_id(doc_id: str) -> SearchDocument | None:
+    def load_by_id(doc_id: str, version: str = CommandLoader.DEFAULT_VERSION) -> SearchDocument | None:
         """Load a specific command document by ID.
 
         Args:
@@ -95,9 +96,9 @@ class CommandDocumentAdapter:
             return None
 
         category, cmd_name = doc_id.split(" ", 1)
-        cmd_doc = CommandLoader.load_command_doc(category, cmd_name)
+        cmd_doc = CommandLoader.load_command_doc(category, cmd_name, version)
 
-        if not cmd_doc:
+        if not cmd_doc or cmd_doc.get("available") is False:
             return None
 
         return SearchDocument(
@@ -109,5 +110,8 @@ class CommandDocumentAdapter:
             category=category,
             syntax=cmd_doc.get("syntax"),
             examples=cmd_doc.get("examples", []),
-            metadata={"python_available": cmd_doc.get("python_sdk_alternative", {}).get("available", False)},
+            metadata={
+                "python_available": cmd_doc.get("python_sdk_alternative", {}).get("available", False),
+                "version": version,
+            },
         )

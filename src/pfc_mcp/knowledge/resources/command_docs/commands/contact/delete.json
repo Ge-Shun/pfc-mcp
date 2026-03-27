@@ -1,50 +1,10 @@
 {
-  "command": "contact delete",
   "category": "contact",
   "search_keywords": [
     "delete",
     "remove"
   ],
   "description": "Delete contacts in the specified range. Deleted contacts are removed from the simulation and will no longer compute forces. Note that if contact detection is enabled (via 'contact detection' command), deleted contacts may be automatically recreated when pieces are remapped in the cell-space during subsequent cycles. To permanently prevent contact recreation, either disable contact detection or move pieces far enough apart.",
-  "syntax": "contact delete <range>",
-  "keywords": [],
-  "examples": [
-    {
-      "command": "contact delete range contact inactive",
-      "description": "Delete all inactive contacts (from official example)",
-      "use_case": "Clean up inactive contacts to improve performance"
-    },
-    {
-      "command": "contact delete range group 'temporary'",
-      "description": "Delete contacts in 'temporary' group",
-      "use_case": "Remove specific subset of contacts marked for deletion"
-    },
-    {
-      "command": "contact delete range model null",
-      "description": "Delete all contacts with null model",
-      "use_case": "Remove contacts that transmit no forces"
-    },
-    {
-      "command": "contact delete range contact type 'ball-facet'",
-      "description": "Delete all ball-facet contacts",
-      "use_case": "Remove specific contact type while preserving others"
-    },
-    {
-      "command": "contact delete range contact",
-      "description": "Delete ALL contacts in the model",
-      "use_case": "Complete contact reset (contacts will be recreated if detection is on)"
-    },
-    {
-      "command": "contact delete range ball group 'deleted-region'",
-      "description": "Delete contacts involving balls in 'deleted-region' group",
-      "use_case": "Remove contacts connected to specific pieces"
-    },
-    {
-      "command": "contact delete range model linearpbond contact bonded",
-      "description": "Delete bonded linearpbond contacts",
-      "use_case": "Break bonds in simulation"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact delete range ...') - Python SDK does not provide direct contact deletion API. Individual Contact objects become invalid when deleted, but there's no contact.delete() method. Use command interface for contact deletion.",
@@ -436,5 +396,133 @@
     "Consider null model as alternative for reversible disabling",
     "Document deletion strategy in simulation scripts for clarity",
     "Test deletion logic on small model before applying to full simulation"
-  ]
+  ],
+  "versions": {
+    "7.0": {
+      "command": "contact delete",
+      "syntax": "contact delete [range]",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "contact delete range contact inactive",
+          "description": "Delete all inactive contacts (from official example)",
+          "use_case": "Clean up inactive contacts to improve performance"
+        },
+        {
+          "command": "contact delete range group 'temporary'",
+          "description": "Delete contacts in 'temporary' group",
+          "use_case": "Remove specific subset of contacts marked for deletion"
+        },
+        {
+          "command": "contact delete range model null",
+          "description": "Delete all contacts with null model",
+          "use_case": "Remove contacts that transmit no forces"
+        },
+        {
+          "command": "contact delete range contact type 'ball-facet'",
+          "description": "Delete all ball-facet contacts",
+          "use_case": "Remove specific contact type while preserving others"
+        },
+        {
+          "command": "contact delete range contact",
+          "description": "Delete ALL contacts in the model",
+          "use_case": "Complete contact reset (contacts will be recreated if detection is on)"
+        },
+        {
+          "command": "contact delete range ball group 'deleted-region'",
+          "description": "Delete contacts involving balls in 'deleted-region' group",
+          "use_case": "Remove contacts connected to specific pieces"
+        },
+        {
+          "command": "contact delete range model linearpbond contact bonded",
+          "description": "Delete bonded linearpbond contacts",
+          "use_case": "Break bonds in simulation"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact delete",
+      "syntax": "contact [<sprocess>] delete [range]",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "contact delete range contact inactive",
+          "description": "Delete all inactive contacts (from official example)",
+          "use_case": "Clean up inactive contacts to improve performance"
+        },
+        {
+          "command": "contact delete range group 'temporary'",
+          "description": "Delete contacts in 'temporary' group",
+          "use_case": "Remove specific subset of contacts marked for deletion"
+        },
+        {
+          "command": "contact delete range model null",
+          "description": "Delete all contacts with null model",
+          "use_case": "Remove contacts that transmit no forces"
+        },
+        {
+          "command": "contact delete range contact type 'ball-facet'",
+          "description": "Delete all ball-facet contacts",
+          "use_case": "Remove specific contact type while preserving others"
+        },
+        {
+          "command": "contact delete range contact",
+          "description": "Delete ALL contacts in the model",
+          "use_case": "Complete contact reset (contacts will be recreated if detection is on)"
+        },
+        {
+          "command": "contact delete range ball group 'deleted-region'",
+          "description": "Delete contacts involving balls in 'deleted-region' group",
+          "use_case": "Remove contacts connected to specific pieces"
+        },
+        {
+          "command": "contact delete range model linearpbond contact bonded",
+          "description": "Delete bonded linearpbond contacts",
+          "use_case": "Break bonds in simulation"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact delete",
+      "syntax": "contact delete [range]",
+      "keywords": [],
+      "examples": [
+        {
+          "command": "contact delete range contact inactive",
+          "description": "Delete all inactive contacts (from official example)",
+          "use_case": "Clean up inactive contacts to improve performance"
+        },
+        {
+          "command": "contact delete range group 'temporary'",
+          "description": "Delete contacts in 'temporary' group",
+          "use_case": "Remove specific subset of contacts marked for deletion"
+        },
+        {
+          "command": "contact delete range model null",
+          "description": "Delete all contacts with null model",
+          "use_case": "Remove contacts that transmit no forces"
+        },
+        {
+          "command": "contact delete range contact type 'ball-facet'",
+          "description": "Delete all ball-facet contacts",
+          "use_case": "Remove specific contact type while preserving others"
+        },
+        {
+          "command": "contact delete range contact",
+          "description": "Delete ALL contacts in the model",
+          "use_case": "Complete contact reset (contacts will be recreated if detection is on)"
+        },
+        {
+          "command": "contact delete range ball group 'deleted-region'",
+          "description": "Delete contacts involving balls in 'deleted-region' group",
+          "use_case": "Remove contacts connected to specific pieces"
+        },
+        {
+          "command": "contact delete range model linearpbond contact bonded",
+          "description": "Delete bonded linearpbond contacts",
+          "use_case": "Break bonds in simulation"
+        }
+      ]
+    }
+  }
 }

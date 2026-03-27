@@ -1,5 +1,4 @@
 {
-  "command": "contact detection",
   "category": "contact",
   "search_keywords": [
     "detection",
@@ -7,84 +6,6 @@
     "lifecycle"
   ],
   "description": "Control whether contacts are automatically detected during simulation. Contact detection is enabled (on) by default. When enabled, the system automatically creates new contacts when pieces come together and deletes contacts when pieces separate beyond detection criteria. When disabled (off), no new contacts are created and no existing contacts are deleted, regardless of piece motion. Detection can be controlled globally for all contact types or selectively by contact type (ball-ball, ball-facet, etc.). This is a fundamental control for managing contact lifecycle in PFC simulations.",
-  "syntax": "contact detection <b> <keyword>",
-  "keywords": [
-    {
-      "name": "type",
-      "syntax": "type <contact_type>",
-      "description": "Turn detection on/off for specific contact type. All other types unaffected.",
-      "contact_types": [
-        {
-          "name": "ball-ball",
-          "description": "Detection for ball-to-ball contacts"
-        },
-        {
-          "name": "ball-facet",
-          "description": "Detection for ball-to-wall facet contacts"
-        },
-        {
-          "name": "ball-pebble",
-          "description": "Detection for ball-to-clump pebble contacts"
-        },
-        {
-          "name": "ball-rblock",
-          "description": "Detection for ball-to-rigid block contacts"
-        },
-        {
-          "name": "pebble-facet",
-          "description": "Detection for clump pebble-to-wall facet contacts"
-        },
-        {
-          "name": "pebble-pebble",
-          "description": "Detection for clump pebble-to-pebble contacts"
-        },
-        {
-          "name": "pebble-rblock",
-          "description": "Detection for clump pebble-to-rigid block contacts"
-        },
-        {
-          "name": "rblock-facet",
-          "description": "Detection for rigid block-to-wall facet contacts"
-        },
-        {
-          "name": "rblock-rblock",
-          "description": "Detection for rigid block-to-rigid block contacts"
-        }
-      ]
-    }
-  ],
-  "examples": [
-    {
-      "command": "contact detection off",
-      "description": "Disable contact detection for all contact types",
-      "use_case": "Freeze contact network - no creation, no deletion"
-    },
-    {
-      "command": "contact detection on",
-      "description": "Enable contact detection for all contact types (default state)",
-      "use_case": "Restore automatic contact management"
-    },
-    {
-      "command": "contact detection off type ball-pebble",
-      "description": "Disable detection for ball-pebble contacts only (from official example)",
-      "use_case": "Prevent ball-pebble contact changes while allowing other types"
-    },
-    {
-      "command": "contact detection off type ball-facet",
-      "description": "Disable detection for ball-wall contacts",
-      "use_case": "Maintain existing boundary contacts without changes"
-    },
-    {
-      "command": "contact detection off type ball-ball",
-      "description": "Disable detection for ball-ball contacts",
-      "use_case": "Freeze interior contact network while allowing boundary changes"
-    },
-    {
-      "command": "contact detection on type ball-ball",
-      "description": "Re-enable detection for ball-ball contacts",
-      "use_case": "Restore dynamic ball-ball contact management after temporary freeze"
-    }
-  ],
   "python_sdk_alternative": {
     "available": false,
     "workaround": "itasca.command('contact detection <on/off>') - Python SDK does not provide direct contact detection control API. Must use command interface.",
@@ -458,6 +379,175 @@
         "contact detection on",
         "model clean",
         "cycle 10000"
+      ]
+    }
+  },
+  "versions": {
+    "7.0": {
+      "command": "contact detection",
+      "syntax": "contact detection <b>[keyword]",
+      "keywords": [
+        {
+          "name": "rblock-rblock",
+          "syntax": "rblock-rblock",
+          "description": "Turn off contact detection for a specific type of contact. All other contacts will be detected. Specify the contact detection state for ball-ball contacts. Specify the contact detection state for ball-facet contacts. Specify the contact detection state for ball-pebble contacts. Specify the contact detection state for ball-rblock contacts. Specify the contact detection state for pebble-facet contacts. Specify the contact detection state for pebble-pebble contacts. Specify the contact detection state for pebble-rblock contacts. Specify the contact detection state for rblock-facet contacts. Specify the contact detection state for rblock-rblock contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact detection off",
+          "description": "Disable contact detection for all contact types",
+          "use_case": "Freeze contact network - no creation, no deletion"
+        },
+        {
+          "command": "contact detection on",
+          "description": "Enable contact detection for all contact types (default state)",
+          "use_case": "Restore automatic contact management"
+        },
+        {
+          "command": "contact detection off type ball-pebble",
+          "description": "Disable detection for ball-pebble contacts only (from official example)",
+          "use_case": "Prevent ball-pebble contact changes while allowing other types"
+        },
+        {
+          "command": "contact detection off type ball-facet",
+          "description": "Disable detection for ball-wall contacts",
+          "use_case": "Maintain existing boundary contacts without changes"
+        },
+        {
+          "command": "contact detection off type ball-ball",
+          "description": "Disable detection for ball-ball contacts",
+          "use_case": "Freeze interior contact network while allowing boundary changes"
+        },
+        {
+          "command": "contact detection on type ball-ball",
+          "description": "Re-enable detection for ball-ball contacts",
+          "use_case": "Restore dynamic ball-ball contact management after temporary freeze"
+        }
+      ]
+    },
+    "6.0": {
+      "command": "contact detection",
+      "syntax": "contact detection <b>",
+      "keywords": [
+        {
+          "name": "type",
+          "syntax": "type <contact_type>",
+          "description": "Turn detection on/off for specific contact type. All other types unaffected.",
+          "contact_types": [
+            {
+              "name": "ball-ball",
+              "description": "Detection for ball-to-ball contacts"
+            },
+            {
+              "name": "ball-facet",
+              "description": "Detection for ball-to-wall facet contacts"
+            },
+            {
+              "name": "ball-pebble",
+              "description": "Detection for ball-to-clump pebble contacts"
+            },
+            {
+              "name": "ball-rblock",
+              "description": "Detection for ball-to-rigid block contacts"
+            },
+            {
+              "name": "pebble-facet",
+              "description": "Detection for clump pebble-to-wall facet contacts"
+            },
+            {
+              "name": "pebble-pebble",
+              "description": "Detection for clump pebble-to-pebble contacts"
+            },
+            {
+              "name": "pebble-rblock",
+              "description": "Detection for clump pebble-to-rigid block contacts"
+            },
+            {
+              "name": "rblock-facet",
+              "description": "Detection for rigid block-to-wall facet contacts"
+            },
+            {
+              "name": "rblock-rblock",
+              "description": "Detection for rigid block-to-rigid block contacts"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact detection off",
+          "description": "Disable contact detection for all contact types",
+          "use_case": "Freeze contact network - no creation, no deletion"
+        },
+        {
+          "command": "contact detection on",
+          "description": "Enable contact detection for all contact types (default state)",
+          "use_case": "Restore automatic contact management"
+        },
+        {
+          "command": "contact detection off type ball-pebble",
+          "description": "Disable detection for ball-pebble contacts only (from official example)",
+          "use_case": "Prevent ball-pebble contact changes while allowing other types"
+        },
+        {
+          "command": "contact detection off type ball-facet",
+          "description": "Disable detection for ball-wall contacts",
+          "use_case": "Maintain existing boundary contacts without changes"
+        },
+        {
+          "command": "contact detection off type ball-ball",
+          "description": "Disable detection for ball-ball contacts",
+          "use_case": "Freeze interior contact network while allowing boundary changes"
+        },
+        {
+          "command": "contact detection on type ball-ball",
+          "description": "Re-enable detection for ball-ball contacts",
+          "use_case": "Restore dynamic ball-ball contact management after temporary freeze"
+        }
+      ]
+    },
+    "9.0": {
+      "command": "contact detection",
+      "syntax": "contact detection <b>[keyword]",
+      "keywords": [
+        {
+          "name": "rblock-rblock",
+          "syntax": "rblock-rblock",
+          "description": "Turn on/off contact detection for a specific type of contact. All other contacts will be detected. Specify the contact detection state for ball-ball contacts. Specify the contact detection state for ball-facet contacts. Specify the contact detection state for ball-pebble contacts. Specify the contact detection state for ball-rblock contacts. Specify the contact detection state for pebble-facet contacts. Specify the contact detection state for pebble-pebble contacts. Specify the contact detection state for pebble-rblock contacts. Specify the contact detection state for rblock-facet contacts. Specify the contact detection state for rblock-rblock contacts."
+        }
+      ],
+      "examples": [
+        {
+          "command": "contact detection off",
+          "description": "Disable contact detection for all contact types",
+          "use_case": "Freeze contact network - no creation, no deletion"
+        },
+        {
+          "command": "contact detection on",
+          "description": "Enable contact detection for all contact types (default state)",
+          "use_case": "Restore automatic contact management"
+        },
+        {
+          "command": "contact detection off type ball-pebble",
+          "description": "Disable detection for ball-pebble contacts only (from official example)",
+          "use_case": "Prevent ball-pebble contact changes while allowing other types"
+        },
+        {
+          "command": "contact detection off type ball-facet",
+          "description": "Disable detection for ball-wall contacts",
+          "use_case": "Maintain existing boundary contacts without changes"
+        },
+        {
+          "command": "contact detection off type ball-ball",
+          "description": "Disable detection for ball-ball contacts",
+          "use_case": "Freeze interior contact network while allowing boundary changes"
+        },
+        {
+          "command": "contact detection on type ball-ball",
+          "description": "Re-enable detection for ball-ball contacts",
+          "use_case": "Restore dynamic ball-ball contact management after temporary freeze"
+        }
       ]
     }
   }
