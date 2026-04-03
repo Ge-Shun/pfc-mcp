@@ -216,9 +216,25 @@ class TextTokenizer:
 
     # Suffixes to strip for stemming
     _SUFFIX_RULES = [
-        "ment", "ness", "able", "ible",
-        "ious", "ous", "ive", "ful", "less", "ing",
-        "ion", "ity", "ial", "al", "ic", "ly", "er", "ed", "es",
+        "ment",
+        "ness",
+        "able",
+        "ible",
+        "ious",
+        "ous",
+        "ive",
+        "ful",
+        "less",
+        "ing",
+        "ion",
+        "ity",
+        "ial",
+        "al",
+        "ic",
+        "ly",
+        "er",
+        "ed",
+        "es",
     ]
 
     def _split_camel_case(self, word: str) -> list[str]:
