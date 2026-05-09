@@ -21,32 +21,41 @@ def register(mcp: FastMCP) -> None:
         """Execute Python code synchronously in the running PFC process.
 
         Returns stdout and an optional result variable immediately.
-        Code runs in the PFC main thread; side effects persist.
+        Code runs in PFC's main thread, sharing the same __main__
+        namespace as any running task — side effects persist and are
+        immediately visible to the task on its next cycle.
 
-        Scheduling: This tool remains available whether PFC is cycling
-        or idle — you can query model state while a task is running.
+        This tool remains responsive EVEN WHILE a simulation task is
+        running (submitted via pfc_execute_task), as long as the task
+        is actively cycling — execute_code interleaves at cycle gaps.
+        Use it as a live REPL to inspect simulation state in real
+        time — no need to pre-script print statements, and parameter
+        sweeps or sentinel-based control don't have to be baked into
+        the task script up front.
 
-        Environment: PFC embedded Python 3.6.
+        Environment: PFC's embedded Python interpreter. The version
+        is bundled with PFC (PFC 6/7 → Python 3.6, PFC 9 → 3.10);
+        the PFC version is encoded in sys.executable (e.g. PFC700,
+        PFC900). When unsure, write code compatible with Python 3.6+.
 
         Typical uses:
         - Query model state: ball/wall/contact counts, current cycle
+        - Live inspection during a running task: check forces,
+          energy, coordination number, contact statistics
+        - Live tuning during a running task: modify parameters,
+          swap callbacks, or set sentinel variables that the task
+          reads each cycle (e.g. change a servo target, adjust
+          damping, signal early termination)
         - Create and export plots: itasca.command('plot ...')
-        - Read or set properties, inspect variables
         - Development and REPL-style testing
 
-        Unlike pfc_execute_task, this tool is fire-and-return: the
-        response contains the full output. It is NOT tracked by
-        pfc_list_tasks and cannot be interrupted or polled.
-
-        WARNING: Avoid blocking calls (model.solve with many cycles,
-        long loops). They block the PFC main thread until completion
-        or timeout, and cannot be cancelled. Use pfc_execute_task for
-        anything that may run longer than a few seconds.
-
-        WARNING: This code shares the Python namespace with any running
-        task. Avoid overwriting variables the task depends on (e.g. the
-        callback function or simulation objects). Use unique names for
-        throwaway variables to prevent conflicts.
+        This is a synchronous tool: the request blocks until the code
+        finishes or hits the timeout (default 10s, max 600s). Output
+        is returned in full; the call is NOT tracked by pfc_list_tasks
+        and cannot be interrupted mid-execution. For cancellable,
+        pollable, or background work, submit it via pfc_execute_task
+        instead — and you can still call pfc_execute_code against the
+        task while it cycles.
         """
         try:
             client = await get_bridge_client()

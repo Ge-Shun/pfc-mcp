@@ -27,8 +27,15 @@ def register(mcp: FastMCP) -> None:
         - pfc_interrupt_task: cancel a running task
         - pfc_list_tasks: browse task history
 
+        While the task is cycling, you can call pfc_execute_code at any
+        time to inspect or modify simulation state — including variables
+        the task depends on. This is the standard way to probe progress,
+        tune parameters mid-run, swap callbacks, or trigger early
+        termination via a sentinel variable. Both tools share the same
+        __main__ namespace in PFC's main thread.
+
         Use this for production simulation runs, long model.solve()
-        cycles, and any operation that may take minutes or longer.
+        cycles, or any work you want to be cancellable and pollable.
         For quick queries and REPL-style testing, use pfc_execute_code.
         """
         try:
