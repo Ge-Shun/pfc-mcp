@@ -119,8 +119,14 @@ def build_operation_error(
     reason: str | None = None,
     task_id: str | None = None,
     action: str | None = None,
+    output: str | None = None,
 ) -> dict[str, Any]:
-    """Build a unified error envelope for operation failures."""
+    """Build a unified error envelope for operation failures.
+
+    `output` lets callers attach captured stdout/console output produced
+    before the failure — invaluable when an LLM-issued batch of commands
+    fails partway through and the agent needs to see which command broke.
+    """
     details: dict[str, Any] = {}
     if reason:
         details["reason"] = reason
@@ -128,4 +134,6 @@ def build_operation_error(
         details["task_id"] = task_id
     if action:
         details["action"] = action
+    if output:
+        details["output"] = output
     return build_error(code, message, details or None)

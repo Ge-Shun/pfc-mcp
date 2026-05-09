@@ -85,10 +85,12 @@ def register(mcp: FastMCP) -> None:
 
         if status == "error":
             error = response.get("error") or {}
+            partial_output = ((response.get("data") or {}).get("output")) or None
             return build_operation_error(
                 error.get("code", "execute_code_error"),
                 error.get("message", message),
                 reason=message,
+                output=partial_output,
             )
 
         data = response.get("data") or {}
