@@ -1,0 +1,26 @@
+# Keep the build context small. Only the bridge source actually needs to be
+# copied into the image (see Dockerfile), but rather than allowlisting we
+# block the heavy/irrelevant trees.
+
+.git/
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# MCP-side package and tests don't need to be inside the container yet -- the
+# container only runs the bridge. Comment out if you later want them available.
+src/
+tests/
+docs/
+.pfc-mcp/
+.pfc-mcp-bridge/
+
+# IDE / OS junk
+.idea/
+.vscode/
+.DS_Store

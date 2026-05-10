@@ -24,5 +24,10 @@ build/
 .tmp/
 .pytest_tmp/
 
+# Docker dev container's user workspace (mounted into container at /workspace).
+# Keep the dir itself via .gitkeep, ignore everything dropped inside.
+workspace/*
+!workspace/.gitkeep
+
 # macOS
 .DS_Store
