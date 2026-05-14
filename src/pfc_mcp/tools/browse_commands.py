@@ -157,9 +157,7 @@ def _browse_command(category: str, command_name: str, version: str) -> dict[str,
     # Accept either form on input.
     cmd_doc = CommandLoader.load_command_doc(category, command_name, version)
     if not cmd_doc and " " in command_name:
-        cmd_doc = CommandLoader.load_command_doc(
-            category, command_name.replace(" ", "-"), version
-        )
+        cmd_doc = CommandLoader.load_command_doc(category, command_name.replace(" ", "-"), version)
 
     if not cmd_doc:
         index = CommandLoader.load_index()
