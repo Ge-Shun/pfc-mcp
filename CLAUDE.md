@@ -117,7 +117,7 @@ Both packages are published to PyPI via GitHub Actions, triggered by pushing Git
 Steps to release:
 
 1. Bump `__version__` in the corresponding `__init__.py` (both packages use hatch dynamic versioning, so `__init__.py` is the single source of truth).
-2. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [x.y.z] - YYYY-MM-DD` and start a fresh empty `## [Unreleased]`. The `pfc-mcp` publish workflow extracts the section whose header matches the tag version exactly and fails if it is missing.
+2. Curate `## [Unreleased]` in `CHANGELOG.md` from `git log` since the previous release (grouped per the convention comment at the top of that file), rename it to `## [x.y.z] - YYYY-MM-DD`, then start a fresh empty `## [Unreleased]`. The `pfc-mcp` publish workflow extracts the section whose header matches the tag version exactly and fails if it is missing.
 3. Commit and push to `main`.
 4. Tag the commit: `git tag v0.x.x` or `git tag bridge-v0.x.x`.
 5. Push the tag: `git push origin <tag>`.
@@ -141,8 +141,12 @@ Use conventional prefixes seen in repository history, for example:
 Keep commit messages focused on why the change was needed.
 
 Documentation is first-class for this project -- agents rely on the docs and
-the agentic install guides to understand and operate pfc-mcp. Any notable
-change to behaviour, tools, or user/agent-facing documentation or install
-flow must add a `## [Unreleased]` entry in `CHANGELOG.md` in the same commit
-(see the convention comment at the top of that file). Trivial doc fixes
-(typos, formatting) and internal-only refactors/tests/CI are exempt.
+the agentic install guides to understand and operate pfc-mcp, so notable
+documentation/install-flow changes belong in the changelog alongside
+behaviour changes.
+
+Contributors only need a clear conventional commit message; they do NOT
+edit `CHANGELOG.md`. The maintainer curates the `## [Unreleased]` section
+from commit history at release time (see Release Process and the convention
+comment at the top of `CHANGELOG.md`). This keeps the changelog complete
+without putting changelog friction on any single change or PR.
