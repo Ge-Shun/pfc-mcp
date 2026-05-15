@@ -48,7 +48,9 @@ Apply this MCP launch contract in your client's native config format:
 - primary launch command: `uvx pfc-mcp`
 - fallback launch command: `uv tool run pfc-mcp`
 - enable server in client config
-- prefer workspace-level config by default; use global config only if user explicitly requests it
+- prefer user/global-level config by default; fall back to workspace-level config only if the global config is unavailable or write-blocked
+
+> Rationale: `pfc-mcp` bridges a machine-local PFC GUI over a localhost bridge, so the capability is machine-scoped, not project-scoped. A PFC working directory is a simulation workspace and is rarely a shared repo, so workspace-scoped config mainly creates a "switch working directory → tool disappears, must re-run bootstrap" footgun. Keep the config global so it survives directory changes; the per-client profile names the exact user-scope target and the preferred CLI where one exists.
 
 When editing MCP config, use this order:
 
