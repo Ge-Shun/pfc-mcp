@@ -14,7 +14,7 @@
 
 `pfc3d>model new ;now, with LLM.`
 
-**pfc-mcp** 通过 [Model Context Protocol](https://modelcontextprotocol.io/) 将 AI 智能体连接到 [ITASCA PFC](https://www.itascacg.com/software/pfc) — 浏览文档、运行仿真、执行代码，一切通过自然语言对话完成。
+**pfc-mcp** 通过 [Model Context Protocol](https://modelcontextprotocol.io/) 将 AI 智能体连接到 [ITASCA PFC](https://www.itascacg.com/software/pfc) —— Itasca 的离散元方法（DEM）软件。通过自然语言对话即可浏览文档、运行仿真和执行代码。
 
 `pfc3d>model solve ;LLM solves.`
 

@@ -14,7 +14,7 @@
 
 `pfc3d>model new ;now, with LLM.`
 
-**pfc-mcp** connects AI agents to [ITASCA PFC](https://www.itascacg.com/software/pfc) through the [Model Context Protocol](https://modelcontextprotocol.io/) — browse documentation, run simulations, and execute code, all through natural conversation.
+**pfc-mcp** connects AI agents to [ITASCA PFC](https://www.itascacg.com/software/pfc) — Itasca's discrete element method (DEM) code — through the [Model Context Protocol](https://modelcontextprotocol.io/). Browse documentation, run simulations, and execute code, all through natural conversation.
 
 `pfc3d>model solve ;LLM solves.`
 
