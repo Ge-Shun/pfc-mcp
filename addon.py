@@ -7,11 +7,11 @@ Use it inside PFC in either of these ways:
 2. Or save/download this file and execute it in PFC GUI
 
 What it does:
-1. Detects the currently installed `pfc-mcp-bridge`, if any
+1. Detects the currently installed `itasca-mcp-bridge`, if any
 2. Lets the user decide whether to upgrade to the latest published version
-3. Installs `pfc-mcp-bridge` automatically when it is not installed yet
+3. Installs `itasca-mcp-bridge` automatically when it is not installed yet
 4. Ensures the user site-packages directory is importable
-5. Imports `pfc_mcp_bridge` and `websockets`
+5. Imports `itasca_mcp_bridge` and `websockets`
 6. Starts the bridge
 """
 
@@ -21,7 +21,7 @@ import os
 import sys
 
 
-PACKAGE_NAME = "pfc-mcp-bridge"
+PACKAGE_NAME = "itasca-mcp-bridge"
 PORT = 9001  # Change this to run multiple bridges on different ports
 
 # Index URLs tried in order. Mirrors act as a fallback when the primary
@@ -103,29 +103,29 @@ def _load_installed_bridge():
     _ensure_user_site_on_path()
     importlib.invalidate_caches()
 
-    if "pfc_mcp_bridge" in sys.modules:
-        del sys.modules["pfc_mcp_bridge"]
+    if "itasca_mcp_bridge" in sys.modules:
+        del sys.modules["itasca_mcp_bridge"]
 
     try:
-        import pfc_mcp_bridge
+        import itasca_mcp_bridge
     except Exception:
         return None
 
-    return pfc_mcp_bridge
+    return itasca_mcp_bridge
 
 
 def _import_bridge():
     _ensure_user_site_on_path()
     importlib.invalidate_caches()
 
-    for module_name in ("pfc_mcp_bridge", "websockets"):
+    for module_name in ("itasca_mcp_bridge", "websockets"):
         if module_name in sys.modules:
             del sys.modules[module_name]
 
-    import pfc_mcp_bridge
+    import itasca_mcp_bridge
     import websockets
 
-    return pfc_mcp_bridge, websockets
+    return itasca_mcp_bridge, websockets
 
 
 def _prompt_for_upgrade(current_version):
@@ -133,7 +133,7 @@ def _prompt_for_upgrade(current_version):
         print("{} is not installed. Installing the latest version ...".format(PACKAGE_NAME))
         return True
 
-    print("Installed pfc-mcp-bridge:", current_version)
+    print("Installed itasca-mcp-bridge:", current_version)
 
     try:
         answer = input("Update to the latest version before start? [y/N]: ")
@@ -162,13 +162,13 @@ def main():
     else:
         print("Skipping package upgrade.")
 
-    pfc_mcp_bridge, websockets = _import_bridge()
+    itasca_mcp_bridge, websockets = _import_bridge()
 
-    print("Using pfc-mcp-bridge:", getattr(pfc_mcp_bridge, "__version__", "unknown"))
+    print("Using itasca-mcp-bridge:", getattr(itasca_mcp_bridge, "__version__", "unknown"))
     print("Installed websockets:", getattr(websockets, "__version__", "unknown"))
     print("Starting bridge on port {} ...".format(PORT))
 
-    pfc_mcp_bridge.start(port=PORT)
+    itasca_mcp_bridge.start(port=PORT)
 
 
 if __name__ == "__main__":

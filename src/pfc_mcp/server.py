@@ -29,7 +29,7 @@ mcp = FastMCP(
         "PFC (Particle Flow Code) MCP server. "
         "Provides tools for browsing/searching PFC documentation "
         "and for executing simulation tasks and managing runs "
-        "through a pfc-mcp-bridge WebSocket service running inside PFC GUI."
+        "through an itasca-mcp-bridge WebSocket service running inside PFC GUI."
     ),
 )
 

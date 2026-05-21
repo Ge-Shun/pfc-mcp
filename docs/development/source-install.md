@@ -8,14 +8,26 @@ This repository contains two separate runtimes:
 
 - `pfc-mcp`
   The MCP server package under [`src/pfc_mcp`](../../src/pfc_mcp), running on standard Python `>=3.10`
-- `pfc-mcp-bridge`
-  The bridge package under [`pfc-mcp-bridge`](../../pfc-mcp-bridge), running inside PFC embedded Python
+- `itasca-mcp-bridge`
+  The bridge package under [`itasca-mcp-bridge`](../../itasca-mcp-bridge), running inside PFC embedded Python. This directory is a **git submodule**: its own repository ([`yusong652/itasca-mcp-bridge`](https://github.com/yusong652/itasca-mcp-bridge)) with an independent release cycle. `pfc-mcp` only records *which* bridge commit to use, not the bridge's files.
 
-Treat them as separate installation targets even though they live in the same repository.
+Treat them as separate installation targets even though they appear in the same working tree.
 
 ## 1. Clone and Install Dev Dependencies
 
-From the repository root:
+Clone with the bridge submodule (it is required for Steps 3–7):
+
+```bash
+git clone --recurse-submodules https://github.com/yusong652/pfc-mcp.git
+```
+
+Already cloned without `--recurse-submodules`? `itasca-mcp-bridge/` is empty until you initialize it:
+
+```bash
+git submodule update --init --recursive
+```
+
+Then, from the repository root:
 
 ```bash
 uv sync --group dev
@@ -26,6 +38,25 @@ Run tests:
 ```bash
 uv run pytest tests
 ```
+
+### Working with the bridge submodule
+
+`itasca-mcp-bridge/` is a pinned pointer (a gitlink, mode `160000`) to one commit of the separate [`yusong652/itasca-mcp-bridge`](https://github.com/yusong652/itasca-mcp-bridge) repo — `pfc-mcp` tracks a single SHA there, not the bridge's source files. Practical consequences:
+
+- **After pulling `pfc-mcp`**, re-sync the pin — the submodule working tree does not move on its own:
+
+  ```bash
+  git submodule update --init --recursive
+  ```
+
+- **To bump the bridge version**, check out the desired commit inside `itasca-mcp-bridge/`, then stage the moved pointer explicitly in `pfc-mcp`:
+
+  ```bash
+  git add itasca-mcp-bridge && git commit -m "chore: bump itasca-mcp-bridge pin"
+  ```
+
+- **Push order matters**: push the bridge repo first. The pinned commit must already exist on the public bridge repo, or other clones cannot fetch it.
+- `git status` showing `modified: itasca-mcp-bridge (untracked content)` usually just means the submodule working tree has local/untracked files relative to the pin — not that `pfc-mcp` is tracking bridge sources. Bump the pin only when you intend to.
 
 ## 2. Point Your MCP Client at the Local Checkout
 
@@ -51,7 +82,7 @@ This is the simplest way to test MCP-side changes without building or publishing
 If you only need bridge-side changes to take effect in PFC, you do not need to install the bridge package at all. In the PFC IPython console:
 
 ```python
-%run C:/path/to/pfc-mcp/pfc-mcp-bridge/start_bridge.py
+%run C:/path/to/pfc-mcp/itasca-mcp-bridge/start_bridge.py
 ```
 
 Notes:
@@ -64,7 +95,7 @@ This is the fastest workflow for bridge development.
 
 ## 4. Install the Bridge from Local Source into Embedded Python
 
-If you want to test the package installation path itself, install `pfc-mcp-bridge` from local source using the embedded Python interpreter from a terminal.
+If you want to test the package installation path itself, install `itasca-mcp-bridge` from local source using the embedded Python interpreter from a terminal.
 
 Pick the correct interpreter for your PFC version:
 
@@ -74,8 +105,8 @@ Pick the correct interpreter for your PFC version:
 Example commands:
 
 ```powershell
-& "C:\Program Files\Itasca\PFC700\exe64\python36\python.exe" -m pip install --user -e C:\path\to\pfc-mcp\pfc-mcp-bridge
-& "C:\Program Files\Itasca\ItascaSoftware900\exe64\python310\python.exe" -m pip install --user -e C:\path\to\pfc-mcp\pfc-mcp-bridge
+& "C:\Program Files\Itasca\PFC700\exe64\python36\python.exe" -m pip install --user -e C:\path\to\pfc-mcp\itasca-mcp-bridge
+& "C:\Program Files\Itasca\ItascaSoftware900\exe64\python310\python.exe" -m pip install --user -e C:\path\to\pfc-mcp\itasca-mcp-bridge
 ```
 
 Why use the embedded interpreter from a terminal:
@@ -91,10 +122,7 @@ The bridge package will pull a matching `websockets` version automatically:
 
 ## 5. Install from Inside PFC IPython
 
-For PyPI-based installation inside the PFC console, use the version-aware snippet from the main README:
-
-- PFC `6.0` / `7.0`: `pip.main(...)`
-- PFC `9.0`: `pip._internal.cli.main.main(...)`
+For PyPI-based installation inside the PFC console, use the `addon.py` at the repository root — it handles both `pip.main(...)` (PFC 6/7) and `pip._internal.cli.main.main(...)` (PFC 9) automatically and starts the bridge.
 
 For source installs, prefer the terminal-based embedded-interpreter workflow from Step 4 instead of trying to drive an editable install from inside the PFC GUI console.
 
@@ -103,12 +131,12 @@ For source installs, prefer the terminal-based embedded-interpreter workflow fro
 Verify the bridge package inside embedded Python:
 
 ```powershell
-& "C:\Program Files\Itasca\ItascaSoftware900\exe64\python310\python.exe" -c "import pfc_mcp_bridge, websockets; print(pfc_mcp_bridge.__version__); print(websockets.__version__)"
+& "C:\Program Files\Itasca\ItascaSoftware900\exe64\python310\python.exe" -c "import itasca_mcp_bridge, websockets; print(itasca_mcp_bridge.__version__); print(websockets.__version__)"
 ```
 
 Then start the bridge in PFC and verify from your MCP client:
 
-1. Start the bridge in PFC with `pfc_mcp_bridge.start()` or `%run .../start_bridge.py`
+1. Start the bridge in PFC with `itasca_mcp_bridge.start()` or `%run .../start_bridge.py`
 2. Restart the MCP client session
 3. Call `pfc_list_tasks`
 
@@ -118,6 +146,6 @@ For most day-to-day work:
 
 1. Run `uv sync --group dev`
 2. Point your MCP client at the local checkout with `uv run --directory`
-3. Use `%run .../pfc-mcp-bridge/start_bridge.py` inside PFC
+3. Use `%run .../itasca-mcp-bridge/start_bridge.py` inside PFC
 4. Run `uv run pytest tests`
 5. Restart the MCP client and bridge after changes when needed

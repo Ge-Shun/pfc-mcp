@@ -1,5 +1,5 @@
 #!/bin/bash
-# Container entrypoint. Brings up pfc-mcp-bridge inside PFC's embedded Python.
+# Container entrypoint. Brings up itasca-mcp-bridge inside PFC's embedded Python.
 #
 # Default (console mode, lighter):
 #   pfc3d9_console + bridge with blocking task pump.
@@ -21,10 +21,10 @@ cd /workspace 2>/dev/null || true
 # Bootstrap that starts the bridge inside PFC's embedded Python. mode=auto
 # attaches a QTimer pump if a Qt app is running (GUI mode), otherwise falls
 # back to a blocking poll (console mode).
-BOOTSTRAP=/tmp/pfc_mcp_bridge_start.py
+BOOTSTRAP=/tmp/itasca_mcp_bridge_start.py
 cat > "$BOOTSTRAP" << 'PYEOF'
-import pfc_mcp_bridge
-pfc_mcp_bridge.start(host="0.0.0.0", port=9001, mode="auto")
+import itasca_mcp_bridge
+itasca_mcp_bridge.start(host="0.0.0.0", port=9001, mode="auto")
 PYEOF
 
 # ── GUI mode ──────────────────────────────────────────────────

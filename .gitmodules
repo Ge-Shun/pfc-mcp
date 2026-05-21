@@ -1,0 +1,3 @@
+[submodule "itasca-mcp-bridge"]
+	path = itasca-mcp-bridge
+	url = https://github.com/yusong652/itasca-mcp-bridge.git

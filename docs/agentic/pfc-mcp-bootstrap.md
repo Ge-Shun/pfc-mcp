@@ -5,8 +5,8 @@ Use this guide when an agent needs to set up `pfc-mcp` execution end-to-end on a
 ## Target Outcome
 
 1. MCP client is configured to run `pfc-mcp`.
-2. `pfc-mcp-bridge` is installed in the correct PFC embedded Python environment.
-3. Bridge is started in PFC GUI (via `addon.py` or `pfc_mcp_bridge.start()`).
+2. `itasca-mcp-bridge` is installed in the correct PFC embedded Python environment.
+3. Bridge is started in PFC GUI (via `addon.py` or `itasca_mcp_bridge.start()`).
 4. MCP execution tools are verified with `pfc_execute_code`.
 
 ## Agent Execution Rules
@@ -141,19 +141,19 @@ First resolve `pfc_python` from the installed PFC version:
 Check current package:
 
 ```powershell
-& "{pfc_python}" -m pip show pfc-mcp-bridge
+& "{pfc_python}" -m pip show itasca-mcp-bridge
 ```
 
 Install/upgrade:
 
 ```powershell
-& "{pfc_python}" -m pip install --user --upgrade pfc-mcp-bridge
+& "{pfc_python}" -m pip install --user --upgrade itasca-mcp-bridge
 ```
 
 Verify import and version:
 
 ```powershell
-& "{pfc_python}" -c "import pfc_mcp_bridge; print(pfc_mcp_bridge.__version__)"
+& "{pfc_python}" -c "import itasca_mcp_bridge; print(itasca_mcp_bridge.__version__)"
 ```
 
 Ignore pip upgrade warnings in this environment. Older embedded interpreters commonly use older pip builds.
@@ -209,8 +209,8 @@ Use one of these two options to start the bridge, then restart the client sessio
 **Option B (manual):** In PFC GUI Python console:
 
 ```python
-import pfc_mcp_bridge
-pfc_mcp_bridge.start()
+import itasca_mcp_bridge
+itasca_mcp_bridge.start()
 ```
 
 Expected output includes:
@@ -247,12 +247,12 @@ Success example (shape may vary by client):
 
 - `Connection refused`:
   - Bridge not running in PFC GUI, or port `9001` not available.
-- `No module named pfc_mcp_bridge`:
+- `No module named itasca_mcp_bridge`:
   - Bridge package not installed in PFC embedded Python.
 - `No module named websockets`:
   - Install `websockets==9.1` for PFC 6/7 or `websockets==16.0` for PFC 9 in the embedded Python environment.
 - `status remains pending / plot diagnostic timeout during solve`:
-  - Upgrade to the latest `pfc-mcp-bridge` release.
+  - Upgrade to the latest `itasca-mcp-bridge` release.
 - `pip` upgrade warning after install:
   - Usually safe to ignore if package install completed successfully.
 - Need to confirm GUI process from terminal:
