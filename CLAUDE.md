@@ -4,14 +4,16 @@ Guidance for coding agents working in the `pfc-mcp` repository.
 
 ## Project Overview
 
-`pfc-mcp` provides an MCP server for ITASCA PFC workflows plus a bridge runtime that runs inside PFC GUI.
+`pfc-mcp` provides an MCP server for ITASCA PFC workflows. The bridge runtime that runs inside PFC GUI lives in the [`itasca-mcp-bridge`](https://github.com/yusong652/itasca-mcp-bridge) repo and is consumed here as a git submodule.
 
-This repository intentionally has two runtime contexts:
+This repository has two runtime contexts:
 
 - `src/pfc_mcp/` (Python >= 3.10): MCP server package used by clients/tooling
-- `pfc-mcp-bridge/` (PFC embedded Python, often 3.6): WebSocket bridge running inside PFC GUI
+- `itasca-mcp-bridge/` (submodule, PFC embedded Python often 3.6): WebSocket bridge running inside PFC GUI
 
-Treat these as separate deployment targets even though they live in one repository.
+Treat these as separate deployment targets. End users install the bridge from PyPI (`pip install itasca-mcp-bridge`) via `addon.py`; the submodule exists only so contributors can edit bridge code alongside MCP code without two clones.
+
+The legacy `pfc-mcp-bridge` PyPI package (last release `bridge-v0.3.3`) is deprecated and no longer maintained — its code lived in `pfc-mcp-bridge/` here and was removed when the submodule replaced it.
 
 ## Core Architecture
 
@@ -22,12 +24,13 @@ Treat these as separate deployment targets even though they live in one reposito
 - Returns a unified tool envelope: `ok`, `data`, `error`
 - Dual execution model: synchronous REPL (`pfc_execute_code`) for quick queries, script-first async (`pfc_execute_task` + `pfc_check_task_status`) for long-running simulations
 
-### Bridge side (`pfc-mcp-bridge`)
+### Bridge side (`itasca-mcp-bridge` submodule)
 
 - Runs in PFC GUI process
 - Owns thread-safe interaction with ITASCA SDK
 - Handles long-running tasks and diagnostics
-- Must be started from PFC GUI (for example with `%run .../pfc-mcp-bridge/start_bridge.py`)
+- Started inside PFC GUI via `addon.py` (which pip-installs `itasca-mcp-bridge` and calls `itasca_mcp_bridge.start()`)
+- The submodule pin in this repo controls which bridge revision contributors develop against; runtime users always get whatever is on PyPI
 
 ## Repository Layout
 
@@ -39,9 +42,17 @@ pfc-mcp/
 │   ├── tools/           # MCP tool implementations
 │   ├── formatting.py    # shared response formatting
 │   └── server.py        # MCP server entrypoint
-├── pfc-mcp-bridge/      # runtime executed inside PFC GUI
+├── itasca-mcp-bridge/   # submodule → github.com/yusong652/itasca-mcp-bridge
+├── addon.py             # PFC-side bootstrap (pip-installs the bridge)
 └── tests/               # MCP/tool contract tests
 ```
+
+**Submodule workflow** (mirrors flac-mcp):
+
+- Fresh clone needs `git clone --recurse-submodules <url>` or, after a non-recursive clone, `git submodule update --init --recursive`
+- After `git pull` on this repo, re-sync with `git submodule update --recursive` if the pin moved
+- To bump the bridge pin: `cd itasca-mcp-bridge`, fetch/checkout the new commit, then commit the gitlink update in this repo. Push order: bridge repo first (so the pinned commit exists on its origin), pfc-mcp second
+- "Modified content" / "untracked content" in `git status` for the submodule is normal during local bridge dev — only commit the gitlink when you actually want to bump the pin
 
 ## Development Commands
 
@@ -107,26 +118,22 @@ When changing schema/content shape, verify browse/query tool behavior remains co
 
 ## Release Process
 
-Both packages are published to PyPI via GitHub Actions, triggered by pushing Git tags.
+`pfc-mcp` is published to PyPI via GitHub Actions, triggered by pushing a `v*` tag (e.g. `v0.3.16`). Version source: `src/pfc_mcp/__init__.py` (hatch dynamic versioning).
 
-| Package | Tag pattern | Workflow | Version file | PyPI environment |
-|---------|-------------|----------|--------------|------------------|
-| `pfc-mcp` | `v*` (e.g. `v0.3.5`) | `.github/workflows/publish.yml` | `pyproject.toml` | `pypi` |
-| `pfc-mcp-bridge` | `bridge-v*` (e.g. `bridge-v0.2.3`) | `.github/workflows/publish-bridge.yml` | `pfc-mcp-bridge/src/pfc_mcp_bridge/__init__.py` | `pypi-bridge` |
+Steps to release `pfc-mcp`:
 
-Steps to release:
-
-1. Bump `__version__` in the corresponding `__init__.py` (both packages use hatch dynamic versioning, so `__init__.py` is the single source of truth).
-2. Curate `## [Unreleased]` in `CHANGELOG.md` from `git log` since the previous release (grouped per the convention comment at the top of that file), rename it to `## [x.y.z] - YYYY-MM-DD`, then start a fresh empty `## [Unreleased]`. The `pfc-mcp` publish workflow extracts the section whose header matches the tag version exactly and fails if it is missing.
+1. Bump `__version__` in `src/pfc_mcp/__init__.py` (the single source of truth).
+2. Curate `## [Unreleased]` in `CHANGELOG.md` from `git log` since the previous release (grouped per the convention comment at the top of that file), rename it to `## [x.y.z] - YYYY-MM-DD`, then start a fresh empty `## [Unreleased]`. The publish workflow extracts the section whose header matches the tag version exactly and fails if it is missing.
 3. Commit and push to `main`.
-4. Tag the commit: `git tag v0.x.x` or `git tag bridge-v0.x.x`.
-5. Push the tag: `git push origin <tag>`.
+4. Tag the commit: `git tag v0.x.x` and `git push origin v0.x.x`.
 
-The `pfc-mcp` publish workflow runs tests before publishing; the bridge workflow publishes directly.
+**Important**: tag version must match `__version__`. PyPI rejects duplicate version uploads.
 
-**Important**: the tag version and the `__version__` in `__init__.py` must match. PyPI rejects uploads for versions that already exist.
+CI runs on every push/PR to `main`: ruff check, ruff format, mypy, pytest with coverage.
 
-CI also runs on every push/PR to `main` (`.github/workflows/test.yml`): ruff check, ruff format, mypy, and pytest with coverage.
+**Bridge releases live in the [`itasca-mcp-bridge`](https://github.com/yusong652/itasca-mcp-bridge) repo** — not here. Bumping the bridge pin (gitlink) in this repo doesn't trigger a bridge release; it only affects what contributors see locally. End users always get whatever's on PyPI via `pip install itasca-mcp-bridge`.
+
+The legacy `pfc-mcp-bridge` PyPI package is **frozen at `0.3.3`** (deprecation release). No future releases from this repo.
 
 ## Commit Style
 

@@ -1,6 +1,6 @@
 # PFC headless dev container
 
-Runs the Itasca PFC Linux engine in console mode plus `pfc-mcp-bridge`, so
+Runs the Itasca PFC Linux engine in console mode plus `itasca-mcp-bridge`, so
 Mac users can develop and test pfc-mcp without a Windows + USB-key setup.
 Demo mode (no license required) caps models at 1000 balls/clumps + 1000
 rigid blocks + 10 DFNs — enough for bridge integration testing.
@@ -35,7 +35,7 @@ source files reuse the cached engine layer.
 
 `run.sh` does **not** auto-rebuild. If you change `Dockerfile`, run
 `./docker/build.sh` first; if you only edit `entrypoint.sh` or files under
-`pfc-mcp-bridge/src/`, those are bind-mounted and pick up changes on the
+`itasca-mcp-bridge/src/`, those are bind-mounted and pick up changes on the
 next `run.sh`.
 
 ## Run
@@ -53,7 +53,7 @@ Endpoints:
 
 | URL | When | What it is |
 | --- | --- | --- |
-| `ws://localhost:9001` | always | pfc-mcp-bridge — point your MCP client here |
+| `ws://localhost:9001` | always | itasca-mcp-bridge — point your MCP client here |
 | `http://localhost:6080/vnc.html` | `--gui` only | PFC's Qt GUI in your browser via noVNC |
 
 Console mode (default) runs `pfc3d9_console` with the bridge on a blocking

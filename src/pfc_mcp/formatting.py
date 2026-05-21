@@ -95,7 +95,7 @@ def build_bridge_error(exc: Exception, *, task_id: str | None = None) -> dict[st
     details: dict[str, Any] = {
         "bridge_url": cfg.url,
         "reason": reason,
-        "action": "start pfc-mcp-bridge in PFC GUI, then retry",
+        "action": "start itasca-mcp-bridge in PFC GUI, then retry",
     }
     if task_id:
         details["task_id"] = task_id

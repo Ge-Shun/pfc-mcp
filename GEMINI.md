@@ -4,14 +4,14 @@ Guidance for coding agents working in the `pfc-mcp` repository.
 
 ## Project Overview
 
-`pfc-mcp` provides an MCP server for ITASCA PFC workflows plus a bridge runtime that runs inside PFC GUI.
+`pfc-mcp` provides an MCP server for ITASCA PFC workflows. The bridge runtime that runs inside PFC GUI lives in the [`itasca-mcp-bridge`](https://github.com/yusong652/itasca-mcp-bridge) repo and is consumed here as a git submodule.
 
-This repository intentionally has two runtime contexts:
+This repository has two runtime contexts:
 
 - `src/pfc_mcp/` (Python >= 3.10): MCP server package used by clients/tooling
-- `pfc-mcp-bridge/` (PFC embedded Python, often 3.6): WebSocket bridge running inside PFC GUI
+- `itasca-mcp-bridge/` (submodule, PFC embedded Python often 3.6): WebSocket bridge running inside PFC GUI
 
-Treat these as separate deployment targets even though they live in one repository.
+End users install the bridge from PyPI (`pip install itasca-mcp-bridge`) via `addon.py`; the submodule exists only so contributors can edit bridge code alongside MCP code without two clones. The legacy `pfc-mcp-bridge` PyPI package (last release `bridge-v0.3.3`) is deprecated.
 
 ## Core Architecture
 
@@ -22,12 +22,12 @@ Treat these as separate deployment targets even though they live in one reposito
 - Returns a unified tool envelope: `ok`, `data`, `error`
 - Uses script-first execution model (`pfc_execute_task` + `pfc_check_task_status`)
 
-### Bridge side (`pfc-mcp-bridge`)
+### Bridge side (`itasca-mcp-bridge` submodule)
 
 - Runs in PFC GUI process
 - Owns thread-safe interaction with ITASCA SDK
 - Handles long-running tasks and diagnostics
-- Must be started from PFC GUI (for example with `%run .../pfc-mcp-bridge/start_bridge.py`)
+- Started inside PFC GUI via `addon.py` (which pip-installs `itasca-mcp-bridge` and calls `itasca_mcp_bridge.start()`)
 
 ## Repository Layout
 
@@ -39,7 +39,8 @@ pfc-mcp/
 │   ├── tools/           # MCP tool implementations
 │   ├── formatting.py    # shared response formatting
 │   └── server.py        # MCP server entrypoint
-├── pfc-mcp-bridge/      # runtime executed inside PFC GUI
+├── itasca-mcp-bridge/   # submodule → github.com/yusong652/itasca-mcp-bridge
+├── addon.py             # PFC-side bootstrap (pip-installs the bridge)
 └── tests/               # MCP/tool contract tests
 ```
 

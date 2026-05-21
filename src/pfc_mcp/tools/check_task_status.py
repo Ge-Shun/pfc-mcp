@@ -1,4 +1,4 @@
-"""Task status query tool backed by pfc-mcp-bridge."""
+"""Task status query tool backed by itasca-mcp-bridge."""
 
 from typing import Any
 
