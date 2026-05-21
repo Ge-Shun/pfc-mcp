@@ -45,6 +45,12 @@ section exists.
 
 ## [Unreleased]
 
+### Changed
+- Bridge startup output is quieter: callback registration, `TaskManager`
+  init, and historical-task counts now only go to `bridge.log`, not the
+  PFC IPython console. The status banner shows URL + log path and stops.
+  Ships when pfc-mcp's pin moves past `itasca-mcp-bridge` `bc68380`.
+
 ## [0.4.0] - 2026-05-22
 
 Bridge installation path migrates from `pfc-mcp-bridge` to `itasca-mcp-bridge`.
