@@ -63,6 +63,13 @@ section exists.
   offers a manual `pip install` fallback, instead of surfacing only a
   bare `exit code 2` that hid the underlying cause.
 
+### Documentation
+- The agentic bootstrap guide's Step 3 (agent-driven bridge install)
+  now documents the PyPI -> Tsinghua mirror fallback, matching the
+  fallback `addon.py` already performs. An agent installing the bridge
+  for a user on a network that blocks PyPI previously had no documented
+  retry path and would stall there.
+
 ## [0.4.0] - 2026-05-22
 
 Bridge installation path migrates from `pfc-mcp-bridge` to `itasca-mcp-bridge`.
