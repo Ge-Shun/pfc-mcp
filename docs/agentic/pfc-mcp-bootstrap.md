@@ -150,6 +150,14 @@ Install/upgrade:
 & "{pfc_python}" -m pip install --user --upgrade itasca-mcp-bridge
 ```
 
+If that index is unreachable (PyPI blocked behind a regional network or
+corporate proxy), retry via the Tsinghua mirror -- the same fallback
+`addon.py` performs automatically:
+
+```powershell
+& "{pfc_python}" -m pip install --user --upgrade --index-url https://pypi.tuna.tsinghua.edu.cn/simple/ --trusted-host pypi.tuna.tsinghua.edu.cn itasca-mcp-bridge
+```
+
 Verify import and version:
 
 ```powershell
@@ -167,6 +175,9 @@ If websocket dependency errors appear, install the version that matches the embe
 # PFC 9.0
 & "{pfc_python}" -m pip install --user websockets==16.0
 ```
+
+If PyPI is unreachable here too, add the same `--index-url` /
+`--trusted-host` Tsinghua-mirror flags shown above.
 
 ## Step 4 - Start Bridge in PFC GUI
 
