@@ -45,11 +45,25 @@ section exists.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-05-24
+
+Two reliability fixes for the bootstrap path users hit on day one — pip
+entry-point detection, network fallback — plus a sharp agent-guidance
+warning to stop `program call '*.p?dat'` from wedging the bridge, which
+many existing PFC workflows would otherwise trigger.
+
 ### Changed
 - Bridge startup output is quieter: callback registration, `TaskManager`
   init, and historical-task counts now only go to `bridge.log`, not the
   PFC IPython console. The status banner shows URL + log path and stops.
   Ships when pfc-mcp's pin moves past `itasca-mcp-bridge` `bc68380`.
+- `addon.py` drops the interactive upgrade prompt. PFC's `pythonfile`
+  host has no usable stdin, so the `input()` prompt was effectively
+  dead — it either hit the EOFError fallback or silently returned an
+  empty string and skipped the upgrade. A top-of-file
+  `AUTO_UPGRADE = True` constant replaces it: the bootstrap now installs
+  or upgrades to the latest `itasca-mcp-bridge` on every start with zero
+  interaction. Flip to `False` to pin the locally installed version.
 
 ### Fixed
 - `addon.py` no longer hard-codes pip's entry point to `pip.main`. That
@@ -64,6 +78,17 @@ section exists.
   bare `exit code 2` that hid the underlying cause.
 
 ### Documentation
+- `pfc_execute_code` and `pfc_execute_task` docstrings now warn agents
+  off `itasca.command("program call '<file>.p?dat'")`. PFC's
+  command-script interpreter blocks the entire bridge for the script's
+  duration — even bridge-internal calls like `pfc_list_tasks` time out,
+  and recovery requires the user to manually stop PFC. If a user asks
+  to run a `.dat` / `.p3dat` / `.p2dat` file, agents are instructed to
+  read the file and translate each command into a `itasca.command(...)`
+  call in Python instead, which preserves cycle-gap interleaving and
+  keeps every command inspectable. Lots of existing PFC workflows are
+  `.p?dat` scripts, so pointing an agent at one was previously a usage
+  trap that made the toolchain look broken.
 - The agentic bootstrap guide's Step 3 (agent-driven bridge install)
   now documents the PyPI -> Tsinghua mirror fallback, matching the
   fallback `addon.py` already performs. An agent installing the bridge
