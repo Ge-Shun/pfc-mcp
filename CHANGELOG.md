@@ -45,6 +45,38 @@ section exists.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-05-25
+
+Expanded Python SDK array API coverage (9 new modules) and bumped the
+fastmcp dependency to the 3.x line so tests against its public API
+surface work on a fresh install.
+
+### Added
+- `pfc_browse_python_api` / `pfc_query_python_api` now cover the
+  vectorized array API: `ballarray`, `clumparray`, `wallarray`,
+  `rblockarray`, and the four contact-pair arrays (`ballballarray`,
+  `ballfacetarray`, `ballpebblearray`, `pebblepebblearray`,
+  `pebblefacetarray`). Availability is encoded per function with
+  `availability.versions` covering PFC 6.0 / 7.0 / 9.0.
+
+### Changed
+- Bump minimum `fastmcp` to `>=3.0.0`. Tests now use FastMCP's public
+  `mcp.call_tool(...)` / `mcp.list_tools()` API.
+- `pfc_browse_commands` lower-cases command input so mixed-case paths
+  (e.g. `"Ball Create"`) resolve correctly, and the "command not found"
+  suggestion list is now version-filtered (no more 9.0-only commands
+  surfaced when querying 6.0).
+- `pfc_browse_python_api` no longer echoes the full `functions` block
+  inside `summary` when browsing a module, avoiding response truncation
+  on large modules.
+
+### Fixed
+- Corrected `availability.versions` on the new array docs:
+  `rotation` / `set_rotation` / `fill_rotation` entries were removed
+  (they don't exist in any PFC version), and `euler` / `moi_prin`
+  families are now correctly marked as available on PFC 6.0 as well,
+  not 7.0/9.0 only. Verified against PFC 6.0 and 9.0 GUI bridges.
+
 ## [0.4.1] - 2026-05-24
 
 Two reliability fixes for the bootstrap path users hit on day one — pip
