@@ -13,14 +13,24 @@ Architecture:
 
 from dataclasses import dataclass
 
-# All contact types sharing the same interface
-# These are the official PFC contact type names
+# Contact types sharing the same mechanical interface.
+# Thermal contact types (e.g. BallBallThermalContact) are intentionally
+# excluded: they lack force_normal / force_shear and need a separate
+# expansion strategy (see issue #10).
+#
+# Keep in sync with `objects.Contact.types` in
+# `src/pfc_mcp/knowledge/resources/python_sdk_docs/index.json` —
+# browse path resolution uses that list instead of this one.
 CONTACT_TYPES = [
     "BallBallContact",
     "BallFacetContact",
     "BallPebbleContact",
     "PebblePebbleContact",
     "PebbleFacetContact",
+    "BallRBlockContact",
+    "PebbleRBlockContact",
+    "RBlockFacetContact",
+    "RBlockRBlockContact",
 ]
 
 
