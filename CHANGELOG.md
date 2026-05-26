@@ -45,6 +45,39 @@ section exists.
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-05-26
+
+Contact API documentation now distinguishes mechanical and thermal
+contact interfaces, eliminating fictitious `force_normal` /
+`force_shear` advertisements on thermal contacts and adding version
+gating for the PFC 9.0-only `VertexFacetContact`. Rblock contacts
+and thermal-specific power methods join their respective interfaces
+as first-class entries.
+
+### Fixed
+- `pfc_browse_python_api` / `pfc_query_python_api` no longer falsely
+  advertise mechanical force methods on thermal contacts. The five
+  `*ThermalContact` types (`BallBallThermalContact`,
+  `BallFacetThermalContact`, `BallPebbleThermalContact`,
+  `PebblePebbleThermalContact`, `PebbleFacetThermalContact`) are
+  now documented through a dedicated `ThermalContact` interface that
+  exposes contact state, geometry, grouping, model/property, and
+  orientation methods — without `force_normal` / `force_shear`.
+  Verified against the live PFC 9 bridge: 0 cross-contamination
+  across all 15 contact classes. Closes #10.
+- `VertexFacetContact` is now correctly tagged as PFC 9.0-only via
+  per-type `availability.versions`, so 6.0 / 7.0 queries no longer
+  suggest it exists on those versions.
+
+### Added
+- Mechanical `Contact` interface now expands to all four rblock
+  contact types (`BallRBlockContact`, `PebbleRBlockContact`,
+  `RBlockFacetContact`, `RBlockRBlockContact`) and the 9.0-only
+  `VertexFacetContact`, matching the official PFC class hierarchy.
+- Thermal-specific `power()` / `set_power(value)` methods are now
+  documented for all five thermal contact types, sourced from the
+  official PFC 9 Python HTML reference.
+
 ## [0.4.2] - 2026-05-25
 
 Expanded Python SDK array API coverage (9 new modules) and bumped the
