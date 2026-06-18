@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from pfc_mcp.server import mcp
+from itasca_mcp.server import mcp
 
 
 def _parse_tool_payload(result) -> dict:

@@ -12,8 +12,8 @@ from pathlib import Path
 import pytest
 import websockets
 
-from pfc_mcp.bridge.client import close_bridge_client
-from pfc_mcp.server import mcp
+from itasca_mcp.bridge.client import close_bridge_client
+from itasca_mcp.server import mcp
 
 # ── Mock Bridge ──────────────────────────────────────────
 
@@ -232,7 +232,7 @@ async def test_check_task_status_running_fields(mock_bridge, tmp_path):
 async def test_check_task_status_passes_through_bridge_pagination(mock_bridge, tmp_path, monkeypatch):
     """When bridge returns data.pagination, tool should use it directly
     (not re-paginate the output string locally)."""
-    from pfc_mcp.bridge import get_bridge_client
+    from itasca_mcp.bridge import get_bridge_client
 
     client = await get_bridge_client()
 

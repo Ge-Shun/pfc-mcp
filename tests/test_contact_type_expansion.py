@@ -4,9 +4,9 @@ import json
 
 import pytest
 
-from pfc_mcp.knowledge.python_api.loader import DocumentationLoader
-from pfc_mcp.knowledge.python_api.types.contact import THERMAL_CONTACT_METHODS, ContactTypeResolver
-from pfc_mcp.server import mcp
+from itasca_mcp.knowledge.python_api.loader import DocumentationLoader
+from itasca_mcp.knowledge.python_api.types.contact import THERMAL_CONTACT_METHODS, ContactTypeResolver
+from itasca_mcp.server import mcp
 
 
 def setup_function() -> None:

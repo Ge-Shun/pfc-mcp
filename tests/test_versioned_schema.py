@@ -2,7 +2,7 @@
 
 import pytest
 
-from pfc_mcp.knowledge.commands.loader import CommandLoader
+from itasca_mcp.knowledge.commands.loader import CommandLoader
 
 
 class TestLoadCommandDocVersioned:
@@ -60,7 +60,7 @@ class TestLoadCommandDocVersioned:
         # Load raw JSON to check
         import json
 
-        from pfc_mcp.knowledge.config import PFC_COMMAND_DOCS_ROOT
+        from itasca_mcp.knowledge.config import PFC_COMMAND_DOCS_ROOT
 
         path = PFC_COMMAND_DOCS_ROOT / "commands/ball/accumulate-stress.json"
         raw = json.loads(path.read_text(encoding="utf-8"))

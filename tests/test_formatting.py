@@ -1,6 +1,6 @@
-"""Unit tests for pfc_mcp.formatting display helpers."""
+"""Unit tests for itasca_mcp.formatting display helpers."""
 
-from pfc_mcp.formatting import format_elapsed_seconds
+from itasca_mcp.formatting import format_elapsed_seconds
 
 
 def test_rounds_full_precision_float_to_two_decimals():

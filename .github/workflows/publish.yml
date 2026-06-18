@@ -1,4 +1,4 @@
-name: Publish pfc-mcp
+name: Publish itasca-mcp
 
 on:
   push:
