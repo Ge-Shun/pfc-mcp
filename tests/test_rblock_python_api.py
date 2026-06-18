@@ -1,7 +1,7 @@
 """Regression tests for the rblock Python SDK docs integration."""
 
-from pfc_mcp.knowledge.python_api.formatter import APIDocFormatter
-from pfc_mcp.knowledge.python_api.loader import DocumentationLoader
+from itasca_mcp.knowledge.python_api.formatter import APIDocFormatter
+from itasca_mcp.knowledge.python_api.loader import DocumentationLoader
 
 
 class TestRBlockPythonApiDocs:

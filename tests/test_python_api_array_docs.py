@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from pfc_mcp.knowledge.config import PFC_DOCS_SOURCE
-from pfc_mcp.knowledge.python_api.loader import DocumentationLoader
+from itasca_mcp.knowledge.config import PFC_DOCS_SOURCE
+from itasca_mcp.knowledge.python_api.loader import DocumentationLoader
 
 ARRAY_MODULES = {
     "ballarray",

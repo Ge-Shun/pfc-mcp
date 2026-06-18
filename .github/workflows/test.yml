@@ -15,5 +15,5 @@ jobs:
       - run: uv sync --group dev
       - run: uv run ruff check src/ tests/
       - run: uv run ruff format --check src/ tests/
-      - run: uv run mypy src/pfc_mcp/
-      - run: uv run pytest tests/ --cov=pfc_mcp --cov-report=term-missing
+      - run: uv run mypy src/itasca_mcp/
+      - run: uv run pytest tests/ --cov=itasca_mcp --cov-report=term-missing

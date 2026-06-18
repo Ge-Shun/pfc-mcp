@@ -1,9 +1,9 @@
 import asyncio
 
-from pfc_mcp.formatting import build_bridge_error
-from pfc_mcp.server import mcp
-from pfc_mcp.tools.task_formatting import paginate_output
-from pfc_mcp.utils import validate_script_path
+from itasca_mcp.formatting import build_bridge_error
+from itasca_mcp.server import mcp
+from itasca_mcp.tools.task_formatting import paginate_output
+from itasca_mcp.utils import validate_script_path
 
 
 def test_phase2_tools_registered() -> None:

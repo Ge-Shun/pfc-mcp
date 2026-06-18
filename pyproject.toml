@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pfc-mcp"
+name = "itasca-mcp"
 dynamic = ["version"]
-description = "MCP server for ITASCA PFC discrete element method simulation"
+description = "MCP server for ITASCA software (PFC, FLAC3D, 3DEC) simulation workflows"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name= "Yusong Han", email = "yusong.han.652@gmail.com" }, { name = "Nagisa Toyoura", email = "nagisa.toyoura@gmail.com" }]
@@ -27,7 +27,7 @@ dependencies = [
 readme = "README.md"
 
 [project.scripts]
-pfc-mcp = "pfc_mcp.server:main"
+itasca-mcp = "itasca_mcp.server:main"
 
 [dependency-groups]
 dev = [
@@ -64,11 +64,11 @@ strict = true
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
-module = ["pfc_mcp.knowledge.resources.command_docs.*"]
+module = ["itasca_mcp.knowledge.resources.command_docs.*"]
 ignore_errors = true
 
 [tool.hatch.version]
-path = "src/pfc_mcp/__init__.py"
+path = "src/itasca_mcp/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pfc_mcp"]
+packages = ["src/itasca_mcp"]
