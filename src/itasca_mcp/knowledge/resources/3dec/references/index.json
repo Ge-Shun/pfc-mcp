@@ -33,6 +33,14 @@
       "index_file": "fish-intrinsics/index.json",
       "summary": "3 3DEC FISH intrinsic family groups (block/joint, zone/gridpoint, fluid-flow)",
       "usage": "Use in FISH: loop foreach over <entity>.list; read with <entity>.<intrinsic>(ptr)"
+    },
+    "initial-conditions": {
+      "name": "Initial Conditions",
+      "description": "3DEC initial conditions — stress initialization (block zone initialize / block insitu), velocity & displacement reset, fluid/thermal fields.",
+      "directory": "initial-conditions",
+      "index_file": "initial-conditions/index.json",
+      "summary": "3 3DEC initial-condition topics (block zone initialize / insitu / gridpoint initialize)",
+      "usage": "block zone initialize <stress-*> ... ; block insitu stress ... gradient ... ; block gridpoint initialize <field> ..."
     }
   },
   "navigation": {

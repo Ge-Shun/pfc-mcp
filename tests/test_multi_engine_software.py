@@ -437,3 +437,17 @@ def test_3dec_fish_intrinsics_is_engine_local_not_flac() -> None:
     flac = ReferenceLoader.load_category_index("fish-intrinsics", software="flac")
     flac_names = {i["name"] for i in flac["items"]}
     assert "block-and-joints" not in flac_names
+
+
+def test_3dec_initial_conditions_uses_block_syntax() -> None:
+    cat = ReferenceLoader.load_category_index("initial-conditions", software="3dec")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {
+        "stress-initialization",
+        "velocity-and-state-reset",
+        "fluid-thermal",
+    }
+    si = ReferenceLoader.load_item_doc("initial-conditions", "stress-initialization", software="3dec")
+    cmds = " ".join(si["primary_commands"])
+    # 3DEC syntax (block ...), not FLAC's bare 'zone initialize'.
+    assert "block zone initialize" in cmds and "block insitu" in cmds
