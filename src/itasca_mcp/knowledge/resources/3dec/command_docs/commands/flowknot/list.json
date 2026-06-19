@@ -1,0 +1,40 @@
+{
+  "category": "flowknot",
+  "search_keywords": [
+    "flowknot",
+    "list"
+  ],
+  "description": "List fluid-flow knot information.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowknot list",
+      "syntax": "flowknot list keyword [range]",
+      "keywords": [
+        {
+          "name": "extra",
+          "syntax": "extra <i>",
+          "description": "List flowknot extra variable information."
+        },
+        {
+          "name": "fluid",
+          "syntax": "fluid",
+          "description": "List flowknot fluid pressures and fluid flow information."
+        },
+        {
+          "name": "group",
+          "syntax": "group",
+          "description": "List flowknot groups."
+        },
+        {
+          "name": "thermal",
+          "syntax": "thermal",
+          "description": "List fluid-flow knot temperatures and thermal flux information."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

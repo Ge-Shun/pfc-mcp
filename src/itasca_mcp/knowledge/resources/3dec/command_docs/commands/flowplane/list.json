@@ -1,0 +1,40 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "list"
+  ],
+  "description": "List flow plane information.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane list",
+      "syntax": "flowplane list keyword [range]",
+      "keywords": [
+        {
+          "name": "discharge",
+          "syntax": "discharge",
+          "description": "List fluid flow rates for flow planes."
+        },
+        {
+          "name": "extra",
+          "syntax": "extra <i>",
+          "description": "List extra variable information for flow planes."
+        },
+        {
+          "name": "group",
+          "syntax": "group",
+          "description": "List flow plane group names."
+        },
+        {
+          "name": "velocity",
+          "syntax": "velocity",
+          "description": "List fluid velocities for flow planes."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "join"
+  ],
+  "description": "Join adjacent blocks within the given range. Joined blocks act as one block with a common centroid and volume calculated for all blocks joined together. A joined block group consists of one “leader” block and one or more “follower” blocks. Use the block list information command to identify leader and follower blocks in a block group. Note: only visible blocks are joined (see block hide ). This command is the same as block join except that contacts are used to identify the range.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact join",
+      "syntax": "block contact join <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "join"
+  ],
+  "description": "Join adjacent blocks in the range. Adjacent blocks within an optional range can be joined into one block ( on ) or or unjoined ( off ). Joined blocks act as one block with a common centroid and volume calculated for all blocks joined together. A joined block group consists of one “leader” block and one or more “follower” blocks. Use the block list information command to identify leader and follower blocks in a block group. Note: only visible blocks are joined (see block hide ).",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block join",
+      "syntax": "block join <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

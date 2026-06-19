@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "apply"
+  ],
+  "description": "This command allows fluid pressure to be specified at joint sub-contacts for rigid or deformable blocks. The specified fluid pressures do not change until a different block contact apply command is executed or the sub-contact is deleted. Each block contact apply command adds pressure into an incremental fluid force applied at the sub-contact. Positive pressures cause the joint to expand. In order to remove the pressure at a contact, apply the negative value of the pressure with the block contact apply command. Use the block contact list pore-pressure command for current values of fluid pressures in the model. Use the block contact list stress command for current values of the “effective” normal stress at sub-contacts in the model.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact apply",
+      "syntax": "block contact apply pore-pressure <f>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

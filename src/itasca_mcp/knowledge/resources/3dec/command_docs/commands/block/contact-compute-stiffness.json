@@ -1,0 +1,31 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "compute-stiffness"
+  ],
+  "description": "Automatically compute normal and shear stiffness for subcontacts based on stiffness and size of adjacent zones (see Joint Properties ). The average stiffness for all subcontacts in a contact is calculated and assigned. Subcontacts must exist and a joint constitutive model must have been assigned that has properties stiffness-normal and stiffness-shear .",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact compute-stiffness",
+      "syntax": "block contact compute-stiffness keyword",
+      "keywords": [
+        {
+          "name": "shear-factor",
+          "syntax": "shear-factor <f>",
+          "description": "Set a multiplier for the shear stiffness. The shearr stiffness will be set equal to f times the normal stiffness. By default f = 1."
+        },
+        {
+          "name": "maximum",
+          "syntax": "maximum <f>",
+          "description": "Set a maximum stiffness. This is useful if there are very small zones that may cause very large stiffnesses."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

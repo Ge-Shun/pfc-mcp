@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "zone",
+    "volume-minimum-delete"
+  ],
+  "description": "Set zones with volumes under the value f to be deleted during cycling. The default is 0.0.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block zone volume-minimum-delete",
+      "syntax": "block zone volume-minimum-delete <f>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

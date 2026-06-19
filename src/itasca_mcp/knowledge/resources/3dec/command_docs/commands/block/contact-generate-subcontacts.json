@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "generate-subcontacts"
+  ],
+  "description": "Subcontacts will be automatically generated when a model is zoned ( block zone generate ). For rigid blocks, it is neccessary to use this command to generate subcontacts prior to assigning joint properties. By default, the face will be triangulated to generate the minimum number of subcontacts. The number of subcontacts can be increased by using block face triangulate prior to executing this command.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact generate-subcontacts",
+      "syntax": "block contact generate-subcontacts",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

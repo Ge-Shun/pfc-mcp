@@ -1,0 +1,2535 @@
+{
+  "version": "1.0",
+  "description": "3DEC command documentation index for quick lookup and LLM-assisted command discovery",
+  "categories": {
+    "block": {
+      "full_name": "Block Commands",
+      "description": "Core 3DEC commands for the distinct-element block model: create/cut/join blocks, assign zone constitutive models, manage joint contacts and subcontacts, and drive deformable-block zoning, faces and gridpoints.",
+      "command_prefix": "block",
+      "notes": [
+        "Sub-namespaces are part of the JSON key: 'block contact apply' -> commands/block/contact-apply.json, 'block zone generate' -> commands/block/zone-generate.json",
+        "Rigid vs. deformable blocks: zoning/gridpoint/face subcommands apply to deformable blocks",
+        "Joints between blocks are modeled through block contact / subcontacts"
+      ],
+      "commands": [
+        {
+          "name": "analyze-stability",
+          "file": "3dec/command_docs/commands/block/analyze-stability.json",
+          "short_description": "Analyze the block stability considering an “isolated rigid body",
+          "syntax": "block analyze-stability keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "apply-remove",
+          "file": "3dec/command_docs/commands/block/apply-remove.json",
+          "short_description": "Free a rigid block and remove applied veolcities",
+          "syntax": "block apply-remove keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "apply",
+          "file": "3dec/command_docs/commands/block/apply.json",
+          "short_description": "Apply a velocity to a rigid block",
+          "syntax": "block apply keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "cells",
+          "file": "3dec/command_docs/commands/block/cells.json",
+          "short_description": "Set the number of cells to be used in cell-mapped contact detection",
+          "syntax": "block cells keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-apply",
+          "file": "3dec/command_docs/commands/block/contact-apply.json",
+          "short_description": "This command allows fluid pressure to be specified at joint sub-contacts for rigid or deformable ...",
+          "syntax": "block contact apply pore-pressure <f>[range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-area-minimum",
+          "file": "3dec/command_docs/commands/block/contact-area-minimum.json",
+          "short_description": "Set the value of minimum contact area for non face-face contacts",
+          "syntax": "block contact area-minimum <f>[range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-compute-stiffness",
+          "file": "3dec/command_docs/commands/block/contact-compute-stiffness.json",
+          "short_description": "Automatically compute normal and shear stiffness for subcontacts based on stiffness and size of a...",
+          "syntax": "block contact compute-stiffness keyword",
+          "python_available": false
+        },
+        {
+          "name": "contact-compute",
+          "file": "3dec/command_docs/commands/block/contact-compute.json",
+          "short_description": "Compute joint statistics",
+          "syntax": "block contact compute keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-delete-open",
+          "file": "3dec/command_docs/commands/block/contact-delete-open.json",
+          "short_description": "Set deletion of open sub-contacts during the first cycle",
+          "syntax": "block contact delete-open <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-generate-subcontacts",
+          "file": "3dec/command_docs/commands/block/contact-generate-subcontacts.json",
+          "short_description": "Subcontacts will be automatically generated when a model is zoned ( block zone generate )",
+          "syntax": "block contact generate-subcontacts",
+          "python_available": false
+        },
+        {
+          "name": "contact-group-subcontact",
+          "file": "3dec/command_docs/commands/block/contact-group-subcontact.json",
+          "short_description": "Assign all subcontacts in the range to the group s1 (in, optionally, slot s2 )",
+          "syntax": "block contact group-subcontact <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-group",
+          "file": "3dec/command_docs/commands/block/contact-group.json",
+          "short_description": "Assign all contacts in the range to the group s1 (in, optionally, slot s2 )",
+          "syntax": "block contact group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-history",
+          "file": "3dec/command_docs/commands/block/contact-history.json",
+          "short_description": "Adds a history of a contact value",
+          "syntax": "block contact history [name <s>] location-keyword variable-keyword [keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "contact-jmodel",
+          "file": "3dec/command_docs/commands/block/contact-jmodel.json",
+          "short_description": "This command is used to assign joint constitutive models or user-defined joint models (UDJM) to s...",
+          "syntax": "block contact jmodel keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-join",
+          "file": "3dec/command_docs/commands/block/contact-join.json",
+          "short_description": "Join adjacent blocks within the given range",
+          "syntax": "block contact join <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-list",
+          "file": "3dec/command_docs/commands/block/contact-list.json",
+          "short_description": "List information about block contact(s)",
+          "syntax": "block contact list keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-local-stiffness",
+          "file": "3dec/command_docs/commands/block/contact-local-stiffness.json",
+          "short_description": "Toggle flag to indicate that local contact stiffnesses should be used when calculating stable tim...",
+          "syntax": "block contact local-stiffness <b>",
+          "python_available": false
+        },
+        {
+          "name": "contact-material-table",
+          "file": "3dec/command_docs/commands/block/contact-material-table.json",
+          "short_description": "The material table is used to define the joint constitutive model and properties that should be a...",
+          "syntax": "block contact material-table keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-persistence",
+          "file": "3dec/command_docs/commands/block/contact-persistence.json",
+          "short_description": "Assign a specified group name to subcontacts to form rock bridges according the specified persist...",
+          "syntax": "block contact persistence <f>keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-property-distribution",
+          "file": "3dec/command_docs/commands/block/contact-property-distribution.json",
+          "short_description": "Modify a joint model property",
+          "syntax": "block contact property-distribution <s><fvalue>keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-property",
+          "file": "3dec/command_docs/commands/block/contact-property.json",
+          "short_description": "Assign joint constitutive model properties to subcontacts",
+          "syntax": "block contact property keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-record-shear",
+          "file": "3dec/command_docs/commands/block/contact-record-shear.json",
+          "short_description": "Toggle recording of maximum shear displacement magnitude for subcontacts since the start of cycli...",
+          "syntax": "block contact record-shear <b>",
+          "python_available": false
+        },
+        {
+          "name": "contact-reset",
+          "file": "3dec/command_docs/commands/block/contact-reset.json",
+          "short_description": "Reset certain model variables",
+          "syntax": "block contact reset keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-tolerance",
+          "file": "3dec/command_docs/commands/block/contact-tolerance.json",
+          "short_description": "Set contact distance tolerance",
+          "syntax": "block contact tolerance <f>[<f2>]",
+          "python_available": false
+        },
+        {
+          "name": "contact-vertex-vertex",
+          "file": "3dec/command_docs/commands/block/contact-vertex-vertex.json",
+          "short_description": "Suppress the creation of vertex-vertex contacts by setting b to false ",
+          "syntax": "block contact vertex-vertex <b>",
+          "python_available": false
+        },
+        {
+          "name": "copy",
+          "file": "3dec/command_docs/commands/block/copy.json",
+          "short_description": "Make a copy of a rigid block",
+          "syntax": "block copy keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "create",
+          "file": "3dec/command_docs/commands/block/create.json",
+          "short_description": "Create a block",
+          "syntax": "block create keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "cut",
+          "file": "3dec/command_docs/commands/block/cut.json",
+          "short_description": "Cut a block",
+          "syntax": "block cut keyword",
+          "python_available": false
+        },
+        {
+          "name": "delete",
+          "file": "3dec/command_docs/commands/block/delete.json",
+          "short_description": "Delete blocks",
+          "syntax": "block delete [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "densify",
+          "file": "3dec/command_docs/commands/block/densify.json",
+          "short_description": "Increase block density",
+          "syntax": "block densify keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "dynamic",
+          "file": "3dec/command_docs/commands/block/dynamic.json",
+          "short_description": "Configure options available with dynamic calculations",
+          "syntax": "block dynamic keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "excavate",
+          "file": "3dec/command_docs/commands/block/excavate.json",
+          "short_description": "All blocks within the range are excavated",
+          "syntax": "block excavate [face-group <s1>[slot <s2>]] [range]",
+          "python_available": false
+        },
+        {
+          "name": "export",
+          "file": "3dec/command_docs/commands/block/export.json",
+          "short_description": "Export an assembly of blocks to a file named s ",
+          "syntax": "block export filename <s>[binary] [range]",
+          "python_available": false
+        },
+        {
+          "name": "face-apply-remove",
+          "file": "3dec/command_docs/commands/block/face-apply-remove.json",
+          "short_description": "Remove an applied boundary condition for objects in the given range",
+          "syntax": "block face apply-remove keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "face-apply",
+          "file": "3dec/command_docs/commands/block/face-apply.json",
+          "short_description": "Apply a condition at block faces within the range",
+          "syntax": "block face apply keyword [history <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "face-group",
+          "file": "3dec/command_docs/commands/block/face-group.json",
+          "short_description": "Group block faces within the supplied range",
+          "syntax": "block face group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "face-list",
+          "file": "3dec/command_docs/commands/block/face-list.json",
+          "short_description": "List information about block faces",
+          "syntax": "block face list keyword [rigid] [range]",
+          "python_available": false
+        },
+        {
+          "name": "face-triangulate",
+          "file": "3dec/command_docs/commands/block/face-triangulate.json",
+          "short_description": "Triangulate faces of rigid blocks to increase the number of vertices on a face",
+          "syntax": "block face triangulate [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "fill",
+          "file": "3dec/command_docs/commands/block/fill.json",
+          "short_description": "All excavated blocks within the range are filled (i",
+          "syntax": "block fill [keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "finite-element",
+          "file": "3dec/command_docs/commands/block/finite-element.json",
+          "short_description": "Operate on finite element blocks",
+          "syntax": "block finite-element keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "fix",
+          "file": "3dec/command_docs/commands/block/fix.json",
+          "short_description": "Fix block position, rotation, or velocity",
+          "syntax": "block fix keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "fluid",
+          "file": "3dec/command_docs/commands/block/fluid.json",
+          "short_description": "Specify configuration for flow calculations",
+          "syntax": "block fluid keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "fragment",
+          "file": "3dec/command_docs/commands/block/fragment.json",
+          "short_description": "Commands for computing and manipulating fragment data as described below",
+          "syntax": "block fragment [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "free",
+          "file": "3dec/command_docs/commands/block/free.json",
+          "short_description": "All blocks with centroids in the range specified by the range are set free",
+          "syntax": "block free [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "generate",
+          "file": "3dec/command_docs/commands/block/generate.json",
+          "short_description": "Generate an assembly of blocks",
+          "syntax": "block generate keyword",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-apply-remove",
+          "file": "3dec/command_docs/commands/block/gridpoint-apply-remove.json",
+          "short_description": "Remove a boundary condition from block gridpoints",
+          "syntax": "block gridpoint apply-remove keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-apply",
+          "file": "3dec/command_docs/commands/block/gridpoint-apply.json",
+          "short_description": "Apply a boundary condition to block gridpoints",
+          "syntax": "block gridpoint apply keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-group",
+          "file": "3dec/command_docs/commands/block/gridpoint-group.json",
+          "short_description": "Group block gridpoints within the supplied range",
+          "syntax": "block gridpoint group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-initialize",
+          "file": "3dec/command_docs/commands/block/gridpoint-initialize.json",
+          "short_description": "Assign gridpoint variables initial values",
+          "syntax": "block gridpoint initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-list",
+          "file": "3dec/command_docs/commands/block/gridpoint-list.json",
+          "short_description": "List information about gridpoints",
+          "syntax": "block gridpoint list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "gridpoint-trace",
+          "file": "3dec/command_docs/commands/block/gridpoint-trace.json",
+          "short_description": "Trace position and velocity of a block gridpoint",
+          "syntax": "block gridpoint trace keyword",
+          "python_available": false
+        },
+        {
+          "name": "group",
+          "file": "3dec/command_docs/commands/block/group.json",
+          "short_description": "Specify block group names",
+          "syntax": "block group <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "hide",
+          "file": "3dec/command_docs/commands/block/hide.json",
+          "short_description": "Hide/show blocks in the range",
+          "syntax": "block hide <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "history",
+          "file": "3dec/command_docs/commands/block/history.json",
+          "short_description": "Adds a history of a block value",
+          "syntax": "block history [name <s>] keyword",
+          "python_available": false
+        },
+        {
+          "name": "import",
+          "file": "3dec/command_docs/commands/block/import.json",
+          "short_description": "Import an assembly of blocks from a file",
+          "syntax": "block import filename <s>[binary]",
+          "python_available": false
+        },
+        {
+          "name": "initialize",
+          "file": "3dec/command_docs/commands/block/initialize.json",
+          "short_description": "Initialize the velocity or extra variable a rigid block",
+          "syntax": "block initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "insitu",
+          "file": "3dec/command_docs/commands/block/insitu.json",
+          "short_description": "Specify in situ stress or fluid conditions",
+          "syntax": "block insitu keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "join-by-contact",
+          "file": "3dec/command_docs/commands/block/join-by-contact.json",
+          "short_description": "By default, joining is performed by block",
+          "syntax": "block join-by-contact <b>",
+          "python_available": false
+        },
+        {
+          "name": "join",
+          "file": "3dec/command_docs/commands/block/join.json",
+          "short_description": "Join adjacent blocks in the range",
+          "syntax": "block join <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "joint-plane",
+          "file": "3dec/command_docs/commands/block/joint-plane.json",
+          "short_description": "Toggle calculations for plotting joint planes",
+          "syntax": "block joint-plane <b>[keyword]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "3dec/command_docs/commands/block/list.json",
+          "short_description": "List block information",
+          "syntax": "block list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "makewall",
+          "file": "3dec/command_docs/commands/block/makewall.json",
+          "short_description": "Change blocks into walls",
+          "syntax": "block makewall keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "mechanical",
+          "file": "3dec/command_docs/commands/block/mechanical.json",
+          "short_description": "Specify configuration for mechanical calculations",
+          "syntax": "block mechanical keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "merge-finish",
+          "file": "3dec/command_docs/commands/block/merge-finish.json",
+          "short_description": "Execute the command when finished creating blocks to be merged into zones (see block merge-start )",
+          "syntax": "block merge-finish",
+          "python_available": false
+        },
+        {
+          "name": "merge-start",
+          "file": "3dec/command_docs/commands/block/merge-start.json",
+          "short_description": "After this command is executed, all tetrahedral blocks subsequently created will be turned into z...",
+          "syntax": "block merge-start [slot <s>] [exclude <s1>[<s2>[...] ]]",
+          "python_available": false
+        },
+        {
+          "name": "property",
+          "file": "3dec/command_docs/commands/block/property.json",
+          "short_description": "Set a block property",
+          "syntax": "block property keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "relax",
+          "file": "3dec/command_docs/commands/block/relax.json",
+          "short_description": "Excavate blocks in the range and apply tractions on the face of the excavation to prevent large, ...",
+          "syntax": "block relax keyword",
+          "python_available": false
+        },
+        {
+          "name": "skip-join-update",
+          "file": "3dec/command_docs/commands/block/skip-join-update.json",
+          "short_description": "Set to on to prevent 3DEC from updating the list of joined contacts at cycle time",
+          "syntax": "block skip-join-update <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "thermal",
+          "file": "3dec/command_docs/commands/block/thermal.json",
+          "short_description": "Specify configuration for thermal calculations",
+          "syntax": "block thermal keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "to-flac3d",
+          "file": "3dec/command_docs/commands/block/to-flac3d.json",
+          "short_description": "Export 3DEC zones and joints to files for creating FLAC3D zones and Zone Joints",
+          "syntax": "block to-flac3d keyword",
+          "python_available": false
+        },
+        {
+          "name": "to-pfc",
+          "file": "3dec/command_docs/commands/block/to-pfc.json",
+          "short_description": "Export 3DEC blocks/zones to rigid block in PFC ",
+          "syntax": "block to-pfc keyword",
+          "python_available": false
+        },
+        {
+          "name": "to-udec",
+          "file": "3dec/command_docs/commands/block/to-udec.json",
+          "short_description": "Export sections of 3DEC models to UDEC models",
+          "syntax": "block to-udec keyword",
+          "python_available": false
+        },
+        {
+          "name": "tolerance",
+          "file": "3dec/command_docs/commands/block/tolerance.json",
+          "short_description": "Sets general model tolerance",
+          "syntax": "block tolerance <f>[keyword <f>]",
+          "python_available": false
+        },
+        {
+          "name": "trace",
+          "file": "3dec/command_docs/commands/block/trace.json",
+          "short_description": "Trace an object",
+          "syntax": "block trace keyword",
+          "python_available": false
+        },
+        {
+          "name": "update",
+          "file": "3dec/command_docs/commands/block/update.json",
+          "short_description": "Set frequency of updates during cycling",
+          "syntax": "block update keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "vtk",
+          "file": "3dec/command_docs/commands/block/vtk.json",
+          "short_description": "Controls if and what values are exported from block zones to a VTK file",
+          "syntax": "block vtk keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "water",
+          "file": "3dec/command_docs/commands/block/water.json",
+          "short_description": "This command assigns a pore-water pressure field to all blocks/contacts defined in terms of a gro...",
+          "syntax": "block water keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-cmodel",
+          "file": "3dec/command_docs/commands/block/zone-cmodel.json",
+          "short_description": "Assign a constitutive model to zones",
+          "syntax": "block zone cmodel keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-fluid",
+          "file": "3dec/command_docs/commands/block/zone-fluid.json",
+          "short_description": "Assign fluid properties to zones",
+          "syntax": "block zone fluid keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-generate-new",
+          "file": "3dec/command_docs/commands/block/zone-generate-new.json",
+          "short_description": "Generate tetrahedral zones to fill blocks",
+          "syntax": "block zone generate-new keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-generate",
+          "file": "3dec/command_docs/commands/block/zone-generate.json",
+          "short_description": "Set zoning conditions for deformable blocks",
+          "syntax": "block zone generate keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-group",
+          "file": "3dec/command_docs/commands/block/zone-group.json",
+          "short_description": "Group zones in the range",
+          "syntax": "block zone group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-initialize",
+          "file": "3dec/command_docs/commands/block/zone-initialize.json",
+          "short_description": "Initialize zone variables",
+          "syntax": "block zone initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-list",
+          "file": "3dec/command_docs/commands/block/zone-list.json",
+          "short_description": "List information about zones",
+          "syntax": "block zone list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-nodal-mixed-discretization",
+          "file": "3dec/command_docs/commands/block/zone-nodal-mixed-discretization.json",
+          "short_description": "Toggle nodal mixed discretization (NMD) for zones in the specified range",
+          "syntax": "block zone nodal-mixed-discretization <b>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-property-distribution",
+          "file": "3dec/command_docs/commands/block/zone-property-distribution.json",
+          "short_description": "Modify a zone constitutive model property",
+          "syntax": "block zone property-distribution <s><fvalue>keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-property",
+          "file": "3dec/command_docs/commands/block/zone-property.json",
+          "short_description": "Make a constitutive model(s) property assignment",
+          "syntax": "block zone property [density <f>] keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-size",
+          "file": "3dec/command_docs/commands/block/zone-size.json",
+          "short_description": "Set zoning conditions for deformable blocks prior to using the block zone generate-new command",
+          "syntax": "block zone size keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-thermal",
+          "file": "3dec/command_docs/commands/block/zone-thermal.json",
+          "short_description": "Set the thermal properties of the block zone constitutive model",
+          "syntax": "block zone thermal keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-volume-minimum-delete",
+          "file": "3dec/command_docs/commands/block/zone-volume-minimum-delete.json",
+          "short_description": "Set zones with volumes under the value f to be deleted during cycling",
+          "syntax": "block zone volume-minimum-delete <f>[range]",
+          "python_available": false
+        }
+      ]
+    },
+    "feblock": {
+      "full_name": "Finite-Element Block Commands",
+      "description": "Commands for finite-element blocks (high-order tetrahedral FE meshing of deformable blocks).",
+      "command_prefix": "feblock",
+      "commands": [
+        {
+          "name": "generate",
+          "file": "3dec/command_docs/commands/feblock/generate.json",
+          "short_description": "Generates an FE mesh inside an 8-vertex brick block",
+          "syntax": "feblock generate <i1><i2><i3>[range...]",
+          "python_available": false
+        },
+        {
+          "name": "gravity",
+          "file": "3dec/command_docs/commands/feblock/gravity.json",
+          "short_description": "Applies gravity loads to FE blocks",
+          "syntax": "feblock gravity [delete]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "3dec/command_docs/commands/feblock/list.json",
+          "short_description": "Print information to the screen regarding FE blocks",
+          "syntax": "feblock list [keyword] [range...]",
+          "python_available": false
+        }
+      ]
+    },
+    "fblock": {
+      "full_name": "Faceted Block Commands",
+      "description": "Commands for faceted blocks (fblock): grouping, listing, and deletion of faceted block geometry.",
+      "command_prefix": "fblock",
+      "commands": [
+        {
+          "name": "delete",
+          "file": "3dec/command_docs/commands/fblock/delete.json",
+          "short_description": "Delete fblocks in the range",
+          "syntax": "fblock delete [range]",
+          "python_available": false
+        },
+        {
+          "name": "group",
+          "file": "3dec/command_docs/commands/fblock/group.json",
+          "short_description": "Group fblocks in the range",
+          "syntax": "fblock group keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "3dec/command_docs/commands/fblock/list.json",
+          "short_description": "List information about fblocks",
+          "syntax": "fblock list keyword [range]",
+          "python_available": false
+        }
+      ]
+    },
+    "flowknot": {
+      "full_name": "Flow Knot Commands",
+      "description": "Commands for flow knots — the nodal points of 3DEC's fracture-flow network used in hydro-mechanical coupling.",
+      "command_prefix": "flowknot",
+      "commands": [
+        {
+          "name": "apply-remove",
+          "file": "3dec/command_docs/commands/flowknot/apply-remove.json",
+          "short_description": "Remove flow knot conditions at boundaries",
+          "syntax": "flowknot apply-remove keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "apply",
+          "file": "3dec/command_docs/commands/flowknot/apply.json",
+          "short_description": "Set flow knot conditions at boundaries",
+          "syntax": "flowknot apply keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "fix",
+          "file": "3dec/command_docs/commands/flowknot/fix.json",
+          "short_description": "Set flow knot fix conditions",
+          "syntax": "flowknot fix keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "free",
+          "file": "3dec/command_docs/commands/flowknot/free.json",
+          "short_description": "Free flow knot fix conditions",
+          "syntax": "flowknot free keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "group",
+          "file": "3dec/command_docs/commands/flowknot/group.json",
+          "short_description": "Group flowknots in the range",
+          "syntax": "flowknot group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "hide",
+          "file": "3dec/command_docs/commands/flowknot/hide.json",
+          "short_description": "Hide/unhide flow knots within the range",
+          "syntax": "flowknot hide <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "history",
+          "file": "3dec/command_docs/commands/flowknot/history.json",
+          "short_description": "Set a history of a flowknot variable",
+          "syntax": "flowknot history [name <s>] location-keyword variable-keyword [keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "initialize",
+          "file": "3dec/command_docs/commands/flowknot/initialize.json",
+          "short_description": "Initialize flotknot variables in the range",
+          "syntax": "flowknot initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "3dec/command_docs/commands/flowknot/list.json",
+          "short_description": "List fluid-flow knot information",
+          "syntax": "flowknot list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "property",
+          "file": "3dec/command_docs/commands/flowknot/property.json",
+          "short_description": "Set flow knot properties",
+          "syntax": "flowknot property keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "volume-minimum",
+          "file": "3dec/command_docs/commands/flowknot/volume-minimum.json",
+          "short_description": "Set the minimum flow-knot volume",
+          "syntax": "flowknot volume-minimum <f>",
+          "python_available": false
+        }
+      ]
+    },
+    "flowplane": {
+      "full_name": "Flow Plane Commands",
+      "description": "Commands for flow planes — the planar fracture-flow elements (with edge/vertex/zone sub-namespaces) of 3DEC's hydro-mechanical fluid-flow model.",
+      "command_prefix": "flowplane",
+      "commands": [
+        {
+          "name": "active",
+          "file": "3dec/command_docs/commands/flowplane/active.json",
+          "short_description": "Activate or deactivate fluid flow planes in the range",
+          "syntax": "flowplane active <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "area-minimum",
+          "file": "3dec/command_docs/commands/flowplane/area-minimum.json",
+          "short_description": "Set minumum flowplane area",
+          "syntax": "flowplane area-minimum <f>",
+          "python_available": false
+        },
+        {
+          "name": "edge-apply-remove",
+          "file": "3dec/command_docs/commands/flowplane/edge-apply-remove.json",
+          "short_description": "Remove flow plane edge boundary conditions",
+          "syntax": "flowplane edge apply-remove keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "edge-apply",
+          "file": "3dec/command_docs/commands/flowplane/edge-apply.json",
+          "short_description": "Set boundary conditions along flow plane edges",
+          "syntax": "flowplane edge apply keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "edge-list",
+          "file": "3dec/command_docs/commands/flowplane/edge-list.json",
+          "short_description": "List fracture fluid-flow plane-edge data",
+          "syntax": "flowplane edge list",
+          "python_available": false
+        },
+        {
+          "name": "group",
+          "file": "3dec/command_docs/commands/flowplane/group.json",
+          "short_description": "Group flow planes in the range",
+          "syntax": "flowplane group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "hide",
+          "file": "3dec/command_docs/commands/flowplane/hide.json",
+          "short_description": "Hide fluid flow planes in the range",
+          "syntax": "flowplane hide <b>[range]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "3dec/command_docs/commands/flowplane/list.json",
+          "short_description": "List flow plane information",
+          "syntax": "flowplane list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "property",
+          "file": "3dec/command_docs/commands/flowplane/property.json",
+          "short_description": "Set flow plane properties",
+          "syntax": "flowplane property keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "vertex-group",
+          "file": "3dec/command_docs/commands/flowplane/vertex-group.json",
+          "short_description": "Group flow plane vertices in the range",
+          "syntax": "flowplane vertex group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "vertex-history",
+          "file": "3dec/command_docs/commands/flowplane/vertex-history.json",
+          "short_description": "Set a history of a flow plane vertex variable",
+          "syntax": "flowplane vertex history [name <s>] location-keyword variable-keyword [keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "vertex-initialize",
+          "file": "3dec/command_docs/commands/flowplane/vertex-initialize.json",
+          "short_description": "Initialize flow plane vertex properties",
+          "syntax": "flowplane vertex initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "vertex-list",
+          "file": "3dec/command_docs/commands/flowplane/vertex-list.json",
+          "short_description": "List fluid flow plane vertex information",
+          "syntax": "flowplane vertex list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "vertex-property",
+          "file": "3dec/command_docs/commands/flowplane/vertex-property.json",
+          "short_description": "Set flow plane vertex properties",
+          "syntax": "flowplane vertex property keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-area-minimum",
+          "file": "3dec/command_docs/commands/flowplane/zone-area-minimum.json",
+          "short_description": "Define the minimum area (of flow plane zone) to be used in fluid flow calculations",
+          "syntax": "flowplane zone area-minimum <f>",
+          "python_available": false
+        },
+        {
+          "name": "zone-edge-minimum",
+          "file": "3dec/command_docs/commands/flowplane/zone-edge-minimum.json",
+          "short_description": "Set the minimum edge length of a flow zone to the specified value",
+          "syntax": "flowplane zone edge-minimum <f>[range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-group",
+          "file": "3dec/command_docs/commands/flowplane/zone-group.json",
+          "short_description": "Group flow plane zones in the range",
+          "syntax": "flowplane zone group <s1>[slot <s2>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "zone-list",
+          "file": "3dec/command_docs/commands/flowplane/zone-list.json",
+          "short_description": "List flow plane zone information",
+          "syntax": "flowplane zone list keyword [range]",
+          "python_available": false
+        }
+      ]
+    },
+    "data": {
+      "full_name": "Data Commands",
+      "description": "Commands for creating user-defined data containers — labels, scalars, vectors, and tensors — attached to model objects. Used for visualizing imported field data or computed quantities.",
+      "command_prefix": "data",
+      "related_categories": [
+        "geometry",
+        "plot"
+      ],
+      "notes": [
+        "Four sub-namespaces: data label / scalar / vector / tensor — each with create/delete/list/import/export/group/results",
+        "Useful for piping external CSV / field data into the model for visualization or sampling",
+        "Sub-namespace is part of the JSON key: 'data scalar create' → commands/data/scalar-create.json",
+        "Plot items can color/size objects by data values stored in these containers"
+      ],
+      "commands": [
+        {
+          "name": "label-create",
+          "file": "_common/command_docs/commands/data/label-create.json",
+          "short_description": "Create a user-defined label at a point in space",
+          "syntax": "data label create keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "label-delete",
+          "file": "_common/command_docs/commands/data/label-delete.json",
+          "short_description": "Delete all labels within the specified range ",
+          "syntax": "data label delete [name <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "label-list",
+          "file": "_common/command_docs/commands/data/label-list.json",
+          "short_description": "List label information",
+          "syntax": "data label list [name <s>]",
+          "python_available": false
+        },
+        {
+          "name": "label-modify",
+          "file": "_common/command_docs/commands/data/label-modify.json",
+          "short_description": "Modify an existing label",
+          "syntax": "data label modify keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "label-results",
+          "file": "_common/command_docs/commands/data/label-results.json",
+          "short_description": "Include label data in results files",
+          "syntax": "data label results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "scalar-create",
+          "file": "_common/command_docs/commands/data/scalar-create.json",
+          "short_description": "Create a scalar data entry",
+          "syntax": "data scalar create <v>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-delete",
+          "file": "_common/command_docs/commands/data/scalar-delete.json",
+          "short_description": "Delete scalars in the range",
+          "syntax": "data scalar delete [range]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-export",
+          "file": "_common/command_docs/commands/data/scalar-export.json",
+          "short_description": "Export scalars to the file with name s ",
+          "syntax": "data scalar export <s>[binary] [range]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-group",
+          "file": "_common/command_docs/commands/data/scalar-group.json",
+          "short_description": "Specify scalar group names",
+          "syntax": "data scalar group <s>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-import",
+          "file": "_common/command_docs/commands/data/scalar-import.json",
+          "short_description": "Import scalars from file s ",
+          "syntax": "data scalar import <s>[keyword]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-list",
+          "file": "_common/command_docs/commands/data/scalar-list.json",
+          "short_description": "List scalar information on data in the range specified",
+          "syntax": "data scalar list [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "scalar-results",
+          "file": "_common/command_docs/commands/data/scalar-results.json",
+          "short_description": "Include scalar data in results files",
+          "syntax": "data scalar results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "tensor-create",
+          "file": "_common/command_docs/commands/data/tensor-create.json",
+          "short_description": "Create a tensor data entry",
+          "syntax": "data tensor create <v>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-delete",
+          "file": "_common/command_docs/commands/data/tensor-delete.json",
+          "short_description": "Delete tensors in the range",
+          "syntax": "data tensor delete [range]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-export",
+          "file": "_common/command_docs/commands/data/tensor-export.json",
+          "short_description": "Export tensors to the file with name s ",
+          "syntax": "data tensor export <s>[binary] [range]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-group",
+          "file": "_common/command_docs/commands/data/tensor-group.json",
+          "short_description": "Specify tensor group names",
+          "syntax": "data tensor group <s>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-import",
+          "file": "_common/command_docs/commands/data/tensor-import.json",
+          "short_description": "Import tensors from file s ",
+          "syntax": "data tensor import <s>[group <s>[slot <s>]]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-list",
+          "file": "_common/command_docs/commands/data/tensor-list.json",
+          "short_description": "List tensor information on data in the range specified",
+          "syntax": "data tensor list [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "tensor-results",
+          "file": "_common/command_docs/commands/data/tensor-results.json",
+          "short_description": "Include tensor data in results files",
+          "syntax": "data tensor results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "vector-create",
+          "file": "_common/command_docs/commands/data/vector-create.json",
+          "short_description": "Create a vector",
+          "syntax": "data vector create <v>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "vector-delete",
+          "file": "_common/command_docs/commands/data/vector-delete.json",
+          "short_description": "Delete vector data objets in the range",
+          "syntax": "data vector delete [range]",
+          "python_available": false
+        },
+        {
+          "name": "vector-export",
+          "file": "_common/command_docs/commands/data/vector-export.json",
+          "short_description": "Export vectors to the file with name s ",
+          "syntax": "data vector export <s>[binary] [range]",
+          "python_available": false
+        },
+        {
+          "name": "vector-group",
+          "file": "_common/command_docs/commands/data/vector-group.json",
+          "short_description": "Specify vector group names",
+          "syntax": "data vector group <s>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "vector-import",
+          "file": "_common/command_docs/commands/data/vector-import.json",
+          "short_description": "Import vectors from file s ",
+          "syntax": "data vector import <s>[group <s>[slot <s>]]",
+          "python_available": false
+        },
+        {
+          "name": "vector-list",
+          "file": "_common/command_docs/commands/data/vector-list.json",
+          "short_description": "List vector information",
+          "syntax": "data vector list [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "vector-results",
+          "file": "_common/command_docs/commands/data/vector-results.json",
+          "short_description": "Include vector data in results files",
+          "syntax": "data vector results active <b>",
+          "python_available": false
+        }
+      ]
+    },
+    "fish": {
+      "full_name": "FISH Commands",
+      "description": "Commands controlling the FISH embedded scripting language: function definition, callbacks, debugging, tracing, and runtime configuration.",
+      "command_prefix": "fish",
+      "related_categories": [
+        "model",
+        "program",
+        "history"
+      ],
+      "notes": [
+        "fish define introduces a function; fish list prints all symbols (loggable)",
+        "fish callback registers per-cycle FISH execution; fish-halt in 'model solve' is a stop-condition callback",
+        "fish trace / debug emit diagnostic output capturable via log",
+        "Prefer Python SDK for new scripting; FISH remains required for callbacks and in-cycle hooks"
+      ],
+      "commands": [
+        {
+          "name": "automatic-create",
+          "file": "_common/command_docs/commands/fish/automatic-create.json",
+          "short_description": "Set the FISH symbol automatic creation status",
+          "syntax": "fish automatic-create <b>",
+          "python_available": false
+        },
+        {
+          "name": "boolean-convert",
+          "file": "_common/command_docs/commands/fish/boolean-convert.json",
+          "short_description": "Convert other types to Boolean values",
+          "syntax": "fish boolean-convert <b>",
+          "python_available": false
+        },
+        {
+          "name": "callback",
+          "file": "_common/command_docs/commands/fish/callback.json",
+          "short_description": "Add/remove functions to be executed in response to callback events",
+          "syntax": "fish callback keyword",
+          "python_available": false
+        },
+        {
+          "name": "debug",
+          "file": "_common/command_docs/commands/fish/debug.json",
+          "short_description": "Launch the FISH function s in debug mode",
+          "syntax": "fish debug <s>keyword",
+          "python_available": false
+        },
+        {
+          "name": "define",
+          "file": "_common/command_docs/commands/fish/define.json",
+          "short_description": "Define a new FISH function",
+          "syntax": "fish define <s>...",
+          "python_available": false
+        },
+        {
+          "name": "history",
+          "file": "_common/command_docs/commands/fish/history.json",
+          "short_description": "Create a history of the FISH variable sym ",
+          "syntax": "fish history [name <s>] <sym>",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/fish/list.json",
+          "short_description": "List FISH -related quantities",
+          "syntax": "fish list [keyword] | <s>...",
+          "python_available": false
+        },
+        {
+          "name": "operator",
+          "file": "_common/command_docs/commands/fish/operator.json",
+          "short_description": "Define a new FISH operator",
+          "syntax": "fish operator <s>...",
+          "python_available": false
+        },
+        {
+          "name": "result",
+          "file": "_common/command_docs/commands/fish/result.json",
+          "short_description": "Set storage of FISH information in results files",
+          "syntax": "fish results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "structure",
+          "file": "_common/command_docs/commands/fish/structure.json",
+          "short_description": "Define a new FISH structure",
+          "syntax": "fish structure <s>...",
+          "python_available": false
+        },
+        {
+          "name": "trace",
+          "file": "_common/command_docs/commands/fish/trace.json",
+          "short_description": "Create a particle trace of the FISH variable sym ",
+          "syntax": "fish trace [name <s>] <sym>",
+          "python_available": false
+        }
+      ]
+    },
+    "fracture": {
+      "full_name": "Fracture (DFN) Commands",
+      "description": "Discrete Fracture Network commands for creating, importing, and analyzing planar discontinuities (fractures) and their intersections. Drives Smooth-Joint and similar contact models.",
+      "command_prefix": "fracture",
+      "related_categories": [
+        "geometry",
+        "contact"
+      ],
+      "notes": [
+        "DFN module: command verb is 'fracture' even though docs call it 'dfn'",
+        "fracture generate creates statistical DFNs; fracture import reads explicit fracture files",
+        "fracture template defines reusable fracture geometries (fracture template create / delete / modify-default)",
+        "fracture intersections compute / scanline produces connectivity data for joint-set analysis",
+        "Use 'contact model smoothjoint' (or similar) to wire fractures into mechanical behavior"
+      ],
+      "commands": [
+        {
+          "name": "aperture",
+          "file": "_common/command_docs/commands/fracture/aperture.json",
+          "short_description": "Assign apertures to fractures",
+          "syntax": "fracture aperture keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "attribute",
+          "file": "_common/command_docs/commands/fracture/attribute.json",
+          "short_description": "Modify fracture attributes",
+          "syntax": "fracture attribute keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "cluster",
+          "file": "_common/command_docs/commands/fracture/cluster.json",
+          "short_description": "Compute fracture clusters",
+          "syntax": "fracture cluster keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "combine",
+          "file": "_common/command_docs/commands/fracture/combine.json",
+          "short_description": "Simplify fractures",
+          "syntax": "fracture combine keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "compute",
+          "file": "_common/command_docs/commands/fracture/compute.json",
+          "short_description": "Compute fracture statistics",
+          "syntax": "fracture compute keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "connectivity",
+          "file": "_common/command_docs/commands/fracture/connectivity.json",
+          "short_description": "Calculate fracture connectivity with a specified structure",
+          "syntax": "fracture connectivity keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "contact-model",
+          "file": "_common/command_docs/commands/fracture/contact-model.json",
+          "short_description": "Assign contact models via fractures",
+          "syntax": "fracture contact-model keyword ... [rangeof dfns]",
+          "python_available": false
+        },
+        {
+          "name": "copy",
+          "file": "_common/command_docs/commands/fracture/copy.json",
+          "short_description": "Copy fractures",
+          "syntax": "fracture copy keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "create",
+          "file": "_common/command_docs/commands/fracture/create.json",
+          "short_description": "Create a deterministic fracture",
+          "syntax": "fracture create keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "delete",
+          "file": "_common/command_docs/commands/fracture/delete.json",
+          "short_description": "Delete fractures",
+          "syntax": "fracture delete [dfn [<s>] ][range]",
+          "python_available": false
+        },
+        {
+          "name": "dfn-extra",
+          "file": "_common/command_docs/commands/fracture/dfn-extra.json",
+          "short_description": "Set DFN extra variables",
+          "syntax": "fracture dfn-extra <i><a>[range]",
+          "python_available": false
+        },
+        {
+          "name": "dfn-group",
+          "file": "_common/command_docs/commands/fracture/dfn-group.json",
+          "short_description": "Specify DFN group names",
+          "syntax": "fracture dfn-group <s>keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "export",
+          "file": "_common/command_docs/commands/fracture/export.json",
+          "short_description": "Export fractures to file",
+          "syntax": "fracture export keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "extra",
+          "file": "_common/command_docs/commands/fracture/extra.json",
+          "short_description": "Set fracture extra variables",
+          "syntax": "fracture extra <i><a>[range]",
+          "python_available": false
+        },
+        {
+          "name": "generate",
+          "file": "_common/command_docs/commands/fracture/generate.json",
+          "short_description": "Generate fractures from a statistical description",
+          "syntax": "fracture generate keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "group",
+          "file": "_common/command_docs/commands/fracture/group.json",
+          "short_description": "Specify fracture group names",
+          "syntax": "fracture group <s>keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "import",
+          "file": "_common/command_docs/commands/fracture/import.json",
+          "short_description": "Import fractures",
+          "syntax": "fracture import keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "initialize",
+          "file": "_common/command_docs/commands/fracture/initialize.json",
+          "short_description": "Modify fracture attributes",
+          "syntax": "fracture initialize keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "intersections-automatic-update",
+          "file": "_common/command_docs/commands/fracture/intersections-automatic-update.json",
+          "short_description": "Set the intersection automatic-updating state",
+          "syntax": "fracture intersections automatic-update <b>",
+          "python_available": false
+        },
+        {
+          "name": "intersections-compute",
+          "file": "_common/command_docs/commands/fracture/intersections-compute.json",
+          "short_description": "Compute intersections",
+          "syntax": "fracture intersections compute keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "intersections-delete",
+          "file": "_common/command_docs/commands/fracture/intersections-delete.json",
+          "short_description": "Delete intersections",
+          "syntax": "fracture intersections delete [keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "intersections-scanline",
+          "file": "_common/command_docs/commands/fracture/intersections-scanline.json",
+          "short_description": "Create intersections corresponding to scanline mapping",
+          "syntax": "fracture intersections scanline keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "joint-set",
+          "file": "_common/command_docs/commands/fracture/joint-set.json",
+          "short_description": "Create a set of sub-parallel fractures, or joint set, with specified origin, size, and spacing",
+          "syntax": "fracture joint-set keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/fracture/list.json",
+          "short_description": "List the fracture attributes",
+          "syntax": "fracture list keyword [range]",
+          "python_available": false
+        },
+        {
+          "name": "property",
+          "file": "_common/command_docs/commands/fracture/property.json",
+          "short_description": "Assign fracture surface properties",
+          "syntax": "fracture property <s><a>[<s1><a1>...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "prune",
+          "file": "_common/command_docs/commands/fracture/prune.json",
+          "short_description": "Prune isolated fractures",
+          "syntax": "fracture prune keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "results",
+          "file": "_common/command_docs/commands/fracture/results.json",
+          "short_description": "Specify whether fracture information is stored in subsequent results files",
+          "syntax": "fracture results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "set-property",
+          "file": "_common/command_docs/commands/fracture/set-property.json",
+          "short_description": "Assign properties in objects that intersect fractures",
+          "syntax": "fracture set-property keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "template-create",
+          "file": "_common/command_docs/commands/fracture/template-create.json",
+          "short_description": "Create a fracture generation template",
+          "syntax": "fracture template create <s>keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "template-delete",
+          "file": "_common/command_docs/commands/fracture/template-delete.json",
+          "short_description": "Delete fracture generation templates",
+          "syntax": "fracture template delete [range]",
+          "python_available": false
+        },
+        {
+          "name": "template-modify-default",
+          "file": "_common/command_docs/commands/fracture/template-modify-default.json",
+          "short_description": "Modify the default fracture generation template",
+          "syntax": "fracture template modify-default keyword",
+          "python_available": false
+        },
+        {
+          "name": "verify-file",
+          "file": "_common/command_docs/commands/fracture/verify-file.json",
+          "short_description": "Verify a DFN file",
+          "syntax": "fracture verify-file keyword",
+          "python_available": false
+        }
+      ]
+    },
+    "geometry": {
+      "full_name": "Geometry Commands",
+      "description": "Includes import/export, refinement, tessellation, and group/extra metadata.",
+      "command_prefix": "geometry",
+      "related_categories": [
+        "fracture",
+        "model"
+      ],
+      "notes": [
+        "geometry sets are containers of nodes/edges/polygons addressed via 'geometry set <name>'",
+        "geometry import / export are the primary I/O paths (STL, DXF, geometry-set format)",
+        "Sub-namespaces (edge / node / polygon) operate on individual element types within a set"
+      ],
+      "commands": [
+        {
+          "name": "assign-groups",
+          "file": "_common/command_docs/commands/geometry/assign-groups.json",
+          "short_description": "This command assigns group names to objects based on their relation to geometric sets",
+          "syntax": "geometry assign-groups keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "copy",
+          "file": "_common/command_docs/commands/geometry/copy.json",
+          "short_description": "Copy geometric data",
+          "syntax": "geometry copy [source <s1>] [target <s2>] keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "delete",
+          "file": "_common/command_docs/commands/geometry/delete.json",
+          "short_description": "Delete geometric sets",
+          "syntax": "geometry delete [set <s>]",
+          "python_available": false
+        },
+        {
+          "name": "edge-create",
+          "file": "_common/command_docs/commands/geometry/edge-create.json",
+          "short_description": "Create an edge in the current geometry set",
+          "syntax": "geometry edge create keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "edge-delete",
+          "file": "_common/command_docs/commands/geometry/edge-delete.json",
+          "short_description": "Delete geometric edges",
+          "syntax": "geometry edge delete [keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "edge-export",
+          "file": "_common/command_docs/commands/geometry/edge-export.json",
+          "short_description": "Export geometry edges data",
+          "syntax": "geometry edge export <s>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "edge-extra",
+          "file": "_common/command_docs/commands/geometry/edge-extra.json",
+          "short_description": "Set edge extra variables",
+          "syntax": "geometry edge extra <i><a>[set <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "edge-group",
+          "file": "_common/command_docs/commands/geometry/edge-group.json",
+          "short_description": "Assign the group s to the edges of the geometric set that fall within the range",
+          "syntax": "geometry edge group <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "export",
+          "file": "_common/command_docs/commands/geometry/export.json",
+          "short_description": "Export geometry data",
+          "syntax": "geometry export <s>[keyword] [range]",
+          "python_available": false
+        },
+        {
+          "name": "fill",
+          "file": "_common/command_docs/commands/geometry/fill.json",
+          "short_description": "Fill the closed geometry set with nodes",
+          "syntax": "geometry fill <f>[<fs>]",
+          "python_available": false
+        },
+        {
+          "name": "generate",
+          "file": "_common/command_docs/commands/geometry/generate.json",
+          "short_description": "Generate objects with specified shapes",
+          "syntax": "geometry generate keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "import",
+          "file": "_common/command_docs/commands/geometry/import.json",
+          "short_description": "Import geometric data",
+          "syntax": "geometry import <s>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/geometry/list.json",
+          "short_description": "List geometry information",
+          "syntax": "geometry list keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "move-to",
+          "file": "_common/command_docs/commands/geometry/move-to.json",
+          "short_description": "Move nodes",
+          "syntax": "geometry move-to keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "node-create",
+          "file": "_common/command_docs/commands/geometry/node-create.json",
+          "short_description": "Create a node at the position v in the current geometry set",
+          "syntax": "geometry node create <v>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "node-delete",
+          "file": "_common/command_docs/commands/geometry/node-delete.json",
+          "short_description": "Delete geometric nodes",
+          "syntax": "geometry node delete [keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "node-export",
+          "file": "_common/command_docs/commands/geometry/node-export.json",
+          "short_description": "Export geometry nodes data",
+          "syntax": "geometry node export <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "node-extra",
+          "file": "_common/command_docs/commands/geometry/node-extra.json",
+          "short_description": "Set node extra variables",
+          "syntax": "geometry node extra <i><a>[set <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "node-group",
+          "file": "_common/command_docs/commands/geometry/node-group.json",
+          "short_description": "Assign the group s to the nodes of the geometric set that fall within the range",
+          "syntax": "geometry node group <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "paint-extra",
+          "file": "_common/command_docs/commands/geometry/paint-extra.json",
+          "short_description": "“Paint” a scalar value from a zone field",
+          "syntax": "geometry paint-extra <i>keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "polygon-create",
+          "file": "_common/command_docs/commands/geometry/polygon-create.json",
+          "short_description": "Create a polygon in the current geometry set",
+          "syntax": "geometry polygon create keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "polygon-delete",
+          "file": "_common/command_docs/commands/geometry/polygon-delete.json",
+          "short_description": "Delete geometric polygons",
+          "syntax": "geometry polygon delete [keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "polygon-export",
+          "file": "_common/command_docs/commands/geometry/polygon-export.json",
+          "short_description": "Export geometry polygons data",
+          "syntax": "geometry polygon export <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "polygon-extra",
+          "file": "_common/command_docs/commands/geometry/polygon-extra.json",
+          "short_description": "Set polygon extra variables",
+          "syntax": "geometry polygon extra <i><a>[set <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "polygon-group",
+          "file": "_common/command_docs/commands/geometry/polygon-group.json",
+          "short_description": "Assign the group s to the polygons of the geometric set that fall within the range",
+          "syntax": "geometry polygon group <s>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "refine",
+          "file": "_common/command_docs/commands/geometry/refine.json",
+          "short_description": "Refine the triangular or quadrilateral polygons in the geometric set into smaller versions",
+          "syntax": "geometry refine [<i>] [set <s>] [range]",
+          "python_available": false
+        },
+        {
+          "name": "results",
+          "file": "_common/command_docs/commands/geometry/results.json",
+          "short_description": "Specify whether geometry information is stored in subsequent results files",
+          "syntax": "geometry results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "rotate",
+          "file": "_common/command_docs/commands/geometry/rotate.json",
+          "short_description": "Rotate nodes",
+          "syntax": "geometry rotate keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "select",
+          "file": "_common/command_docs/commands/geometry/select.json",
+          "short_description": "Specify the current geometric set (or create a new set named s and make it the current set, if on...",
+          "syntax": "geometry select <s>",
+          "python_available": false
+        },
+        {
+          "name": "separate",
+          "file": "_common/command_docs/commands/geometry/separate.json",
+          "short_description": "Separate polygons into sets",
+          "syntax": "geometry separate keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "set",
+          "file": "_common/command_docs/commands/geometry/set.json",
+          "short_description": "Specify the current geometric set (or create a new set named s and make it the current set, if on...",
+          "syntax": "geometry set <s>",
+          "python_available": false
+        },
+        {
+          "name": "tessellate",
+          "file": "_common/command_docs/commands/geometry/tessellate.json",
+          "short_description": "Tessellate nodes",
+          "syntax": "geometry tessellate keyword ... [range]",
+          "python_available": false
+        },
+        {
+          "name": "translate",
+          "file": "_common/command_docs/commands/geometry/translate.json",
+          "short_description": "Translate nodes",
+          "syntax": "geometry translate <v>[keyword ...] [range]",
+          "python_available": false
+        },
+        {
+          "name": "triangulate",
+          "file": "_common/command_docs/commands/geometry/triangulate.json",
+          "short_description": "Triangulate planar polygons",
+          "syntax": "geometry triangulate keyword ... [range]",
+          "python_available": false
+        }
+      ]
+    },
+    "history": {
+      "full_name": "History Commands",
+      "description": "Commands for managing model histories: time-series recordings of scalar quantities sampled during cycling. Used for monitoring convergence, plotting trends, and exporting tabular data.",
+      "command_prefix": "history",
+      "related_categories": [
+        "model"
+      ],
+      "notes": [
+        "history list and history results print samples to stdout - capturable via log",
+        "history export writes tabular data to a file; history interval controls sampling cadence",
+        "history label / rename adjust display metadata; history delete / purge remove entries"
+      ],
+      "commands": [
+        {
+          "name": "delete",
+          "file": "_common/command_docs/commands/history/delete.json",
+          "short_description": "All history traces are deleted",
+          "syntax": "history delete",
+          "python_available": false
+        },
+        {
+          "name": "export",
+          "file": "_common/command_docs/commands/history/export.json",
+          "short_description": "Write the contents of the list of histories to the screen, a file (with the file keyword) or a ta...",
+          "syntax": "history export [keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "interval",
+          "file": "_common/command_docs/commands/history/interval.json",
+          "short_description": "Specifies the history-sampling interval",
+          "syntax": "history interval <i>",
+          "python_available": false
+        },
+        {
+          "name": "label",
+          "file": "_common/command_docs/commands/history/label.json",
+          "short_description": "Assigns a label sl to history sn ",
+          "syntax": "history label <sl>name <sn>",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/history/list.json",
+          "short_description": "List history information",
+          "syntax": "history list keyword",
+          "python_available": false
+        },
+        {
+          "name": "purge",
+          "file": "_common/command_docs/commands/history/purge.json",
+          "short_description": "The contents of all history traces are erased, but the traces themselves remain",
+          "syntax": "history purge",
+          "python_available": false
+        },
+        {
+          "name": "rename",
+          "file": "_common/command_docs/commands/history/rename.json",
+          "short_description": "Rename the history with name sn to sr ",
+          "syntax": "history rename <sr>name <sn>",
+          "python_available": false
+        },
+        {
+          "name": "results",
+          "file": "_common/command_docs/commands/history/results.json",
+          "short_description": "Specify whether history information is stored in subsequent results files",
+          "syntax": "history results active <b>",
+          "python_available": false
+        }
+      ]
+    },
+    "model": {
+      "full_name": "Model Commands",
+      "description": "System-level commands for controlling simulation execution, configuration, and state management",
+      "command_prefix": "model",
+      "python_module": "itasca",
+      "python_functions": [
+        "itasca.cycle()",
+        "itasca.timestep()",
+        "itasca.set_timestep()"
+      ],
+      "common_keywords": {
+        "solve": [
+          "ratio",
+          "ratio-average",
+          "force-max",
+          "moment-max",
+          "cycles"
+        ],
+        "cycle": [
+          "number of cycles"
+        ],
+        "domain": [
+          "extent",
+          "condition",
+          "periodic",
+          "destroy"
+        ],
+        "configure": [
+          "threads",
+          "dynamic"
+        ]
+      },
+      "related_categories": [
+        "contact",
+        "set"
+      ],
+      "notes": [
+        "'model solve' is preferred for reaching equilibrium (not available in Python SDK)",
+        "'model cycle' is equivalent to itasca.cycle() in Python",
+        "Model state can be saved/restored for checkpointing",
+        "Domain settings must be configured before generating objects",
+        "Use 'model solve' with ratio criteria for automatic convergence"
+      ],
+      "commands": [
+        {
+          "name": "calm",
+          "file": "_common/command_docs/commands/model/calm.json",
+          "short_description": "Calm the model",
+          "syntax": "model calm",
+          "python_available": false,
+          "python_alternative": "itasca.command('model calm') - Python SDK does not provide direct calm method"
+        },
+        {
+          "name": "clean",
+          "file": "_common/command_docs/commands/model/clean.json",
+          "short_description": "Clean the model",
+          "syntax": "model clean [keyword]",
+          "python_available": false,
+          "python_alternative": "itasca.command('model clean') or itasca.command('model clean all') - Python SDK does not provide direct clean method"
+        },
+        {
+          "name": "creep",
+          "file": "_common/command_docs/commands/model/creep.json",
+          "short_description": "Set parameters for a creep material analysis",
+          "syntax": "model creep [<b>] keyword",
+          "python_available": false
+        },
+        {
+          "name": "cycle",
+          "file": "_common/command_docs/commands/model/cycle.json",
+          "short_description": "Execute timesteps",
+          "syntax": "model cycle <i>[calm <i2>]",
+          "python_available": true
+        },
+        {
+          "name": "deterministic",
+          "file": "_common/command_docs/commands/model/deterministic.json",
+          "short_description": "Set the deterministic mode",
+          "syntax": "model deterministic [default] <b>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model deterministic on') or itasca.command('model deterministic off') - Python SDK does not provide direct deterministic control"
+        },
+        {
+          "name": "display",
+          "file": "_common/command_docs/commands/model/display.json",
+          "short_description": "Set information to display during cycling",
+          "syntax": "model display keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('model display ...') - Python SDK does not provide display control. For monitoring, use print statements or logging in Python loop with itasca.cycle() and itasca.fish_get()"
+        },
+        {
+          "name": "domain",
+          "file": "_common/command_docs/commands/model/domain.json",
+          "short_description": "Specify the domain boundaries and conditions",
+          "syntax": "model domain keyword",
+          "python_available": true
+        },
+        {
+          "name": "dynamic",
+          "file": "_common/command_docs/commands/model/dynamic.json",
+          "short_description": "Set parameters for a dynamic material analysis",
+          "syntax": "model dynamic keyword",
+          "python_available": false
+        },
+        {
+          "name": "energy",
+          "file": "_common/command_docs/commands/model/energy.json",
+          "short_description": "Specify the energy tracking state",
+          "syntax": "model energy keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "factor-of-safety",
+          "file": "_common/command_docs/commands/model/factor-of-safety.json",
+          "short_description": "Set factor of safety analysis parameters",
+          "syntax": "model factor-of-safety [keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "fluid",
+          "file": "_common/command_docs/commands/model/fluid.json",
+          "short_description": "Set parameters for a fluid flow analysis",
+          "syntax": "model fluid [<b>] keyword",
+          "python_available": false
+        },
+        {
+          "name": "gravity",
+          "file": "_common/command_docs/commands/model/gravity.json",
+          "short_description": "Set the gravity as a vector or float",
+          "syntax": "model gravity <v3>| <f>",
+          "python_available": true
+        },
+        {
+          "name": "history",
+          "file": "_common/command_docs/commands/model/history.json",
+          "short_description": "Create a history of a model quantity",
+          "syntax": "model history [name <s>] keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('model history mechanical ratio-average') - Python SDK does not provide direct history creation. For monitoring in Python, manually compute and store values in loops:\n\n# Example: track metrics over cycles\nhistory_data = []\nfor _ in range(100):\n    itasca.cycle(100)\n    # itasca.cycle() returns current cycle number\n    history_data.append({'cycle': itasca.cycle(), 'time': itasca.mech_age(), ...})"
+        },
+        {
+          "name": "large-strain",
+          "file": "_common/command_docs/commands/model/large-strain.json",
+          "short_description": "Sets the program to use the numerical formulation for large-strain deformation",
+          "syntax": "model large-strain <b>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model large-strain on') or itasca.command('model large-strain off') - Python SDK does not provide direct large-strain control"
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/model/list.json",
+          "short_description": "List a model related quantity",
+          "syntax": "model list keyword",
+          "python_available": false
+        },
+        {
+          "name": "mechanical",
+          "file": "_common/command_docs/commands/model/mechanical.json",
+          "short_description": "Set parameters for a mechanical analysis",
+          "syntax": "model mechanical [<b>] keyword",
+          "python_available": "partial"
+        },
+        {
+          "name": "new",
+          "file": "_common/command_docs/commands/model/new.json",
+          "short_description": "Clear model-state information",
+          "syntax": "model new [force]",
+          "python_available": false,
+          "python_alternative": "itasca.command('model new') or itasca.command('model new force') - Python SDK does not provide direct model.new() function"
+        },
+        {
+          "name": "orientation-tracking",
+          "file": "_common/command_docs/commands/model/orientation-tracking.json",
+          "short_description": "Specify the orientation tracking state",
+          "syntax": "model orientation-tracking <b>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model orientation-tracking on') or itasca.command('model orientation-tracking off') - Python SDK does not provide direct orientation tracking control"
+        },
+        {
+          "name": "precision",
+          "file": "_common/command_docs/commands/model/precision.json",
+          "short_description": "Set the listing precision",
+          "syntax": "model precision <i>",
+          "python_available": false
+        },
+        {
+          "name": "random",
+          "file": "_common/command_docs/commands/model/random.json",
+          "short_description": "Set the seed for the random-number generator",
+          "syntax": "model random <i>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model random 12345') - Python SDK does not provide direct random seed control"
+        },
+        {
+          "name": "range",
+          "file": "_common/command_docs/commands/model/range.json",
+          "short_description": "Create/delete a named range",
+          "syntax": "model range keyword",
+          "python_available": false
+        },
+        {
+          "name": "restore",
+          "file": "_common/command_docs/commands/model/restore.json",
+          "short_description": "Restore program-state information",
+          "syntax": "model restore <s>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model restore \"filename.f3sav\"') - Python SDK does not provide direct restore function. Note: Use double quotes around filename in command string if path contains spaces"
+        },
+        {
+          "name": "results",
+          "file": "_common/command_docs/commands/model/results.json",
+          "short_description": "Perform file operations on results files",
+          "syntax": "model results keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('model results ...') - Python SDK does not provide direct results file control. For exporting states in Python, use:\n\n# Setup automatic export\nitasca.command('model results prefix \"simulation\"')\nitasca.command('model results interval step 1000')\n\n# Manual export\nitasca.command('model results export \"snapshot.p3result\"')\n\n# Import\nitasca.command('model results import \"snapshot.p3result\"')"
+        },
+        {
+          "name": "save",
+          "file": "_common/command_docs/commands/model/save.json",
+          "short_description": "Save all model-state information",
+          "syntax": "model save <s>[keyword]",
+          "python_available": false,
+          "python_alternative": "itasca.command('model save \"filename.sav\"') or itasca.command('model save \"filename\" compress') - Python SDK does not provide direct save function. Note: Use double quotes around filename in command string if path contains spaces"
+        },
+        {
+          "name": "solve",
+          "file": "_common/command_docs/commands/model/solve.json",
+          "short_description": "Solve to a specified limit",
+          "syntax": "model solve keyword ...",
+          "python_available": false,
+          "python_alternative": "itasca.command('model solve ratio 1e-5') - Python SDK does not provide direct solve() function. Custom loops require manual force ratio calculations."
+        },
+        {
+          "name": "step",
+          "file": "_common/command_docs/commands/model/step.json",
+          "short_description": "Execute timesteps",
+          "syntax": "model step <i>[calm <i2>]",
+          "python_available": false
+        },
+        {
+          "name": "thermal",
+          "file": "_common/command_docs/commands/model/thermal.json",
+          "short_description": "This command sets parameters for a thermal material analysis (only available if 'model configure ...",
+          "syntax": "model thermal [<b>] keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('model thermal ...') - Python SDK does not provide direct thermal configuration. For thermal time: itasca.thermal_time() may be available depending on version"
+        },
+        {
+          "name": "title",
+          "file": "_common/command_docs/commands/model/title.json",
+          "short_description": "Set the model title",
+          "syntax": "model title [<s>]",
+          "python_available": false
+        },
+        {
+          "name": "update-interval",
+          "file": "_common/command_docs/commands/model/update-interval.json",
+          "short_description": "Set the number of cycles taken between updating the existing plots in the user interface",
+          "syntax": "model update-interval <i>",
+          "python_available": false,
+          "python_alternative": "itasca.command('model update-interval 100') - Python SDK does not provide direct update-interval control. Note: When running via Python SDK, visualization updates may behave differently"
+        }
+      ]
+    },
+    "plot": {
+      "full_name": "Plot Commands",
+      "description": "Commands for creating, modifying, and exporting visualization plots. Controls plot items, camera views, and image export.",
+      "command_prefix": "plot",
+      "related_categories": [
+        "contact",
+        "zone",
+        "geometry"
+      ],
+      "notes": [
+        "Plot commands control visualization, not simulation",
+        "Use 'plot export bitmap' to save plot images",
+        "Plot item keywords are extensive; use 'plot export datafile' to inspect syntax",
+        "Camera view controlled via center, eye, magnification, projection keywords"
+      ],
+      "commands": [
+        {
+          "name": "active",
+          "file": "_common/command_docs/commands/plot/active.json",
+          "short_description": "Activate or deactivate a plot",
+          "syntax": "plot [<s>] active <b>",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> active <bool>') - no direct Python SDK method"
+        },
+        {
+          "name": "background",
+          "file": "_common/command_docs/commands/plot/background.json",
+          "short_description": "Specifies the background color of the plot",
+          "syntax": "plot [<s>] background color",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> background <color>') - no direct Python SDK method"
+        },
+        {
+          "name": "clear",
+          "file": "_common/command_docs/commands/plot/clear.json",
+          "short_description": "Removes all plot items from the plot",
+          "syntax": "plot [<s>] clear",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> clear') - no direct Python SDK method"
+        },
+        {
+          "name": "copy",
+          "file": "_common/command_docs/commands/plot/copy.json",
+          "short_description": "Copy a plot to another plot",
+          "syntax": "plot [<s>] copy [<sDest>] [keyword]",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> copy <dest> <keyword>') - no direct Python SDK method"
+        },
+        {
+          "name": "create",
+          "file": "_common/command_docs/commands/plot/create.json",
+          "short_description": "Create a new plot and make it the current (i",
+          "syntax": "plot create [<s>]",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot create <name>') - no direct Python SDK method"
+        },
+        {
+          "name": "current",
+          "file": "_common/command_docs/commands/plot/current.json",
+          "short_description": "Make the specified plot the current (i",
+          "syntax": "plot [<s>] current",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> current') - no direct Python SDK method"
+        },
+        {
+          "name": "delete",
+          "file": "_common/command_docs/commands/plot/delete.json",
+          "short_description": "Delete the specified plot",
+          "syntax": "plot [<s>] delete",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> delete') - no direct Python SDK method"
+        },
+        {
+          "name": "export",
+          "file": "_common/command_docs/commands/plot/export.json",
+          "short_description": "Export the contents of a plot to a file",
+          "syntax": "plot [<s>] export keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot export bitmap filename <path>') - no direct Python SDK method"
+        },
+        {
+          "name": "item",
+          "file": "_common/command_docs/commands/plot/item.json",
+          "short_description": "Create, destroy, or modify plot items associated with a plot",
+          "syntax": "plot [<s>] item keyword",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot item create <type>') - no direct Python SDK method"
+        },
+        {
+          "name": "rename",
+          "file": "_common/command_docs/commands/plot/rename.json",
+          "short_description": "Rename a plot",
+          "syntax": "plot <s>rename <sNew>",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> rename <newname>') - no direct Python SDK method"
+        },
+        {
+          "name": "title",
+          "file": "_common/command_docs/commands/plot/title.json",
+          "short_description": "Set the font and settings used to render the title at the top of the plot",
+          "syntax": "plot <s>title text",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> title <text>') - no direct Python SDK method"
+        },
+        {
+          "name": "update",
+          "file": "_common/command_docs/commands/plot/update.json",
+          "short_description": "Control automatic plot updates",
+          "syntax": "plot <s>update",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot <name> update <bool>') - no direct Python SDK method"
+        },
+        {
+          "name": "view",
+          "file": "_common/command_docs/commands/plot/view.json",
+          "short_description": "Control the camera view of a plot",
+          "syntax": "plot [<s>] view keyword ...",
+          "python_available": false,
+          "python_alternative": "itasca.command('plot view <keyword> <value>') - no direct Python SDK method"
+        }
+      ]
+    },
+    "program": {
+      "full_name": "Program Commands",
+      "command_prefix": "program",
+      "related_categories": [
+        "model",
+        "history",
+        "fish"
+      ],
+      "notes": [
+        "These commands manage the executable itself, not the model state",
+        "program list and program license print to stdout - useful for environment diagnostics under itasca.command()",
+        "program log redirects subsequent command output to a file",
+        "program quit / exit / stop terminate execution; rarely used from MCP workflows",
+        "program threads controls multi-threaded solve parallelism"
+      ],
+      "commands": [
+        {
+          "name": "automatic-model-save",
+          "file": "_common/command_docs/commands/program/automatic-model-save.json",
+          "short_description": "Sets value controlling automatic safe file creating during cycling",
+          "syntax": "program automatic-model-save keyword ...",
+          "python_available": false
+        },
+        {
+          "name": "call",
+          "file": "_common/command_docs/commands/program/call.json",
+          "short_description": "Process the specified data file(s)",
+          "syntax": "program call <s>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "continue",
+          "file": "_common/command_docs/commands/program/continue.json",
+          "short_description": "Resume processing after a program pause",
+          "syntax": "program continue",
+          "python_available": false
+        },
+        {
+          "name": "customer-title-1",
+          "file": "_common/command_docs/commands/program/customer-title-1.json",
+          "short_description": "Set the first line of customer information",
+          "syntax": "program customer-title-1 <s>",
+          "python_available": false
+        },
+        {
+          "name": "customer-title-2",
+          "file": "_common/command_docs/commands/program/customer-title-2.json",
+          "short_description": "Set the second line of customer information",
+          "syntax": "program customer-title-2 <s>",
+          "python_available": false
+        },
+        {
+          "name": "directory",
+          "file": "_common/command_docs/commands/program/directory.json",
+          "short_description": "Set the working directory",
+          "syntax": "program directory keyword",
+          "python_available": false
+        },
+        {
+          "name": "echo",
+          "file": "_common/command_docs/commands/program/echo.json",
+          "short_description": "Set the echo state",
+          "syntax": "program echo keyword",
+          "python_available": false
+        },
+        {
+          "name": "echo-line",
+          "file": "_common/command_docs/commands/program/echo-line.json",
+          "short_description": "Specify output to echo to the console",
+          "syntax": "program echo-line <s>",
+          "python_available": false
+        },
+        {
+          "name": "encrypt",
+          "file": "_common/command_docs/commands/program/encrypt.json",
+          "short_description": "Encrypt the source data file so that the contents are not visible or modifiable by the caller",
+          "syntax": "program encrypt <source>[<starget>]",
+          "python_available": false
+        },
+        {
+          "name": "exit",
+          "file": "_common/command_docs/commands/program/exit.json",
+          "short_description": "Close the program",
+          "syntax": "program exit",
+          "python_available": false
+        },
+        {
+          "name": "floating-point-check",
+          "file": "_common/command_docs/commands/program/floating-point-check.json",
+          "short_description": "Enable/disable the floating point check",
+          "syntax": "program floating-point-check <b>",
+          "python_available": false
+        },
+        {
+          "name": "license",
+          "file": "_common/command_docs/commands/program/license.json",
+          "short_description": "Get/Set license information",
+          "syntax": "program license keyword",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/program/list.json",
+          "short_description": "Print program information",
+          "syntax": "program list keyword",
+          "python_available": false
+        },
+        {
+          "name": "load",
+          "file": "_common/command_docs/commands/program/load.json",
+          "short_description": "Load a compatible DLL",
+          "syntax": "program load keyword",
+          "python_available": false
+        },
+        {
+          "name": "log",
+          "file": "_common/command_docs/commands/program/log.json",
+          "short_description": "Turn on/off logging",
+          "syntax": "program log <b>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "log-file",
+          "file": "_common/command_docs/commands/program/log-file.json",
+          "short_description": "Specify the log file by name",
+          "syntax": "program log-file <s>",
+          "python_available": false
+        },
+        {
+          "name": "mail",
+          "file": "_common/command_docs/commands/program/mail.json",
+          "short_description": "Compose and send email messages",
+          "syntax": "program mail keyword",
+          "python_available": false
+        },
+        {
+          "name": "notice",
+          "file": "_common/command_docs/commands/program/notice.json",
+          "short_description": "Set the notice state",
+          "syntax": "program notice <b>",
+          "python_available": false
+        },
+        {
+          "name": "pagination",
+          "file": "_common/command_docs/commands/program/pagination.json",
+          "short_description": "Set the pagination state",
+          "syntax": "program pagination <b>",
+          "python_available": false
+        },
+        {
+          "name": "pause",
+          "file": "_common/command_docs/commands/program/pause.json",
+          "short_description": "Pause command processing",
+          "syntax": "program pause [keyword]",
+          "python_available": false
+        },
+        {
+          "name": "playback",
+          "file": "_common/command_docs/commands/program/playback.json",
+          "short_description": "Play back a record file",
+          "syntax": "program playback <s>",
+          "python_available": false
+        },
+        {
+          "name": "quit",
+          "file": "_common/command_docs/commands/program/quit.json",
+          "short_description": "Close the program",
+          "syntax": "program quit",
+          "python_available": false
+        },
+        {
+          "name": "return",
+          "file": "_common/command_docs/commands/program/return.json",
+          "short_description": "Return program control",
+          "syntax": "program return",
+          "python_available": false
+        },
+        {
+          "name": "stop",
+          "file": "_common/command_docs/commands/program/stop.json",
+          "short_description": "Close the program",
+          "syntax": "program stop",
+          "python_available": false
+        },
+        {
+          "name": "system",
+          "file": "_common/command_docs/commands/program/system.json",
+          "short_description": "Send commands to the operating system",
+          "syntax": "program system keyword",
+          "python_available": false
+        },
+        {
+          "name": "threads",
+          "file": "_common/command_docs/commands/program/threads.json",
+          "short_description": "Set the number of threads for calculations and plotting",
+          "syntax": "program threads keyword",
+          "python_available": false
+        },
+        {
+          "name": "undo",
+          "file": "_common/command_docs/commands/program/undo.json",
+          "short_description": "Undo commands",
+          "syntax": "program undo [<i>]",
+          "python_available": false
+        },
+        {
+          "name": "warning",
+          "file": "_common/command_docs/commands/program/warning.json",
+          "short_description": "Set the warning state",
+          "syntax": "program warning <b>",
+          "python_available": false
+        }
+      ]
+    },
+    "project": {
+      "full_name": "Project Commands",
+      "command_prefix": "project",
+      "related_categories": [
+        "program",
+        "model"
+      ],
+      "notes": [
+        "Project files (.prj) bundle multiple model saves + data files for a related study",
+        "project new / save / restore manage the active project; project list enumerates contents",
+        "project execute runs a data file in the project context",
+        "Mostly a GUI-oriented concept; scripted workflows usually skip projects and use 'model save'/'model restore' directly"
+      ],
+      "commands": [
+        {
+          "name": "execute",
+          "file": "_common/command_docs/commands/project/execute.json",
+          "short_description": "Execute the current project",
+          "syntax": "project execute [suppress]",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/project/list.json",
+          "short_description": "List project information",
+          "syntax": "project list information",
+          "python_available": false
+        },
+        {
+          "name": "new",
+          "file": "_common/command_docs/commands/project/new.json",
+          "short_description": "Clear program-state information",
+          "syntax": "project new [force]",
+          "python_available": false
+        },
+        {
+          "name": "restore",
+          "file": "_common/command_docs/commands/project/restore.json",
+          "short_description": "Restores the project file name s ",
+          "syntax": "project restore <s>",
+          "python_available": false
+        },
+        {
+          "name": "save",
+          "file": "_common/command_docs/commands/project/save.json",
+          "short_description": "Save the current project to a file",
+          "syntax": "project save <s>",
+          "python_available": false
+        },
+        {
+          "name": "save-plugins",
+          "file": "_common/command_docs/commands/project/save-plugins.json",
+          "short_description": "Save the currently loaded plugins with the project file",
+          "syntax": "project save-plugins <b>",
+          "python_available": false
+        }
+      ]
+    },
+    "table": {
+      "full_name": "Table Commands",
+      "description": "Commands for managing numerical tables — paired x/y data used as input for time-varying boundary conditions, property curves, and history post-processing.",
+      "command_prefix": "table",
+      "python_module": "itasca.table",
+      "related_categories": [
+        "history",
+        "model"
+      ],
+      "notes": [
+        "Tables are indexed by name (string) or numeric ID; created by 'table add' / 'table import'",
+        "'history export ... table <s>' pushes history data into a table for downstream use",
+        "table export / list dump current contents to stdout/file",
+        "Python SDK (itasca.table) exposes read/write for runtime queries; commands handle batch I/O"
+      ],
+      "commands": [
+        {
+          "name": "add",
+          "file": "_common/command_docs/commands/table/add.json",
+          "short_description": "Add an entry to the end of table s ",
+          "syntax": "table <s>add <v2>...",
+          "python_available": false
+        },
+        {
+          "name": "clear",
+          "file": "_common/command_docs/commands/table/clear.json",
+          "short_description": "Remove all entries of from table s ",
+          "syntax": "table <s>clear",
+          "python_available": false
+        },
+        {
+          "name": "delete",
+          "file": "_common/command_docs/commands/table/delete.json",
+          "short_description": "Delete table s ",
+          "syntax": "table <s>delete",
+          "python_available": false
+        },
+        {
+          "name": "export",
+          "file": "_common/command_docs/commands/table/export.json",
+          "short_description": "The contents of the specified table are output to file sfile , with default file extension “",
+          "syntax": "table <s>export <sfile>[keyword ...]",
+          "python_available": false
+        },
+        {
+          "name": "import",
+          "file": "_common/command_docs/commands/table/import.json",
+          "short_description": "Read file sfile into table s ",
+          "syntax": "table <s>import <sfile>",
+          "python_available": false
+        },
+        {
+          "name": "insert",
+          "file": "_common/command_docs/commands/table/insert.json",
+          "short_description": "Insert an entry into table s , sorted by its x-value",
+          "syntax": "table <s>insert <v2>...",
+          "python_available": false
+        },
+        {
+          "name": "label",
+          "file": "_common/command_docs/commands/table/label.json",
+          "short_description": "Set a label for table s ",
+          "syntax": "table <s>label <slabel>",
+          "python_available": false
+        },
+        {
+          "name": "list",
+          "file": "_common/command_docs/commands/table/list.json",
+          "short_description": "List table information",
+          "syntax": "table [<s>] list",
+          "python_available": false
+        },
+        {
+          "name": "position",
+          "file": "_common/command_docs/commands/table/position.json",
+          "short_description": "Substitute the specified (x,y) pair for the stored x- and y-values in the i th entry of table s ",
+          "syntax": "table <s>position <i><v2>",
+          "python_available": false
+        },
+        {
+          "name": "results",
+          "file": "_common/command_docs/commands/table/results.json",
+          "short_description": "Determines if the contents of tables are included in any result file export",
+          "syntax": "table results active <b>",
+          "python_available": false
+        },
+        {
+          "name": "sort",
+          "file": "_common/command_docs/commands/table/sort.json",
+          "short_description": "Cause all entries in table s to be sorted in order of increasing x-value",
+          "syntax": "table <s>sort",
+          "python_available": false
+        }
+      ]
+    }
+  }
+}

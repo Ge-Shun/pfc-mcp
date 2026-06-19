@@ -1,0 +1,19 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "area-minimum"
+  ],
+  "description": "Set minumum flowplane area. If a potential flowplane has an area less than this, it is not created. This is used to avoid extremely small timesteps. The default is 2(tolerance*tolerance).",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane area-minimum",
+      "syntax": "flowplane area-minimum <f>",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

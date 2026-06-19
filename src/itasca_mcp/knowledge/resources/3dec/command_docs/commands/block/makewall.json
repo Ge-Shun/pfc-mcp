@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "makewall"
+  ],
+  "description": "Change blocks into walls. Blocks within the range are converted to walls. Calculations for wall-to-wall contacts are skipped to speed up model runs.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block makewall",
+      "syntax": "block makewall keyword [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

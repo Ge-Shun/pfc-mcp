@@ -1,0 +1,19 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "group"
+  ],
+  "description": "Group flow planes in the range. The group is given the name s1 , and is located in slot s2 if supplied. The group is located in the slot named default by default if no slot is supplied.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane group",
+      "syntax": "flowplane group <s1>[slot <s2>] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "to-flac3d"
+  ],
+  "description": "Export 3DEC zones and joints to files for creating FLAC3D zones and Zone Joints. FLAC3D zones will be assigned group names and slots equal to block groups in 3DEC . Faces will be assigned group names related to the joint id (as a string) in slot ‘jset’. Zone joints can then be created with the command \\(zone joint create by-slot \"jset\"\\) . The resulting Zone Joint group name will be the joint set id appended by \\(_n\\) where \\(n\\) is an incrementing number required to separate faces that cross other joints.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block to-flac3d",
+      "syntax": "block to-flac3d keyword",
+      "keywords": [
+        {
+          "name": "filename",
+          "syntax": "filename <s>keyword",
+          "description": "Specify the name of the output files. Two files will be created: a grid file with a .f3grid extension and a .dat file that calls the grid file."
+        },
+        {
+          "name": "binary",
+          "syntax": "binary <b>",
+          "description": "By default, the grid file will be output in binary format. Set b to \\(false\\) or \\(off\\) to output in ASCII format."
+        },
+        {
+          "name": "block-id",
+          "syntax": "block-id <b>",
+          "description": "Set b to \\(true\\) or \\(on\\) to set zone groups equal to the 3DEC block IDs. If blocks are joined, zone groups will be set to the leader ID of the joined group. The groups will be assigned to slot BlockID . This is \\(off\\) by default."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "water"
+  ],
+  "description": "This command assigns a pore-water pressure field to all blocks/contacts defined in terms of a groundwater surface. This surface may be defined as a plane or as a set polygonal faces. This allows zone and contact model calculations to be performed in terms of effective stress. The stresses stored in the zones are total stresses. Pore pressures are defined at gridpoints. Zone pore pressures are then calculated as the average of the zone gridpoints. The pore-water pressures are subtracted from the total stresses before calling the constitutive routines.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block water",
+      "syntax": "block water keyword ... [range]",
+      "keywords": [
+        {
+          "name": "clear",
+          "syntax": "clear",
+          "description": "Delete the water table definition (gridpoint and subcontact pore pressures are unchanged)."
+        },
+        {
+          "name": "density",
+          "syntax": "density <f>",
+          "description": "Set fluid density, \\(ρw\\) [SI units: kg/m 3 ]."
+        },
+        {
+          "name": "list",
+          "syntax": "list",
+          "description": "List the water table definition."
+        },
+        {
+          "name": "set",
+          "syntax": "set <s>[effective [alpha <f>]]",
+          "description": "Set the water table based on the input geometry set s . If the \\(effective\\) keyword is specified, then the total stresses in all zones connected to gridpoints in the range will be adjusted to keep the effective stress constant. An optional keyword \\(alpha\\) may also be given to specify the biot coefficient. The total stress will be adjusted by subtracting the pore pressure times f . If not given, the biot coefficient is assumed to be 1."
+        },
+        {
+          "name": "skip",
+          "syntax": "skip [blocks] [contacts]",
+          "description": "Do not assign pore pressures to objects in the range. Gridpoint pore-pressures are not assigned if block is given. Joint pore pressures are not assigned if contacts is given."
+        },
+        {
+          "name": "plane",
+          "syntax": "plane normal <v1>origin <v2>[effective [alpha <f>]]",
+          "description": "Set the normal direction to the plane, defined by unit vector v1 and pointing in the direction of increasing pore pressure. If the \\(effective\\) keyword is specified, then the total stresses in all zones connected to gridpoints in the range will be adjusted to keep the effective stress constant. An optional keyword \\(alpha\\) may also be given to specify the biot coefficient. The total stress will be adjusted by subtracting the pore pressure times f . If not given, the biot coefficient is assumed to be 1."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

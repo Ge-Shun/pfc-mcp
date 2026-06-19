@@ -1,0 +1,31 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "edge",
+    "apply-remove"
+  ],
+  "description": "Remove flow plane edge boundary conditions.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane edge apply-remove",
+      "syntax": "flowplane edge apply-remove keyword [range]",
+      "keywords": [
+        {
+          "name": "discharge",
+          "syntax": "discharge",
+          "description": "Remove discharge boundary conditions."
+        },
+        {
+          "name": "flux",
+          "syntax": "flux",
+          "description": "Remove heat-flux boundary conditions."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

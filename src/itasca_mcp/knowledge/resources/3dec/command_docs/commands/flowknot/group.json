@@ -1,0 +1,19 @@
+{
+  "category": "flowknot",
+  "search_keywords": [
+    "flowknot",
+    "group"
+  ],
+  "description": "Group flowknots in the range. The group is given the name s1 , and is located in slot s2 if supplied. The group is located in the slot named default by default if no slot is supplied.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowknot group",
+      "syntax": "flowknot group <s1>[slot <s2>] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

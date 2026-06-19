@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "delete-open"
+  ],
+  "description": "Set deletion of open sub-contacts during the first cycle. (The default is on .)",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact delete-open",
+      "syntax": "block contact delete-open <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

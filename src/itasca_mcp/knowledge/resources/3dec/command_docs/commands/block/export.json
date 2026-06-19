@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "export"
+  ],
+  "description": "Export an assembly of blocks to a file named s . A path can be part of the file name. If no extension is specified, .3dgrid is assumed.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block export",
+      "syntax": "block export filename <s>[binary] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

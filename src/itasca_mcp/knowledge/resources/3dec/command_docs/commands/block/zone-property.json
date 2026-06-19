@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "zone",
+    "property"
+  ],
+  "description": "Make a constitutive model(s) property assignment. Properties are name value pairs where the name is the keyword given in the command and the value type is specific to the property.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block zone property",
+      "syntax": "block zone property [density <f>] keyword ... [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

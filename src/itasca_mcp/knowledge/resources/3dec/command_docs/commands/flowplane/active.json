@@ -1,0 +1,19 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "active"
+  ],
+  "description": "Activate or deactivate fluid flow planes in the range. By default, all flow planes are active. Use false to deactivate the flow planes; use true to reactivate them.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane active",
+      "syntax": "flowplane active <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

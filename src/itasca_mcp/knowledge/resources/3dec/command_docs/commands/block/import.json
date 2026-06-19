@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "import"
+  ],
+  "description": "Import an assembly of blocks from a file. The file named s is imported. A path can be part of the file name. If no extension is specified, .3dgrid is assumed.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block import",
+      "syntax": "block import filename <s>[binary]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

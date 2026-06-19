@@ -1,0 +1,60 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "fix"
+  ],
+  "description": "Fix block position, rotation, or velocity. All blocks with centroids in the range specified are fixed. If no range is specified, all visible blocks are fixed. Both rigid and deformable blocks can be fixed. Joined blocks must be unjoined (by using block join off ) before fixing. If keywords are given, only the specified degrees of freedom will be fixed. If no keyword is given, all degrees of freedom will be fixed. Refer to the block apply command to specify a velocity (other than the current value) for rigid blocks; refer to block gridpoint apply velocity-normal , block gridpoint apply velocity-x (and -y and -z ) to specify velocities for deformable blocks. (Use the command block list velocity to make sure that blocks are fixed; code = 1 if fixed, 0 if freed.)",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block fix",
+      "syntax": "block fix keyword [range]",
+      "keywords": [
+        {
+          "name": "rotation",
+          "syntax": "rotation",
+          "description": "Fix the \\(x\\) -, \\(y\\) , and \\(z\\) -components of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-x",
+          "syntax": "rotation-x",
+          "description": "Fix the \\(x\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-y",
+          "syntax": "rotation-y",
+          "description": "Fix the \\(y\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-z",
+          "syntax": "rotation-z",
+          "description": "Fix the \\(z\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "velocity",
+          "syntax": "velocity",
+          "description": "Fix velocity in the \\(x\\) -, \\(y\\) -, and \\(z\\) -directions."
+        },
+        {
+          "name": "velocity-x",
+          "syntax": "velocity-x",
+          "description": "Fix velocity in the \\(x\\) -direction."
+        },
+        {
+          "name": "velocity-y",
+          "syntax": "velocity-y",
+          "description": "Fix velocity in the \\(y\\) -direction."
+        },
+        {
+          "name": "velocity-z",
+          "syntax": "velocity-z",
+          "description": "Fix velocity in the \\(z\\) -direction."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

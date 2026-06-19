@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "hide"
+  ],
+  "description": "Hide/show blocks in the range. All blocks with centroids in the range are hidden with block hide on ; they can be recalled later using block hide off . When blocks are hidden, they are not split by block cut operations; in this way, discontinuous joints may be made. However, hidden blocks interact normally with other blocks, and are remembered on restart. In general, hidden blocks are unaffected by most commands that change something.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block hide",
+      "syntax": "block hide <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "fill"
+  ],
+  "description": "All excavated blocks within the range are filled (i.e., restored for calculation purposes). Use the keywords to assign the blocks, boundary contacts, or internal contacts to a group (and optionally a slot) when filled.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block fill",
+      "syntax": "block fill [keyword ...] [range]",
+      "keywords": [
+        {
+          "name": "block-group",
+          "syntax": "block-group <s1>[slot <s2>]",
+          "description": "Assign filled blocks to the group s1 ."
+        },
+        {
+          "name": "boundary-contact-group",
+          "syntax": "boundary-contact-group <s1>[slot <s2>]",
+          "description": "Assign boundary contacts of filled blocks to the group s1 ."
+        },
+        {
+          "name": "internal-contact-group",
+          "syntax": "internal-contact-group <s1>[slot <s2>]",
+          "description": "Assign internal contacts of filled blocks to the group s1 ."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

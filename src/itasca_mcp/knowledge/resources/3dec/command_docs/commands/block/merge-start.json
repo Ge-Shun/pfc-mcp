@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "merge-start"
+  ],
+  "description": "After this command is executed, all tetrahedral blocks subsequently created will be turned into zones and merged into a single block if they share the same group name. The group slot name can be specified with s1 . If no slot is given, the default slot is used. If blocks have not been assigned a group name in the specified slot, they will not be merged. One or more groups can be excluded from merging by using the keyword Exclude and providing group names ( s1 s2 …)",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block merge-start",
+      "syntax": "block merge-start [slot <s>] [exclude <s1>[<s2>[...] ]]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -49,6 +49,7 @@ class Software(str, Enum):
 
     PFC = "pfc"
     FLAC = "flac"
+    THREE_DEC = "3dec"
 
 
 def normalize_software_value(value: "Software | str") -> str:
@@ -123,7 +124,7 @@ SoftwareParam = Annotated[
     Software,
     Field(
         ...,
-        description="ITASCA engine to query: 'pfc' or 'flac'. Required — there is no default engine.",
+        description="ITASCA engine to query: 'pfc', 'flac', or '3dec'. Required — there is no default engine.",
     ),
 ]
 

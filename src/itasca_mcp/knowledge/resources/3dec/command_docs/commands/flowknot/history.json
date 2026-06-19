@@ -1,0 +1,40 @@
+{
+  "category": "flowknot",
+  "search_keywords": [
+    "flowknot",
+    "history"
+  ],
+  "description": "Set a history of a flowknot variable. Review the common c history commands. The history can be assigned a name for later reference with the optional name keyword. If not, the history will be given a default name based on its internally assigned id number.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowknot history",
+      "syntax": "flowknot history [name <s>] location-keyword variable-keyword [keyword ...]",
+      "keywords": [
+        {
+          "name": "flowknot-id",
+          "syntax": "flowknot-id <i>",
+          "description": "Set history location at the flowknot with ID i ."
+        },
+        {
+          "name": "position",
+          "syntax": "position <v>",
+          "description": "Set history location at the position v . The flowknot closest to v will be used to provde the history values."
+        },
+        {
+          "name": "pore-pressure",
+          "syntax": "pore-pressure",
+          "description": "Set a history of flowknot pore-pressure."
+        },
+        {
+          "name": "temperature",
+          "syntax": "temperature",
+          "description": "Set a history of flowknot temperature."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

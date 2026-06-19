@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "record-shear"
+  ],
+  "description": "Toggle recording of maximum shear displacement magnitude for subcontacts since the start of cycling or since the last block contact reset displacement command. Default is off . Maximum shear displacement for subcontact can be obtained using block.subcontact.displacement.shear.max .",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact record-shear",
+      "syntax": "block contact record-shear <b>",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "local-stiffness"
+  ],
+  "description": "Toggle flag to indicate that local contact stiffnesses should be used when calculating stable timestep. Setting b to \\(true\\) may yield larger timesteps for dynamic analysis and faster convergence for static calculations, but requires recalculation of the timestep every step in large strain. The default is \\(true\\) .",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact local-stiffness",
+      "syntax": "block contact local-stiffness <b>",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}
