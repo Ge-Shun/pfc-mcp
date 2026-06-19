@@ -73,6 +73,14 @@
       "index_file": "plot-items/index.json",
       "summary": "8 3DEC plot item groups (block/bzone/contacts/joint/structure/fracture/flow)",
       "usage": "plot item create <type> contour <attr> | label <type> | colorby <attr> [range ...]"
+    },
+    "histories-and-results": {
+      "name": "Histories & Results",
+      "description": "3DEC history sampling (block / block contact / model / fish / structure history), management (interval/list/export), and results files (model results map/export, model save). Sampled field names share the plot-items contour vocabulary.",
+      "directory": "histories-and-results",
+      "index_file": "histories-and-results/index.json",
+      "summary": "2 topics: history-workflow (sampling targets + management), results-export",
+      "usage": "block history <field> ; block contact history <field> ; history interval <n> ; model results map ... export '<f>.result'"
     }
   },
   "navigation": {

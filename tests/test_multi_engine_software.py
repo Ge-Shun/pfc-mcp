@@ -502,7 +502,18 @@ def test_3dec_plot_items_are_engine_specific() -> None:
     }
 
 
-def test_3dec_now_has_nine_reference_categories() -> None:
+def test_3dec_histories_and_results_sampling_is_engine_specific() -> None:
+    cat = ReferenceLoader.load_category_index("histories-and-results", software="3dec")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {"history-workflow", "results-export"}
+    wf = ReferenceLoader.load_item_doc("histories-and-results", "history-workflow", software="3dec")
+    cmds = wf["primary_commands"]
+    # 3DEC samples blocks / joints, not FLAC's 'zone history' / 'gridpoint history'.
+    assert "block history" in cmds and "block contact history" in cmds
+    assert "zone history" not in cmds
+
+
+def test_3dec_now_has_ten_reference_categories() -> None:
     cats = set(ReferenceLoader.load_index(software="3dec").get("categories", {}))
     assert {
         "joint-models",
@@ -514,4 +525,5 @@ def test_3dec_now_has_nine_reference_categories() -> None:
         "geometry-data-table",
         "structural-properties",
         "plot-items",
+        "histories-and-results",
     } <= cats
