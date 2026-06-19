@@ -378,3 +378,35 @@ def test_common_borrowed_item_pointer_resolves_to_common_path() -> None:
     cat = ReferenceLoader.load_category_index("constitutive-models", software="3dec")
     entry = next(m for m in cat["models"] if m["name"] == "drucker-prager")
     assert entry["file"].startswith("_common/references/constitutive-models/")
+
+
+# --- shared (_common) range-elements borrow ---------------------------------
+# Range filters are 9.0 kernel shared by every engine; the docs live once in
+# _common, with per-engine locals preserved (PFC's ball-contact range + its
+# "ball"-keyworded sphere).
+
+
+def test_range_elements_shared_across_all_engines() -> None:
+    for sw in SUPPORTED_SOFTWARE:
+        cyl = ReferenceLoader.load_item_doc("range-elements", "cylinder", software=sw)
+        assert cyl is not None and cyl["name"] == "cylinder"
+    # The same _common document backs cylinder for every engine.
+    docs = [ReferenceLoader.load_item_doc("range-elements", "cylinder", software=sw) for sw in SUPPORTED_SOFTWARE]
+    assert docs[0] == docs[1] == docs[2]
+
+
+def test_range_elements_engine_specific_locals_preserved() -> None:
+    # PFC keeps a ball-contact range filter; FLAC/3DEC (no ball contacts) do not.
+    assert ReferenceLoader.load_item_doc("range-elements", "contact", software="pfc") is not None
+    assert ReferenceLoader.load_item_doc("range-elements", "contact", software="3dec") is None
+    # PFC's sphere stays local with its "ball" search keyword; the shared one is neutral.
+    pfc_sphere = ReferenceLoader.load_item_doc("range-elements", "sphere", software="pfc")
+    common_sphere = ReferenceLoader.load_item_doc("range-elements", "sphere", software="3dec")
+    assert "ball" in pfc_sphere.get("search_keywords", [])
+    assert "ball" not in common_sphere.get("search_keywords", [])
+
+
+def test_3dec_range_elements_registered() -> None:
+    cats = ReferenceLoader.load_index(software="3dec").get("categories", {})
+    assert "range-elements" in cats
+    assert len(ReferenceLoader.load_category_index("range-elements", software="3dec")["elements"]) == 22

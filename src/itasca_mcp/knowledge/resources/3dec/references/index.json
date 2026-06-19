@@ -17,6 +17,14 @@
       "index_file": "constitutive-models/index.json",
       "summary": "26 3DEC zone material models (subset of FLAC3D's set; docs shared via _common)",
       "usage": "block zone cmodel assign <name> ; block zone property <prop> <value> [range cmodel-name <name>]"
+    },
+    "range-elements": {
+      "name": "Range Elements",
+      "description": "Geometric and logical 'range ...' filters (cylinder, sphere, plane, position, group, id, polygon, union, not, ...) used to scope any 3DEC command. Shared 9.0 kernel.",
+      "directory": "range-elements",
+      "index_file": "range-elements/index.json",
+      "summary": "22 range filter elements (shared 9.0 kernel via _common)",
+      "usage": "<any command> ... range <element> <args> [union|intersect|not ...]"
     }
   },
   "navigation": {
