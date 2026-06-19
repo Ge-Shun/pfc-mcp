@@ -483,7 +483,26 @@ def test_3dec_structural_properties_all_sel_types() -> None:
     assert "moi" not in kws and "shear-coefficient" not in kws
 
 
-def test_3dec_now_has_seven_reference_categories() -> None:
+def test_3dec_plot_items_are_engine_specific() -> None:
+    cat = ReferenceLoader.load_category_index("plot-items", software="3dec")
+    assert cat is not None
+    names = {i["name"] for i in cat["items"]}
+    # 3DEC's distinctive plottable entities (not PFC's ball/clump, not FLAC's zone-only).
+    assert {"block", "bzone", "subcontact", "joint", "fracture", "flow"} <= names
+    # subcontact is where joint mechanics live: colorby exposes state / model.
+    assert ReferenceLoader.is_directory_item("plot-items", "subcontact", software="3dec")
+    cb = ReferenceLoader.load_sub_item_doc("plot-items", "subcontact", "colorby", software="3dec")
+    assert {"state", "model"} <= set(cb["attributes"])
+    # bzone field contour carries the continuum stress/displacement vocabulary.
+    contour = ReferenceLoader.load_sub_item_doc("plot-items", "bzone", "contour", software="3dec")
+    assert {"stress-zz", "displacement", "pore-pressure"} <= set(contour["attributes"])
+    # 3DEC's structure item covers all six SEL types as one plot group.
+    assert "structure-shell" in {
+        i for it in cat["items"] if it["name"] == "structure" for i in it.get("common_use", "").split(", ")
+    }
+
+
+def test_3dec_now_has_nine_reference_categories() -> None:
     cats = set(ReferenceLoader.load_index(software="3dec").get("categories", {}))
     assert {
         "joint-models",
@@ -494,4 +513,5 @@ def test_3dec_now_has_seven_reference_categories() -> None:
         "boundary-conditions",
         "geometry-data-table",
         "structural-properties",
+        "plot-items",
     } <= cats

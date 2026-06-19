@@ -65,6 +65,14 @@
       "index_file": "structural-properties/index.json",
       "summary": "6 3DEC SEL types (beam/cable/geogrid/liner/pile/shell) — 'structure <type> property' keywords",
       "usage": "structure <type> create ... ; structure <type> cmodel ... ; structure <type> property <kw> <value> [range ...]"
+    },
+    "plot-items": {
+      "name": "Plot Items",
+      "description": "3DEC plot item types and their keyword sets — block / bzone (continuum) / blockcontact / subcontact (joint mechanics) / joint / structure (SEL) / fracture (DFN) / flow. Vocabulary for 'plot item create <type> ...'.",
+      "directory": "plot-items",
+      "index_file": "plot-items/index.json",
+      "summary": "8 3DEC plot item groups (block/bzone/contacts/joint/structure/fracture/flow)",
+      "usage": "plot item create <type> contour <attr> | label <type> | colorby <attr> [range ...]"
     }
   },
   "navigation": {
