@@ -187,6 +187,55 @@ async def test_3dec_python_api_exposes_itasca_core() -> None:
     assert any(e.get("api_path") == "itasca.command" for e in data["entries"])
 
 
+# --- 3DEC engine-specific Python API (itasca.block family) ------------------
+# Parsed from the local 9.0 Sphinx python docs by scripts/corpus/parse_3dec_python.py.
+# These modules are 3DEC-only (no PFC/FLAC equivalent) and must not leak across engines.
+
+
+def test_3dec_block_module_and_class_resolve() -> None:
+    # Module function.
+    find = DocumentationLoader.load_api_doc("itasca.block.find", software="3dec")
+    assert find is not None
+    assert find["signature"].startswith("itasca.block.find(")
+    # Class method via its full official path.
+    vol = DocumentationLoader.load_api_doc("itasca.block.Block.vol", software="3dec")
+    assert vol is not None
+    assert vol["signature"] == "block.vol() -> float"
+
+
+def test_3dec_block_submodule_class_resolves() -> None:
+    # Sub-namespace class (itasca.block.subcontact.Subcontact) resolves end to end.
+    fs = DocumentationLoader.load_api_doc("itasca.block.subcontact.Subcontact.force_shear", software="3dec")
+    assert fs is not None
+    assert "force_shear" in fs["signature"]
+
+
+def test_3dec_block_objects_registered_in_index() -> None:
+    index = DocumentationLoader.load_index(software="3dec")
+    assert "block" in index["modules"]
+    assert "Block" in index["objects"]
+    # The Block module exposes exactly the six confirmed namespace functions.
+    assert set(index["modules"]["block"]["functions"]) == {
+        "containing",
+        "count",
+        "find",
+        "list",
+        "maxid",
+        "near",
+    }
+
+
+def test_3dec_python_block_family_is_engine_isolated() -> None:
+    # block family is 3DEC-only: it must not appear in PFC/FLAC python indices.
+    for sw in ("pfc", "flac"):
+        assert "block" not in DocumentationLoader.load_index(software=sw)["modules"]
+
+
+def test_3dec_python_search_finds_block_method() -> None:
+    hits = APISearch.search("block volume", top_k=5, software="3dec")
+    assert any(h.document.name == "itasca.block.Block.vol" for h in hits)
+
+
 def test_3dec_command_families_are_isolated() -> None:
     threedec = CommandLoader.load_index(software="3dec")["categories"]
     pfc = CommandLoader.load_index(software="pfc")["categories"]
