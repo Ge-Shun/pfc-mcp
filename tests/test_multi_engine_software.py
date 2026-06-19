@@ -410,3 +410,30 @@ def test_3dec_range_elements_registered() -> None:
     cats = ReferenceLoader.load_index(software="3dec").get("categories", {})
     assert "range-elements" in cats
     assert len(ReferenceLoader.load_category_index("range-elements", software="3dec")["elements"]) == 22
+
+
+# --- 3DEC FISH intrinsics (engine-specific, authored not borrowed) ----------
+# FLAC's fish-intrinsics are zone/structure-specific, so 3DEC's are authored
+# around blocks/joints/zones/flow (validated against the real 9.0 FISH docs).
+
+
+def test_3dec_fish_intrinsics_category() -> None:
+    cat = ReferenceLoader.load_category_index("fish-intrinsics", software="3dec")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {"block-and-joints", "block-zone-gridpoint", "fluid-flow"}
+
+
+def test_3dec_fish_intrinsics_item_lists_real_families() -> None:
+    item = ReferenceLoader.load_item_doc("fish-intrinsics", "block-and-joints", software="3dec")
+    assert item is not None
+    examples = {ex for fam in item["intrinsic_families"] for ex in fam["examples"]}
+    # 3DEC joint behavior lives on sub-contacts.
+    assert "block.subcontact.model" in examples
+    assert "block.subcontact.force.shear" in examples
+
+
+def test_3dec_fish_intrinsics_is_engine_local_not_flac() -> None:
+    # 3DEC's set is its own (block/joint/flow), not FLAC's (zone/gridpoint/structure).
+    flac = ReferenceLoader.load_category_index("fish-intrinsics", software="flac")
+    flac_names = {i["name"] for i in flac["items"]}
+    assert "block-and-joints" not in flac_names
