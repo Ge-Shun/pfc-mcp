@@ -1,0 +1,60 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "free"
+  ],
+  "description": "All blocks with centroids in the range specified by the range are set free. If no range is specified, all visible blocks are freed. If no keyword is supplied with the command, all block velocities are freed. By default, all blocks are free initially. (Use the command block list velocity to check whether blocks are freed; code = 1 if fixed, 0 if freed.)",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block free",
+      "syntax": "block free [keyword] [range]",
+      "keywords": [
+        {
+          "name": "rotation",
+          "syntax": "rotation <v>",
+          "description": "Free the \\(x\\) -, \\(y\\) , and \\(z\\) -components of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-x",
+          "syntax": "rotation-x <f>",
+          "description": "Free the \\(x\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-y",
+          "syntax": "rotation-y <f>",
+          "description": "Free the \\(y\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "rotation-z",
+          "syntax": "rotation-z <f>",
+          "description": "Free the \\(z\\) -component of rigid block \\(θ\\) velocity."
+        },
+        {
+          "name": "velocity",
+          "syntax": "velocity <v>",
+          "description": "Free velocity in the \\(x\\) -, \\(y\\) -, and \\(z\\) -directions."
+        },
+        {
+          "name": "velocity-x",
+          "syntax": "velocity-x <f>",
+          "description": "Free velocity in the \\(x\\) -direction."
+        },
+        {
+          "name": "velocity-y",
+          "syntax": "velocity-y <f>",
+          "description": "Free velocity in the \\(y\\) -direction."
+        },
+        {
+          "name": "velocity-z",
+          "syntax": "velocity-z <fFLuid>",
+          "description": "Free velocity in the \\(z\\) -direction."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

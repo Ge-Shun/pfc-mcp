@@ -1,0 +1,19 @@
+{
+  "category": "flowknot",
+  "search_keywords": [
+    "flowknot",
+    "hide"
+  ],
+  "description": "Hide/unhide flow knots within the range. Use true to hide flow knots; use false to unhide hidden flow knots.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowknot hide",
+      "syntax": "flowknot hide <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "join-by-contact"
+  ],
+  "description": "By default, joining is performed by block. This allows for easy plotting of joined blocks and is necessary for calculating the correct mass, density and moment of inertia for groups of joined rigid blocks. However, for deformable blocks, it may be advantageous to join by contact. With this approach, blocks may be partially joined. See example below. Set b to true to join by contact. The default is false .",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block join-by-contact",
+      "syntax": "block join-by-contact <b>",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

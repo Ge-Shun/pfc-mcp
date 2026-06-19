@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "merge-finish"
+  ],
+  "description": "Execute the command when finished creating blocks to be merged into zones (see block merge-start ). This will add face blocks to each exposed block face.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block merge-finish",
+      "syntax": "block merge-finish",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

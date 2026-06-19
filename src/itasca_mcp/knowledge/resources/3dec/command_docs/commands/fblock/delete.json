@@ -1,0 +1,19 @@
+{
+  "category": "fblock",
+  "search_keywords": [
+    "fblock",
+    "delete"
+  ],
+  "description": "Delete fblocks in the range.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "fblock delete",
+      "syntax": "fblock delete [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

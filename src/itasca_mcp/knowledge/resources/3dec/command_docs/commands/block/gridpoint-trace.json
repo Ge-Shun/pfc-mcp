@@ -1,0 +1,31 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "gridpoint",
+    "trace"
+  ],
+  "description": "Trace position and velocity of a block gridpoint. See the c trace commands.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block gridpoint trace",
+      "syntax": "block gridpoint trace keyword",
+      "keywords": [
+        {
+          "name": "id",
+          "syntax": "id <i>",
+          "description": "Add a trace of the location corresponding to the gridpoint ID i ."
+        },
+        {
+          "name": "position",
+          "syntax": "position <v>",
+          "description": "Add a trace at position v , which must fall on/at some gridpoint."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

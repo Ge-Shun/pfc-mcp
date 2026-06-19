@@ -1,0 +1,20 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "zone",
+    "edge-minimum"
+  ],
+  "description": "Set the minimum edge length of a flow zone to the specified value. All zones with edges below this value are “deactivated” (with a flag). They are not deleted, and the user can later change the minimum value (or set it to zero to revert to the standard logic). A STEP 0 command will calculate the new fluid time step.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane zone edge-minimum",
+      "syntax": "flowplane zone edge-minimum <f>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "zone",
+    "fluid"
+  ],
+  "description": "Assign fluid properties to zones.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block zone fluid",
+      "syntax": "block zone fluid keyword [range]",
+      "keywords": [
+        {
+          "name": "porosity",
+          "syntax": "porosity <f>",
+          "description": "Set the fluid flow mobility coefficient in the matrix zones (SI units of m 2 /(Pa/s)). Set the porosity for fluid flow in the matrix zones."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

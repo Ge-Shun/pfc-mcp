@@ -1,0 +1,19 @@
+{
+  "category": "feblock",
+  "search_keywords": [
+    "feblock",
+    "gravity"
+  ],
+  "description": "Applies gravity loads to FE blocks. Gravity values are specified by the GRAVITY command. Use the delete keyword to remove gravity loads. Gravity is on by default. This command without the delete keyword is only useful for reapplying gravity loads after they have been deleted.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "feblock gravity",
+      "syntax": "feblock gravity [delete]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

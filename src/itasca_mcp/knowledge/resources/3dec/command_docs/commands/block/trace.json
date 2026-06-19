@@ -1,0 +1,35 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "trace"
+  ],
+  "description": "Trace an object. The positions and velocities of certain objects can be sampled and stored during a model run with this command. The resulting path through space can be plotted. Only one object may be traced per block trace command. Traces may be added at any time. The contents of all traces can be erased with the purge keyword, and all traces can be deleted with the delete keyword. A summary of all traces can be obtained by using the LIST trace command.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block trace",
+      "syntax": "block trace keyword",
+      "keywords": [
+        {
+          "name": "id",
+          "syntax": "id <i>",
+          "description": "Trace the position and velocity of a block centroid with ID i ."
+        },
+        {
+          "name": "name",
+          "syntax": "name <s>",
+          "description": "Assign a name to the trace."
+        },
+        {
+          "name": "position",
+          "syntax": "position <v>",
+          "description": "Trace the position and velocity of a block with a centroid closest to v ."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

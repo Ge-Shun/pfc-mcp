@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "excavate"
+  ],
+  "description": "All blocks within the range are excavated. Excavated blocks are assigned a constitutive model and model properties the same as adjacent non-excavated blocks. However, the excavated blocks transmit no forces to the un-excavated grid. Only displacements are calculated in the excavated blocks to enable future filling. The blocks can be replaced later with the block fill command. This command can only be used with deformable blocks; use block delete for rigid blocks.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block excavate",
+      "syntax": "block excavate [face-group <s1>[slot <s2>]] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

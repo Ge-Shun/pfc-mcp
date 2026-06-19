@@ -32,7 +32,7 @@ def _parse_tool_payload(result) -> dict:
 
 
 def test_supported_software_set() -> None:
-    assert set(SUPPORTED_SOFTWARE) == {"pfc", "flac"}
+    assert set(SUPPORTED_SOFTWARE) == {"pfc", "flac", "3dec"}
 
 
 def test_normalize_software_validates() -> None:
@@ -101,15 +101,16 @@ async def test_flac_browse_reference_root() -> None:
 # --- _common sharing --------------------------------------------------------
 
 
-def test_shared_model_solve_resolves_for_both_engines() -> None:
-    for sw in ("pfc", "flac"):
+def test_shared_model_solve_resolves_for_all_engines() -> None:
+    # model solve points into _common/, which carries a 7.0 key for every engine.
+    for sw in SUPPORTED_SOFTWARE:
         doc = CommandLoader.load_command_doc("model", "solve", "7.0", software=sw)
         assert doc is not None
         assert doc["command"] == "model solve"
 
 
-def test_shared_itasca_module_resolves_for_both_engines() -> None:
-    for sw in ("pfc", "flac"):
+def test_shared_itasca_module_resolves_for_all_engines() -> None:
+    for sw in SUPPORTED_SOFTWARE:
         index = DocumentationLoader.load_index(software=sw)
         assert "itasca" in index["modules"]
         doc = DocumentationLoader.load_module("itasca", software=sw)
@@ -142,3 +143,59 @@ def test_reference_categories_are_engine_specific() -> None:
     assert "contact-models" in pfc
     assert "constitutive-models" in flac
     assert "contact-models" not in flac
+
+
+# --- 3DEC coverage (9.0-only engine) ----------------------------------------
+# 3DEC ships only the 9.x unified kernel, so commands are 9.0-only; queries must
+# pass version="9.0" (the tool default 7.0 is a PFC-era leftover, same caveat as
+# FLAC's 9.0-only families).
+
+
+@pytest.mark.asyncio
+async def test_3dec_browse_commands_root() -> None:
+    result = await mcp.call_tool("pfc_browse_commands", {"software": "3dec", "version": "9.0"})
+    data = _parse_tool_payload(result)["data"]
+    names = {e["name"] for e in data["entries"]}
+    assert "block" in names  # 3DEC-only family
+    assert "model" in names  # shared kernel family
+    assert "ball" not in names  # PFC-only family must not leak
+    assert "zone" not in names  # FLAC-only top-level family (3DEC uses 'block zone ...')
+    assert data["summary"]["software"] == "3dec"
+
+
+@pytest.mark.asyncio
+async def test_3dec_browse_block_zone_generate() -> None:
+    result = await mcp.call_tool(
+        "pfc_browse_commands", {"software": "3dec", "command": "block zone generate", "version": "9.0"}
+    )
+    data = _parse_tool_payload(result)["data"]
+    assert data["entries"][0]["doc"]["command"] == "block zone generate"
+
+
+@pytest.mark.asyncio
+async def test_3dec_query_command_finds_block_create() -> None:
+    result = await mcp.call_tool("pfc_query_command", {"software": "3dec", "query": "create block", "version": "9.0"})
+    data = _parse_tool_payload(result)["data"]
+    assert data["summary"]["software"] == "3dec"
+    assert any(e["name"] == "block create" for e in data["entries"])
+
+
+@pytest.mark.asyncio
+async def test_3dec_python_api_exposes_itasca_core() -> None:
+    result = await mcp.call_tool("pfc_query_python_api", {"software": "3dec", "query": "run command"})
+    data = _parse_tool_payload(result)["data"]
+    assert any(e.get("api_path") == "itasca.command" for e in data["entries"])
+
+
+def test_3dec_command_families_are_isolated() -> None:
+    threedec = CommandLoader.load_index(software="3dec")["categories"]
+    pfc = CommandLoader.load_index(software="pfc")["categories"]
+    flac = CommandLoader.load_index(software="flac")["categories"]
+    assert "block" in threedec and "block" not in pfc and "block" not in flac
+    assert "model" in threedec  # shared kernel present
+    assert "ball" not in threedec and "zone" not in threedec
+
+
+def test_3dec_ships_no_references_yet() -> None:
+    # references are optional; 3DEC ships none this round -> empty index, no error.
+    assert ReferenceLoader.load_index(software="3dec").get("categories", {}) == {}

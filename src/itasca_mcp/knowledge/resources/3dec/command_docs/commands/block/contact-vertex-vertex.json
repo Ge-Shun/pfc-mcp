@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "vertex-vertex"
+  ],
+  "description": "Suppress the creation of vertex-vertex contacts by setting b to false . By default it is true and vertex-vertex contacts are created. Suppressing vertex-vertex contacts will decrease memory use and increase calculation speed in models composed of mostly tetrahedral blocks (e.g. imported from Griddle ). A small difference in results may be observed when the vertex-vertex contacts are suppressed, but in general the differences are negligible.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact vertex-vertex",
+      "syntax": "block contact vertex-vertex <b>",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

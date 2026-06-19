@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "group"
+  ],
+  "description": "Assign all contacts in the range to the group s1 (in, optionally, slot s2 ). Contacts on hidden blocks are not included.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact group",
+      "syntax": "block contact group <s1>[slot <s2>] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

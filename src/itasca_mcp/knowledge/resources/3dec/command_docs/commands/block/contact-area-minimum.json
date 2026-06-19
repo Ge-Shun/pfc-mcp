@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "area-minimum"
+  ],
+  "description": "Set the value of minimum contact area for non face-face contacts. Contact that are not face-face (e.g. vertex-face) have no inherent area, so this minimum is used when calculating stresses. Face-face contacts will always use their true value of contact area and this minimum is ignored. The default minimum area is 1% of average face area in the model.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact area-minimum",
+      "syntax": "block contact area-minimum <f>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

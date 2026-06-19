@@ -1,0 +1,40 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "copy"
+  ],
+  "description": "Make a copy of a rigid block. Make a copy of an existing rigid block (or block assemblage) at another location; the command only applies to rigid blocks. It is up to the user to make certain that the copied block does not intersect with any existing blocks in the model. This command may be used after cycling has occurred. If the block specified is a block in a joined group, the entire group is copied and joined. This allows complex objects to be copied. Typically, the block copied will be a hidden block that is fixed in space and only used as a master for the new copied blocks.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block copy",
+      "syntax": "block copy keyword ...",
+      "keywords": [
+        {
+          "name": "id",
+          "syntax": "id <i>",
+          "description": "Copy the block with the ID i ."
+        },
+        {
+          "name": "translate",
+          "syntax": "translate <v>",
+          "description": "Move the copied block by v from the position of the original block."
+        },
+        {
+          "name": "fix",
+          "syntax": "fix",
+          "description": "Fix the new block in space (be default copied blocks are “free”)."
+        },
+        {
+          "name": "hide",
+          "syntax": "hide",
+          "description": "Hide the new block (by default copied blocks are “shown”)."
+        }
+      ],
+      "examples": []
+    }
+  }
+}

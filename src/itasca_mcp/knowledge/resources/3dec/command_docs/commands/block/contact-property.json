@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "property"
+  ],
+  "description": "Assign joint constitutive model properties to subcontacts. The possible properties depend on the constitutive model assigned to the subcontact. Note that subcontacts must be created before properties can be assigned, using either block zone generate for deformable blocks, or block contact generate-subcontacts for rigid blocks.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact property",
+      "syntax": "block contact property keyword ... [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

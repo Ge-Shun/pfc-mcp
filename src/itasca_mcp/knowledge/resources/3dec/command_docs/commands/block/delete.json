@@ -1,0 +1,25 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "delete"
+  ],
+  "description": "Delete blocks. All blocks with centroids in the optional range are deleted. If no range is specified, all blocks are deleted. Only visible blocks are deleted. Deleted blocks cannot be plotted or backfilled ( block fill ). If the voids will eventually be filled, use the block excavate command.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block delete",
+      "syntax": "block delete [keyword] [range]",
+      "keywords": [
+        {
+          "name": "wall",
+          "syntax": "wall",
+          "description": "Delete only wall blocks"
+        }
+      ],
+      "examples": []
+    }
+  }
+}

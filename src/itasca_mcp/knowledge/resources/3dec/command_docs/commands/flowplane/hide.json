@@ -1,0 +1,19 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "hide"
+  ],
+  "description": "Hide fluid flow planes in the range. Use true to hide flow planes; use false to unhide hidden flow planes.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane hide",
+      "syntax": "flowplane hide <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

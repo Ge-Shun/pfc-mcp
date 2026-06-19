@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "tolerance"
+  ],
+  "description": "Set contact distance tolerance. Contacts are deleted if the distance from the common plane is greater than f , or added if the block is within value of the common plane. By default, the value is 5 times the block tolerance ( block tolerance ).",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact tolerance",
+      "syntax": "block contact tolerance <f>[<f2>]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

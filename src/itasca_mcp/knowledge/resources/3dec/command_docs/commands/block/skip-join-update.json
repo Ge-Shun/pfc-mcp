@@ -1,0 +1,19 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "skip-join-update"
+  ],
+  "description": "Set to on to prevent 3DEC from updating the list of joined contacts at cycle time. This is necessary if blocks are cut after being initially joined. In this case, the updating of joined contacts at the start of cycling may cause contacts that were intentionally left unjoined to become joined. By default, this is set to off .",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block skip-join-update",
+      "syntax": "block skip-join-update <b>[range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "category": "feblock",
+  "search_keywords": [
+    "feblock",
+    "generate"
+  ],
+  "description": "Generates an FE mesh inside an 8-vertex brick block.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "feblock generate",
+      "syntax": "feblock generate <i1><i2><i3>[range...]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}

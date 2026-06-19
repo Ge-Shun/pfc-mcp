@@ -1,0 +1,41 @@
+{
+  "category": "flowplane",
+  "search_keywords": [
+    "flowplane",
+    "vertex",
+    "property"
+  ],
+  "description": "Set flow plane vertex properties.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "flowplane vertex property",
+      "syntax": "flowplane vertex property keyword ... [range]",
+      "keywords": [
+        {
+          "name": "aperture-initial",
+          "syntax": "aperture-initial <f>",
+          "description": ""
+        },
+        {
+          "name": "aperture-maximum",
+          "syntax": "aperture-maximum <f>",
+          "description": ""
+        },
+        {
+          "name": "aperture-minimum",
+          "syntax": "aperture-minimum <f>",
+          "description": ""
+        },
+        {
+          "name": "viscosity",
+          "syntax": "viscosity <f>",
+          "description": ""
+        }
+      ],
+      "examples": []
+    }
+  }
+}

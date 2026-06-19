@@ -1,0 +1,20 @@
+{
+  "category": "block",
+  "search_keywords": [
+    "block",
+    "contact",
+    "group-subcontact"
+  ],
+  "description": "Assign all subcontacts in the range to the group s1 (in, optionally, slot s2 ). Subcontacts on hidden blocks are not included.",
+  "python_sdk_alternative": {
+    "available": false
+  },
+  "versions": {
+    "9.0": {
+      "command": "block contact group-subcontact",
+      "syntax": "block contact group-subcontact <s1>[slot <s2>] [range]",
+      "keywords": [],
+      "examples": []
+    }
+  }
+}
