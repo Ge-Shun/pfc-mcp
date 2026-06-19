@@ -32,7 +32,7 @@ def _parse_tool_payload(result) -> dict:
 
 
 def test_supported_software_set() -> None:
-    assert set(SUPPORTED_SOFTWARE) == {"pfc", "flac", "3dec"}
+    assert set(SUPPORTED_SOFTWARE) == {"pfc", "flac", "3dec", "mpoint"}
 
 
 def test_normalize_software_validates() -> None:
@@ -289,6 +289,151 @@ def test_3dec_command_families_are_isolated() -> None:
     assert "ball" not in threedec and "zone" not in threedec
 
 
+# --- MPoint / MPM coverage (9.0-only engine) --------------------------------
+# MPoint is the Material Point Method product; like 3DEC/FLAC it ships only the
+# 9.x unified kernel, so commands are 9.0-only (queries pass version="9.0").
+
+
+@pytest.mark.asyncio
+async def test_mpoint_browse_commands_root() -> None:
+    result = await mcp.call_tool("pfc_browse_commands", {"software": "mpoint", "version": "9.0"})
+    data = _parse_tool_payload(result)["data"]
+    names = {e["name"] for e in data["entries"]}
+    assert "mpoint" in names  # MPoint-only family
+    assert "model" in names  # shared kernel family
+    assert "ball" not in names  # PFC-only family must not leak
+    assert "block" not in names  # 3DEC-only family must not leak
+    assert "zone" not in names  # FLAC-only top-level family
+    assert data["summary"]["software"] == "mpoint"
+
+
+@pytest.mark.asyncio
+async def test_mpoint_browse_mpoint_create() -> None:
+    result = await mcp.call_tool(
+        "pfc_browse_commands", {"software": "mpoint", "command": "mpoint create", "version": "9.0"}
+    )
+    data = _parse_tool_payload(result)["data"]
+    assert data["entries"][0]["doc"]["command"] == "mpoint create"
+
+
+@pytest.mark.asyncio
+async def test_mpoint_browse_node_subcommand() -> None:
+    # 'mpoint node fix' is keyed as node-fix.json but addressed with spaces.
+    result = await mcp.call_tool(
+        "pfc_browse_commands", {"software": "mpoint", "command": "mpoint node fix", "version": "9.0"}
+    )
+    data = _parse_tool_payload(result)["data"]
+    assert data["entries"][0]["doc"]["command"] == "mpoint node fix"
+
+
+@pytest.mark.asyncio
+async def test_mpoint_query_command_finds_mpoint_create() -> None:
+    result = await mcp.call_tool(
+        "pfc_query_command", {"software": "mpoint", "query": "create material point", "version": "9.0"}
+    )
+    data = _parse_tool_payload(result)["data"]
+    assert data["summary"]["software"] == "mpoint"
+    assert any(e["name"] == "mpoint create" for e in data["entries"])
+
+
+@pytest.mark.asyncio
+async def test_mpoint_python_api_exposes_itasca_core() -> None:
+    result = await mcp.call_tool("pfc_query_python_api", {"software": "mpoint", "query": "run command"})
+    data = _parse_tool_payload(result)["data"]
+    assert any(e.get("api_path") == "itasca.command" for e in data["entries"])
+
+
+def test_mpoint_command_families_are_isolated() -> None:
+    mpoint = CommandLoader.load_index(software="mpoint")["categories"]
+    assert "mpoint" in mpoint  # proprietary family
+    assert "model" in mpoint and "fish" in mpoint  # shared kernel borrowed
+    # other engines' proprietary families must not leak in
+    assert "ball" not in mpoint and "block" not in mpoint and "zone" not in mpoint
+
+
+def test_mpoint_borrows_common_kernel_verbatim() -> None:
+    mpoint = CommandLoader.load_index(software="mpoint")["categories"]
+    # every borrowed kernel command points back into _common/ (single source)
+    for fam in ("data", "fish", "geometry", "history", "model", "plot", "table"):
+        cmds = mpoint[fam]["commands"]
+        assert cmds and all(str(c["file"]).startswith("_common/") for c in cmds)
+
+
+def test_mpoint_plot_items_are_engine_specific() -> None:
+    cat = ReferenceLoader.load_category_index("plot-items", software="mpoint")
+    assert cat is not None
+    names = {i["name"] for i in cat["items"]}
+    # MPoint's distinctive plottable entities (material points + background grid).
+    assert {"mpoint", "mpoint-vector", "mpoint-tensor", "meshpoint"} <= names
+    # 'mpoint' is a directory item with a color-by sub-item (contour vs label).
+    assert ReferenceLoader.is_directory_item("plot-items", "mpoint", software="mpoint")
+    cb = ReferenceLoader.load_sub_item_doc("plot-items", "mpoint", "color-by", software="mpoint")
+    assert {m["mode"] for m in cb["modes"]} == {"contour", "label"}
+    # mpoint-vector documents the live-probed vector value set.
+    vec = ReferenceLoader.load_item_doc("plot-items", "mpoint-vector", software="mpoint")
+    assert "meshnode-vector" in vec["item_types"]  # shares the keyword set
+
+
+def test_mpoint_borrows_constitutive_models_from_common() -> None:
+    cats = ReferenceLoader.load_index(software="mpoint").get("categories", {})
+    assert "constitutive-models" in cats
+    cat = ReferenceLoader.load_category_index("constitutive-models", software="mpoint")
+    # MPoint shares zone models with FLAC3D/3DEC; the docs live once in _common.
+    entry = next(m for m in cat["models"] if m["name"] == "mohr-coulomb")
+    assert entry["file"].startswith("_common/references/constitutive-models/")
+    # Resolving the borrowed item returns the shared _common doc (same as FLAC's).
+    doc = ReferenceLoader.load_item_doc("constitutive-models", "mohr-coulomb", software="mpoint")
+    assert doc == ReferenceLoader.load_item_doc("constitutive-models", "mohr-coulomb", software="flac")
+    # The 5 MPoint-only models without a _common doc are disclosed, not fabricated.
+    assert "jones-wilkins-lee" in cat["note"]
+
+
+def test_mpoint_range_elements_shared_via_common() -> None:
+    cats = ReferenceLoader.load_index(software="mpoint").get("categories", {})
+    assert "range-elements" in cats
+    # Same _common cylinder doc as the other engines.
+    mp = ReferenceLoader.load_item_doc("range-elements", "cylinder", software="mpoint")
+    flac = ReferenceLoader.load_item_doc("range-elements", "cylinder", software="flac")
+    assert mp is not None and mp == flac
+
+
+def test_mpoint_fish_intrinsics_engine_specific() -> None:
+    cats = ReferenceLoader.load_index(software="mpoint").get("categories", {})
+    assert "fish-intrinsics" in cats
+    cat = ReferenceLoader.load_category_index("fish-intrinsics", software="mpoint")
+    names = {i["name"] for i in cat["items"]}
+    # MPoint's FISH is built around material points + background-grid nodes.
+    assert names == {"material-point", "background-node"}
+    mp = ReferenceLoader.load_item_doc("fish-intrinsics", "material-point", software="mpoint")
+    examples = {ex for fam in mp["intrinsic_families"] for ex in fam["examples"]}
+    assert "mpoint.stress" in examples and "mpoint.mech.ratio.max" in examples
+    node = ReferenceLoader.load_item_doc("fish-intrinsics", "background-node", software="mpoint")
+    node_ex = {ex for fam in node["intrinsic_families"] for ex in fam["examples"]}
+    assert "mpoint.node.force.unbal" in node_ex
+
+
+def test_mpoint_boundary_conditions_use_mpoint_syntax() -> None:
+    cat = ReferenceLoader.load_category_index("boundary-conditions", software="mpoint")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {"material-point-fixity", "grid-node-fixity"}
+    node = ReferenceLoader.load_item_doc("boundary-conditions", "grid-node-fixity", software="mpoint")
+    # MPM grid-node fixity, not FLAC's 'zone gridpoint fix'.
+    assert "mpoint node fix" in node["primary_commands"]
+    fams = {f["family"] for f in node["condition_families"]}
+    assert "prescribed fluid velocity" in fams
+
+
+def test_mpoint_initial_conditions_field_and_gravity() -> None:
+    cat = ReferenceLoader.load_category_index("initial-conditions", software="mpoint")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {"field-initialization", "gravitational-stress"}
+    grav = ReferenceLoader.load_item_doc("initial-conditions", "gravitational-stress", software="mpoint")
+    assert "mpoint initialize-stresses" in grav["primary_commands"]
+    field = ReferenceLoader.load_item_doc("initial-conditions", "field-initialization", software="mpoint")
+    all_fields = {f for g in field["field_groups"] for f in g["fields"]}
+    assert {"stress", "pore-pressure", "biot-modulus"} <= all_fields
+
+
 # --- 3DEC references (joint constitutive models) ----------------------------
 # Joint (sub-contact) constitutive models are 3DEC's defining reference and have
 # no FLAC/PFC equivalent. Generated by scripts/corpus/generate_3dec_joint_models.py.
@@ -392,7 +537,7 @@ def test_range_elements_shared_across_all_engines() -> None:
         assert cyl is not None and cyl["name"] == "cylinder"
     # The same _common document backs cylinder for every engine.
     docs = [ReferenceLoader.load_item_doc("range-elements", "cylinder", software=sw) for sw in SUPPORTED_SOFTWARE]
-    assert docs[0] == docs[1] == docs[2]
+    assert all(d == docs[0] for d in docs)
 
 
 def test_range_elements_engine_specific_locals_preserved() -> None:

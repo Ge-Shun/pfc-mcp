@@ -1,0 +1,64 @@
+{
+  "type": "mpoint_references",
+  "description": "MPoint (MPM) reference documentation: syntax elements (property vocabularies) used within commands.",
+  "categories": {
+    "plot-items": {
+      "name": "Plot Items",
+      "description": "MPoint plot item types — material points (mpoint), vector/tensor fields (mpoint-vector/meshnode-vector, mpoint-tensor), hybrid points (mpoint-hybrid) and the background grid (meshpoint). Vocabulary for 'plot item create <type> ...'.",
+      "directory": "plot-items",
+      "index_file": "plot-items/index.json",
+      "summary": "5 MPoint plot item groups (mpoint/vector/tensor/hybrid/meshpoint)",
+      "usage": "plot item create mpoint color-by contour value <q> | plot item create mpoint-vector value velocity ..."
+    },
+    "constitutive-models": {
+      "name": "Constitutive Models (Material Point)",
+      "description": "MPoint material-point constitutive material model properties — mohr-coulomb, drucker-prager, hoek-brown, cam-clay, creep models, etc. Property vocabulary for 'mpoint cmodel assign' + 'mpoint property'. Shared 9.0 kernel with FLAC3D (docs via _common).",
+      "directory": "constitutive-models",
+      "index_file": "constitutive-models/index.json",
+      "summary": "38 material-point material models (shared with FLAC3D via _common; 5 MPoint-only models not yet documented)",
+      "usage": "mpoint cmodel assign <name> ; mpoint property <prop> <value> [range ...]"
+    },
+    "range-elements": {
+      "name": "Range Elements",
+      "description": "Geometric and logical 'range ...' filters (cylinder, sphere, plane, position, group, id, polygon, union, not, ...) used to scope any MPoint command. Shared 9.0 kernel.",
+      "directory": "range-elements",
+      "index_file": "range-elements/index.json",
+      "summary": "22 range filter elements (shared 9.0 kernel via _common)",
+      "usage": "<any command> ... range <element> <args> [union|intersect|not ...]"
+    },
+    "fish-intrinsics": {
+      "name": "FISH Intrinsics",
+      "description": "MPoint FISH intrinsic families for scripted inspection — material points and background-grid nodes (iteration, geometry, stress/strain/state, properties, groups, convergence).",
+      "directory": "fish-intrinsics",
+      "index_file": "fish-intrinsics/index.json",
+      "summary": "2 MPoint FISH intrinsic family groups (material-point, background-node)",
+      "usage": "Use in FISH: loop foreach over mpoint.list / mpoint.node.list; read with mpoint.<intrinsic>(ptr)"
+    },
+    "boundary-conditions": {
+      "name": "Boundary Conditions",
+      "description": "MPoint boundary conditions — material-point fixity ('mpoint fix'/'free': velocity, pore-pressure) and background-grid node fixity ('mpoint node fix'/'free': velocity, fluid-velocity).",
+      "directory": "boundary-conditions",
+      "index_file": "boundary-conditions/index.json",
+      "summary": "2 MPoint boundary-condition topics (material-point + grid-node fixity)",
+      "usage": "mpoint fix velocity-x 0 range ... ; mpoint node fix velocity 0 range ..."
+    },
+    "initial-conditions": {
+      "name": "Initial Conditions",
+      "description": "MPoint initial conditions — material-point field initialization ('mpoint initialize': stress, velocity, pore-pressure, biot/fluid props) and gravitational in-situ stress ('mpoint initialize-stresses').",
+      "directory": "initial-conditions",
+      "index_file": "initial-conditions/index.json",
+      "summary": "2 MPoint initial-condition topics (field init + gravitational stress)",
+      "usage": "mpoint initialize stress-zz -1e5 range ... ; model gravity 0 0 -9.81 ; mpoint initialize-stresses overburden ... ratio ..."
+    }
+  },
+  "navigation": {
+    "root": "List all reference categories",
+    "category": "List items in category (e.g., 'plot-items')",
+    "item": "Full documentation (e.g., 'plot-items mpoint')"
+  },
+  "notes": [
+    "References are syntax elements used within commands, not standalone commands",
+    "Use pfc_browse_commands (software='mpoint') for command syntax",
+    "Use pfc_browse_reference (software='mpoint') for reference documentation"
+  ]
+}
