@@ -1,19 +1,16 @@
 {
   "type": "constitutive_model_properties",
-  "description": "Reference documentation for FLAC zone constitutive (material) model properties. Each zone constitutive model has specific properties controlling its mechanical/creep behavior. Use when setting properties via 'zone cmodel assign' + 'zone property', or the Python SDK.",
+  "description": "3DEC zone (deformable-block) constitutive model properties — the property vocabulary for 'block zone cmodel assign' + 'block zone property'. Shared 9.0 kernel with FLAC3D (docs live in _common); 3DEC exposes the 26 models listed here.",
   "usage_contexts": [
-    "zone cmodel assign <name> [range ...]",
-    "zone property <prop> <value> [range cmodel-name <name>]",
-    "zone property-distribution <prop> ... [range ...]",
-    "Python: zone.set_prop('<prop>', value)"
+    "block zone cmodel assign <name> [range ...]",
+    "block zone property <prop> <value> [range cmodel-name <name>]",
+    "Python: itasca.block.zone.Zone.set_prop('<prop>', value)"
   ],
   "property_metadata_fields": {
-    "keyword": "Property name used in 'zone property' commands",
+    "keyword": "Property name used in 'block zone property' commands",
     "symbol": "Mathematical symbol used in the model documentation",
     "description": "Description including physical meaning and units",
-    "type": "Coarse data type (FLT=float, BOOL=boolean) — heuristic",
-    "default": "Default value if documented",
-    "dim": "Present (value '3D') only for the dip/dip-direction weak-plane orientation keywords, which FLAC2D rejects (it uses 'angle'). Self-evidently out-of-plane keywords (xz/yz/-z) are left untagged. Absent = dimension-agnostic or obvious from the name."
+    "type": "Coarse data type (FLT=float, BOOL=boolean) — heuristic"
   },
   "models": [
     {
@@ -36,20 +33,6 @@
       "full_name": "Burgers-Mohr Model",
       "description": "A viscoplastic model in FLAC3D or 3DEC is characterized by a visco-elasto-plastic deviatoric behavior and an elasto-plas",
       "property_count": 17
-    },
-    {
-      "name": "cap-yield",
-      "file": "_common/references/constitutive-models/cap-yield.json",
-      "full_name": "Cap-Yield (CYSoil) Model*",
-      "description": "Note *Not available in 3DEC . The CYSoil model is a strain-hardening constitutive model characterized by a frictional an",
-      "property_count": 41
-    },
-    {
-      "name": "cap-yield-simplified",
-      "file": "_common/references/constitutive-models/cap-yield-simplified.json",
-      "full_name": "Simplified Cap-Yield (CHSoil) Model*",
-      "description": "Note *This model is not available in 3DEC . As discussed previously in the CYSoil model , when soils are subjected to de",
-      "property_count": 27
     },
     {
       "name": "columnar-basalt",
@@ -87,32 +70,11 @@
       "property_count": 4
     },
     {
-      "name": "finn",
-      "file": "_common/references/constitutive-models/finn.json",
-      "full_name": "Finn Model*",
-      "description": "Note *Not available in 3DEC . In reality, pore pressure build-up is a secondary effect, although many people seem to thi",
-      "property_count": 23
-    },
-    {
       "name": "hoek-brown",
       "file": "_common/references/constitutive-models/hoek-brown.json",
       "full_name": "Hoek-Brown Model",
       "description": "This model is derived directly from the Mohr-Coulomb model , and, like the Mohr-Coulomb model, can be used to perform fa",
       "property_count": 32
-    },
-    {
-      "name": "hoek-brown-pac",
-      "file": "_common/references/constitutive-models/hoek-brown-pac.json",
-      "full_name": "Hoek-Brown-PAC Model",
-      "description": "The Hoek-Brown failure criterion is an empirical relation that characterizes the stress conditions that lead to failure ",
-      "property_count": 19
-    },
-    {
-      "name": "hydration-drucker-prager",
-      "file": "_common/references/constitutive-models/hydration-drucker-prager.json",
-      "full_name": "Hydration-Drucker-Prager Model",
-      "description": "The mechanical aspects of hydration in FLAC3D are handled by a modified Drucker-Prager constitutive model where elastic ",
-      "property_count": 17
     },
     {
       "name": "imass",
@@ -150,13 +112,6 @@
       "property_count": 15
     },
     {
-      "name": "norsand",
-      "file": "_common/references/constitutive-models/norsand.json",
-      "full_name": "NorSand Model*",
-      "description": "Note *Not available in 3DEC . NorSand (Jefferies 1993, Jefferies and Been 2015) is a critical state model applicable to ",
-      "property_count": 36
-    },
-    {
       "name": "null",
       "file": "_common/references/constitutive-models/null.json",
       "full_name": "Null Model",
@@ -168,20 +123,6 @@
       "full_name": "Orthotropic Elastic Model**",
       "description": "Note **Not available in FLAC2D . The orthotropic model accounts for three orthogonal planes of elastic symmetry. Princip",
       "property_count": 16
-    },
-    {
-      "name": "p2psand",
-      "file": "_common/references/constitutive-models/p2psand.json",
-      "full_name": "P2PSand Model*",
-      "description": "Note *Not available in 3DEC . P2PSand model ( Cheng and Detournay, 2021 ) refers to a Practical TWO-surface Plastic SAND",
-      "property_count": 42
-    },
-    {
-      "name": "plastic-hardening",
-      "file": "_common/references/constitutive-models/plastic-hardening.json",
-      "full_name": "Plastic-Hardening (PH) Model*",
-      "description": "Note *Not available in 3DEC . The Plastic-Hardening (PH) model is a shear and volumetric hardening constitutive model fo",
-      "property_count": 33
     },
     {
       "name": "power",
@@ -198,27 +139,6 @@
       "property_count": 15
     },
     {
-      "name": "power-ubiquitous",
-      "file": "_common/references/constitutive-models/power-ubiquitous.json",
-      "full_name": "Power-Ubiquitous Model",
-      "description": "This model simulates the visco-elasto-plastic mechanical behavior of ubiquitous joint rock with creep occurring in a roc",
-      "property_count": 26
-    },
-    {
-      "name": "soft-soil",
-      "file": "_common/references/constitutive-models/soft-soil.json",
-      "full_name": "Soft-Soil Model*",
-      "description": "Note *Not available in 3DEC . Soft soils generally refer to normally consolidated or slightly over-consolidated clays, s",
-      "property_count": 24
-    },
-    {
-      "name": "soft-soil-creep",
-      "file": "_common/references/constitutive-models/soft-soil-creep.json",
-      "full_name": "Soft-Soil-Creep Model*",
-      "description": "Note *Not available in 3DEC . The Soft-Soil (SS) model cannot simulate time-dependent behavior such as the creep that de",
-      "property_count": 25
-    },
-    {
       "name": "softening-ubiquitous",
       "file": "_common/references/constitutive-models/softening-ubiquitous.json",
       "full_name": "Bilinear Strain-Softening/Hardening Ubiquitous-Joint (SUBI) Model",
@@ -231,13 +151,6 @@
       "full_name": "Strain-Softening/Hardening Mohr-Coulomb (SSoft) Model",
       "description": "This model is based on the Mohr-Coulomb model with non-associated shear and associated tension flow rules, as described ",
       "property_count": 15
-    },
-    {
-      "name": "swell",
-      "file": "_common/references/constitutive-models/swell.json",
-      "full_name": "Swell Model*",
-      "description": "Note *This model is not available in 3DEC . This model is based on the Mohr-Coulomb model with nonassociated shear and a",
-      "property_count": 34
     },
     {
       "name": "ubiquitous-anisotropic",

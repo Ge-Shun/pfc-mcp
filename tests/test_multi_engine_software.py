@@ -297,8 +297,8 @@ def test_3dec_command_families_are_isolated() -> None:
 def test_3dec_joint_models_reference_category() -> None:
     cats = ReferenceLoader.load_index(software="3dec").get("categories", {})
     assert "joint-models" in cats
-    # PFC contact-models / FLAC constitutive-models stay out of 3DEC.
-    assert "contact-models" not in cats and "constitutive-models" not in cats
+    # PFC contact-models (ball/clump contacts) is a different physics and stays out.
+    assert "contact-models" not in cats
 
 
 def test_3dec_joint_models_lists_all_eight() -> None:
@@ -336,3 +336,45 @@ def test_3dec_references_isolated_from_flac() -> None:
     # joint-models is 3DEC-only; it must not appear in the FLAC reference index.
     flac = set(ReferenceLoader.load_index(software="flac").get("categories", {}))
     assert "joint-models" not in flac
+
+
+# --- shared (_common) zone constitutive-models borrow -----------------------
+# Zone (continuum / deformable-block) constitutive models are a 9.0 kernel shared
+# by FLAC3D and 3DEC; the per-model docs live once in _common and each engine
+# borrows them via RESOURCES-root-relative file pointers (same as command _common).
+
+
+def test_zone_constitutive_models_shared_via_common() -> None:
+    flac = ReferenceLoader.load_item_doc("constitutive-models", "mohr-coulomb", software="flac")
+    tdec = ReferenceLoader.load_item_doc("constitutive-models", "mohr-coulomb", software="3dec")
+    assert flac is not None and tdec is not None
+    # Both engines resolve the very same _common document.
+    assert flac == tdec
+    assert flac["full_name"] == "Mohr-Coulomb Model"
+
+
+def test_3dec_zone_models_are_engine_filtered_subset() -> None:
+    flac_names = {
+        m["name"] for m in ReferenceLoader.load_category_index("constitutive-models", software="flac")["models"]
+    }
+    tdec_names = {
+        m["name"] for m in ReferenceLoader.load_category_index("constitutive-models", software="3dec")["models"]
+    }
+    # 3DEC exposes a strict subset of FLAC's zone models (block zone cmodel list).
+    assert tdec_names < flac_names
+    assert len(tdec_names) == 26
+    # 3DEC-supported model present; FLAC-only models (no 3DEC support) excluded.
+    assert "columnar-basalt" in tdec_names
+    assert {"plastic-hardening", "norsand", "soft-soil"}.isdisjoint(tdec_names)
+
+
+def test_pfc_has_no_zone_constitutive_models() -> None:
+    # PFC has no zones; it must not carry the zone constitutive-models category.
+    assert "constitutive-models" not in ReferenceLoader.load_index(software="pfc").get("categories", {})
+
+
+def test_common_borrowed_item_pointer_resolves_to_common_path() -> None:
+    # The 3DEC catalog entry points into _common (no duplicated item file under 3dec/).
+    cat = ReferenceLoader.load_category_index("constitutive-models", software="3dec")
+    entry = next(m for m in cat["models"] if m["name"] == "drucker-prager")
+    assert entry["file"].startswith("_common/references/constitutive-models/")

@@ -9,6 +9,14 @@
       "index_file": "joint-models/index.json",
       "summary": "8 3DEC joint constitutive models — the keywords for 'block contact jmodel assign' + 'block contact property'",
       "usage": "block contact jmodel assign <name> ; block contact property <prop> <value> [range jmodel <name>]"
+    },
+    "constitutive-models": {
+      "name": "Constitutive Models (Zone)",
+      "description": "3DEC zone (deformable-block) constitutive material model properties — mohr-coulomb, drucker-prager, hoek-brown, ubiquitous-joint, creep models, etc. Property vocabulary for 'block zone cmodel assign' + 'block zone property'. Shared 9.0 kernel with FLAC3D.",
+      "directory": "constitutive-models",
+      "index_file": "constitutive-models/index.json",
+      "summary": "26 3DEC zone material models (subset of FLAC3D's set; docs shared via _common)",
+      "usage": "block zone cmodel assign <name> ; block zone property <prop> <value> [range cmodel-name <name>]"
     }
   },
   "navigation": {
