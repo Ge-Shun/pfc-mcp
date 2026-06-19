@@ -460,3 +460,12 @@ def test_3dec_boundary_conditions_uses_block_syntax() -> None:
     assert {"mechanical-face", "gridpoint-and-block-fixity", "apply-modifiers"} <= names
     mf = ReferenceLoader.load_item_doc("boundary-conditions", "mechanical-face", software="3dec")
     assert "block face apply" in mf["primary_commands"]  # 3DEC, not FLAC's 'zone face apply'
+
+
+def test_3dec_geometry_data_table_topics() -> None:
+    cat = ReferenceLoader.load_category_index("geometry-data-table", software="3dec")
+    assert cat is not None
+    assert {i["name"] for i in cat["items"]} == {"geometry-workflow", "data-sets", "table-curves"}
+    geo = ReferenceLoader.load_item_doc("geometry-data-table", "geometry-workflow", software="3dec")
+    # 3DEC geometry guides block cutting (not FLAC zone meshing).
+    assert "block cut" in geo["primary_commands"]

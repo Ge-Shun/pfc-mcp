@@ -49,6 +49,14 @@
       "index_file": "boundary-conditions/index.json",
       "summary": "5 3DEC boundary-condition topics (block face/gridpoint apply, block fix)",
       "usage": "block face apply <cond> ... range ... ; block gridpoint apply <cond> ... ; block fix <velocity|rotation> ..."
+    },
+    "geometry-data-table": {
+      "name": "Geometry, Data & Tables",
+      "description": "3DEC geometry import/generation (guides block cutting), data sets (scalar/vector/tensor/label), and table curves (load histories, property curves).",
+      "directory": "geometry-data-table",
+      "index_file": "geometry-data-table/index.json",
+      "summary": "3 topics: geometry workflow, data sets, table curves",
+      "usage": "geometry import '<file>' ; data scalar create ... ; table '<name>' add (x,y) ..."
     }
   },
   "navigation": {
